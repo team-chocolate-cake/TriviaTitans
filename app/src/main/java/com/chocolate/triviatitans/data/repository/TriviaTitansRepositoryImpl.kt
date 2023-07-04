@@ -18,7 +18,7 @@ class TriviaTitansRepositoryImpl @Inject constructor(
         difficulties: String
     ): List<TextChoiceEntity> {
        val textChoiceRemoteDTOs =  wrapApiCall {  triviaTitansService.getTextChoiceQuestion(limit, categories, difficulties)}
-        return domainTextChoiceEntity.map(textChoiceRemoteDTOs)
+        return domainTextChoiceEntity.mapSingle(textChoiceRemoteDTOs)
     }
 
     override suspend fun getImageChoiceQuestions(
@@ -27,7 +27,7 @@ class TriviaTitansRepositoryImpl @Inject constructor(
         difficulties: String
     ): List<ImageChoiceEntity> {
         val imageChoiceRemoteDTOs = wrapApiCall {  triviaTitansService.getImageChoiceQuestion(limit, categories, difficulties) }
-        return domainImageChoiceEntity.map(imageChoiceRemoteDTOs)
+        return domainImageChoiceEntity.mapSingle(imageChoiceRemoteDTOs)
     }
 
 }
