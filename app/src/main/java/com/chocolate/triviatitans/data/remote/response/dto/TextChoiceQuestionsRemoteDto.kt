@@ -13,7 +13,7 @@ data class TextChoiceQuestionsRemoteDto(
     @SerializedName("id")
     val id: String?,
     @SerializedName("incorrectAnswers")
-    val incorrectAnswers: List<String?>?,
+    val incorrectAnswers: List<String>?,
     @SerializedName("isNiche")
     val isNiche: Boolean?,
     @SerializedName("question")

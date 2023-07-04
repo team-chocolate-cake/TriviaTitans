@@ -12,8 +12,8 @@ class DomainTextChoiceMapper @Inject constructor() :
             id = input.id ?: "",
             category = input.category ?: "",
             correctAnswer = input.correctAnswer ?: "",
-            incorrectAnswer = (input.incorrectAnswers ?: listOf("")) as List<String>,
-            question = (input.question ?: "") as String,
+            incorrectAnswer = input.incorrectAnswers ?: listOf(""),
+            question = input.question?.text ?: "",
             difficulty = input.difficulty ?: ""
         )
     }
