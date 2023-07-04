@@ -1,22 +1,20 @@
-package com.chocolate.triviatitans.screens
+package com.chocolate.triviatitans.win_lose_screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,12 +22,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieAnimationSpec
-import com.airbnb.lottie.compose.rememberLottieAnimationState
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.ui.theme.OnSecondary
 import com.chocolate.triviatitans.ui.theme.Primary
 import com.chocolate.triviatitans.ui.theme.firaSansFamily
+import com.chocolate.triviatitans.win_lose_screens.composable.CongratulationsAnimation
+import com.chocolate.triviatitans.win_lose_screens.composable.SpaceTop
+import com.chocolate.triviatitans.win_lose_screens.composable.SpaceVertical
 
 
 @Preview(showSystemUi = true)
@@ -39,19 +42,22 @@ fun WinScreen() {
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.padding(top = 160.dp))
-        CongratulationsAnimation()
-        Image(
-            painter = painterResource(id = R.drawable.present),
-            contentDescription = "present image"
-        )
-        Spacer(modifier = Modifier.padding(top = 100.dp))
+        Box {
+            SpaceVertical(space = 120)
+            CongratulationsAnimation(R.raw.congratulations)
+            Image(
+                painter = painterResource(id = R.drawable.present),
+                contentDescription = "present image",
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+        SpaceVertical(space = 24)
         Text(
             text = "Congrats", fontFamily = firaSansFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 22.sp
         )
-        Spacer(modifier = Modifier.padding(top = 32.dp))
+        SpaceTop(space = 32)
         Text(
             text = "You earned 200 points and unlock level 2",
             fontFamily = firaSansFamily,
@@ -59,7 +65,7 @@ fun WinScreen() {
             fontSize = 16.sp,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.padding(top = 80.dp))
+        SpaceTop(space = 60)
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Primary),
@@ -88,22 +94,5 @@ fun WinScreen() {
                 fontSize = 16.sp
             )
         }
-    }
-}
-
-@Composable
-fun CongratulationsAnimation() {
-    val animationSpec = remember { LottieAnimationSpec.RawRes(R.raw.congratulations) }
-    val animationState =
-        rememberLottieAnimationState(autoPlay = true, repeatCount = Integer.MAX_VALUE)
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
-            .background(Color.White),
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        LottieAnimation(animationSpec, animationState = animationState)
     }
 }

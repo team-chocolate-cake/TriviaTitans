@@ -3,6 +3,7 @@ package com.chocolate.triviatitans
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.chocolate.triviatitans.win_lose_screens.WinScreen
 import com.chocolate.triviatitans.ui.theme.TriviaTitansTheme
 
 class MainActivity : ComponentActivity() {
@@ -10,7 +11,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TriviaTitansTheme() {
-
+                WinScreen()
             }
         }
     }
