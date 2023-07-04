@@ -1,5 +1,7 @@
 package com.chocolate.triviatitans.ui.theme
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -12,7 +14,6 @@ val DarkOnBackground38 = Color(0x61F6F6F6)
 val DarkSecondary = Color(0xFF0E042C)
 val DarkCard = Color(0xFF483081)
 val DarkBorder = Color(0x149C99A1)
-
 
 
 val Purple40 = Color(0xFF6650a4)
@@ -30,3 +31,17 @@ val LightBorder = Color(0x14845EC2)
 val Primary = Color(0xFF371E71)
 val OnPrimary = Color(0xFFFFFFFF)
 val OnSecondary = Color(0xFFE4D3FF)
+
+
+@Immutable
+data class CustomColorsPalette(
+    val primary: Color = Color.Unspecified,
+    val onPrimary: Color = Color.Unspecified,
+    val onSecondary: Color = Color.Unspecified,
+    val onBackground87: Color = Color.Unspecified,
+    val onBackground60: Color = Color.Unspecified,
+    val onBackground38: Color = Color.Unspecified,
+    val card: Color = Color.Unspecified,
+    val border: Color = Color.Unspecified,
+    val background: Color = Color.Unspecified
+)
