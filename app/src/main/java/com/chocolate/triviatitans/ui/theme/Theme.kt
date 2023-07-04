@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.ui.theme
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -9,7 +10,9 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -31,6 +34,33 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Pink40,
     background = LightBackground,
 )
+
+val OnLightCustomColorsPalette = CustomColorsPalette(
+    primary = Primary,
+    onPrimary = OnPrimary,
+    onSecondary = OnSecondary,
+    onBackground87 = LightOnBackground87,
+    onBackground60 = LightOnBackground60,
+    onBackground38 = LightOnBackground38,
+    card = LightCard,
+    border = LightBorder,
+    background = LightBackground,
+)
+
+val OnDarkCustomColorsPalette = CustomColorsPalette(
+    primary = Primary,
+    onPrimary = OnPrimary,
+    onSecondary = OnSecondary,
+    onBackground87 = DarkOnBackground87,
+    onBackground60 = DarkOnBackground60,
+    onBackground38 = DarkOnBackground38,
+    card = DarkCard,
+    border = DarkBorder,
+    background = DarkBackground,
+)
+
+@SuppressLint("CompositionLocalNaming")
+val TriviaCustomColors = staticCompositionLocalOf { CustomColorsPalette() }
 
 @Composable
 fun TriviaTitansTheme(
@@ -57,9 +87,19 @@ fun TriviaTitansTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    val customColorsPalette =
+        if (darkTheme) OnDarkCustomColorsPalette
+        else OnLightCustomColorsPalette
+
+    CompositionLocalProvider(
+        TriviaCustomColors provides customColorsPalette
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+
+
 }
