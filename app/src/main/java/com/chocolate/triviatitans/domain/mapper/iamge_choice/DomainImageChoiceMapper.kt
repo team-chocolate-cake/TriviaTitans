@@ -16,7 +16,7 @@ class DomainImageChoiceMapper @Inject constructor(
             category = input.category ?: "",
             correctAnswer = domainCorrectAnswerDto.mapSingle(input.correctAnswer ?: emptyList()),
             incorrectAnswer = domainInCorrectAnswerDto.mapNested(input.incorrectAnswers ?: emptyList()) ,
-            question = (input.question ?: "") as String,
+            question = input.question?.text ?: "",
             difficulty = input.difficulty ?: ""
         )
     }
