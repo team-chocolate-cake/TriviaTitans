@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.ui.theme
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -58,6 +59,7 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     background = DarkBackground,
 )
 
+@SuppressLint("CompositionLocalNaming")
 val TriviaCustomColors = staticCompositionLocalOf { CustomColorsPalette() }
 
 @Composable
