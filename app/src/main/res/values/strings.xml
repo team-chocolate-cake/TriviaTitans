@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">TriviaTitans</string>
+
+    <string name="config_title_card1">Multi Choice</string>
+    <string name="config_content_card1">Answer questions and choose the correct option to test your knowledge </string>
+
+    <string name="config_title_card2">Multi Choice Images</string>
+    <string name="config_content_card2">Identify the correct image that matches the given question to showcase your visual expertise.</string>
+
+
+    <string name="config_title_card3">Word Wise</string>
+    <string name="config_content_card3">Unscramble letters to discover hidden words in this addictive language puzzle game.</string>
+
+
+    <string name="config_title_card4">stay tuned to what is </string>
+    <string name="config_content_card4">Coming Soon</string>
+
+    <string name="play_now">Play Now</string>
+
+    <string name="game_type">Game Type</string>
+
+
+
+
+
+
+
 </resources>
