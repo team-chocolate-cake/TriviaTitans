@@ -39,11 +39,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideClient(
-        authInterceptor: TriviaTitansInterceptor,
+        triviaTitansInterceptor: TriviaTitansInterceptor,
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
+            .addInterceptor(triviaTitansInterceptor)
             .addInterceptor(loggingInterceptor)
             .build()
     }
