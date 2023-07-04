@@ -24,7 +24,6 @@ fun QuizScreen() {
         )
         AnswersSection()
     }
-
 }
 
 @Preview(showSystemUi = true)
