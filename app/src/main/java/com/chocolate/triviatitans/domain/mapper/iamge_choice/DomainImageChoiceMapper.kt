@@ -14,8 +14,8 @@ class DomainImageChoiceMapper @Inject constructor(
         return ImageChoiceEntity(
             id = input.id ?: "",
             category = input.category ?: "",
-            correctAnswer = domainCorrectAnswerDto.map(input.correctAnswer ?: emptyList()),
-            incorrectAnswer = domainInCorrectAnswerDto.map(input.incorrectAnswers ?: emptyList()) ,
+            correctAnswer = domainCorrectAnswerDto.mapSingle(input.correctAnswer ?: emptyList()),
+            incorrectAnswer = domainInCorrectAnswerDto.mapNested(input.incorrectAnswers ?: emptyList()) ,
             question = (input.question ?: "") as String,
             difficulty = input.difficulty ?: ""
         )
