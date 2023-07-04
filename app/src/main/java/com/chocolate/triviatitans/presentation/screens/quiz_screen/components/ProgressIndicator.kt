@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun Card() {
-
+fun ProgressIndicator() {
+    
 }
 
 @Preview
 @Composable
-fun CardPreview() {
-    Card()
+fun ProgressIndicatorPreview() {
+    
 }
