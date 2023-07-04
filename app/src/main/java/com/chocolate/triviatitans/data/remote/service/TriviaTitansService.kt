@@ -15,7 +15,7 @@ interface TriviaTitansService {
         @Query("categories") categories: String,
         @Query("difficulties") difficulties: String,
         @Query("types") types: String = "image_choice"
-    ): Response<List<ImageChoiceQuestionsRemoteDto>?>
+    ): Response<List<ImageChoiceQuestionsRemoteDto>>
 
     /// endregion
 

@@ -11,14 +11,14 @@ class TriviaTitansRepositoryImpl @Inject constructor(
     private val triviaTitansService: TriviaTitansService,
     private val domainImageChoiceEntity: DomainImageChoiceMapper,
     private val domainTextChoiceEntity: DomainTextChoiceMapper
-) : TriviaTitansRepository {
+) : TriviaTitansRepository, BaseRepository() {
     override suspend fun getTextChoiceQuestions(
         limit: Int,
         categories: String,
         difficulties: String
     ): List<TextChoiceEntity> {
-        val response = triviaTitansService.getTextChoiceQuestion(limit, categories, difficulties).body()?: emptyList()
-        return domainTextChoiceEntity.map(response)
+       val textChoiceRemoteDTOs =  wrapApiCall {  triviaTitansService.getTextChoiceQuestion(limit, categories, difficulties)}
+        return domainTextChoiceEntity.map(textChoiceRemoteDTOs)
     }
 
     override suspend fun getImageChoiceQuestions(
@@ -26,9 +26,8 @@ class TriviaTitansRepositoryImpl @Inject constructor(
         categories: String,
         difficulties: String
     ): List<ImageChoiceEntity> {
-        val response = triviaTitansService.getImageChoiceQuestion(limit, categories, difficulties).body()?: emptyList()
-        return domainImageChoiceEntity.map(response)
-
+        val imageChoiceRemoteDTOs = wrapApiCall {  triviaTitansService.getImageChoiceQuestion(limit, categories, difficulties) }
+        return domainImageChoiceEntity.map(imageChoiceRemoteDTOs)
     }
 
 }
