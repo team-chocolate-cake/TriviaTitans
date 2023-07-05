@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.screen.category
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,17 +12,26 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composable.CategoryCard
+import com.chocolate.triviatitans.ui.theme.TriviaCustomColors
 import com.chocolate.triviatitans.ui.theme.Typography
 
 
@@ -43,38 +53,37 @@ fun CategoryScreen() {
     CategoryContent(categories)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryContent(categories: List<String>) {
 
-    LazyVerticalGrid(
-        contentPadding = PaddingValues(16.dp),
-        columns = GridCells.Fixed(count = 2),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        item(span = { GridItemSpan(2) }) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrow_back),
-                        contentDescription = "Back Arrow",
-                    )
+    Scaffold(modifier = Modifier.fillMaxSize().background(TriviaCustomColors.current.background), topBar = {
+        TopAppBar(
+            title = { Text(text = "You want to improve today?",style = Typography.titleMedium,) },
+            navigationIcon = {
+                IconButton(onClick = {/*TODO*/ }) {
+                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Go Back")
                 }
-
-                Text(
-                    text = "You want to improve today?",
-                    style = Typography.titleMedium,
-                )
+            }
+        )
+    }
+    )
+    {it->
+        LazyVerticalGrid(
+            contentPadding = it,
+            columns = GridCells.Fixed(count = 2),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(
+                items = categories
+            ) { category ->
+                CategoryCard(category = category)
             }
         }
-        items(
-            items = categories
-        ) { category ->
-            CategoryCard(category = category)
-        }
     }
+
+
 
 
 }

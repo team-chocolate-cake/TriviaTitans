@@ -26,7 +26,7 @@ import com.chocolate.triviatitans.ui.theme.Typography
 
 @Composable
 fun CategoryCard(category: String) {
-    TriviaTitansTheme {
+
         Card(
             colors = CardDefaults.cardColors(TriviaCustomColors.current.card),
             modifier = Modifier
@@ -63,7 +63,7 @@ fun CategoryCard(category: String) {
             }
         }
     }
-}
+
 
 @Preview
 @Composable
