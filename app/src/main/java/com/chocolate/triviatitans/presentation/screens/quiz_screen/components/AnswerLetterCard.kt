@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.theme.Primary
 
 @Composable
-fun AnswerLetterCard(textColor: Color) {
+fun AnswerLetterCard(text: String,textColor: Color) {
     Box(
         modifier = Modifier.border(
             width = 1.dp,
@@ -22,7 +22,7 @@ fun AnswerLetterCard(textColor: Color) {
 
     ) {
         Text(
-            text = "A", modifier = Modifier
+            text = text, modifier = Modifier
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             color = textColor
         )
