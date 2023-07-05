@@ -45,6 +45,9 @@ val OnLightCustomColorsPalette = CustomColorsPalette(
     card = LightCard,
     border = LightBorder,
     background = LightBackground,
+    correct = Correct,
+    gameOver = GameOver,
+    error = Error
 )
 
 val OnDarkCustomColorsPalette = CustomColorsPalette(
@@ -57,6 +60,9 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     card = DarkCard,
     border = DarkBorder,
     background = DarkBackground,
+    correct = Correct,
+    gameOver = GameOver,
+    error = Error
 )
 
 @SuppressLint("CompositionLocalNaming")

@@ -31,6 +31,9 @@ val LightBorder = Color(0x14845EC2)
 val Primary = Color(0xFF371E71)
 val OnPrimary = Color(0xFFFFFFFF)
 val OnSecondary = Color(0xFFE4D3FF)
+val Correct = Color(0xCC32CD32)
+val GameOver = Color(0xFFF4AF00)
+val Error = Color(0xFFF40000)
 
 
 @Immutable
@@ -43,5 +46,8 @@ data class CustomColorsPalette(
     val onBackground38: Color = Color.Unspecified,
     val card: Color = Color.Unspecified,
     val border: Color = Color.Unspecified,
-    val background: Color = Color.Unspecified
+    val background: Color = Color.Unspecified,
+    val correct: Color = Color.Unspecified,
+    val gameOver: Color = Color.Unspecified,
+    val error: Color = Color.Unspecified
 )
