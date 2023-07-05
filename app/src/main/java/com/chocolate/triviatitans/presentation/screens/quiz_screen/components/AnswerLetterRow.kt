@@ -25,7 +25,7 @@ fun AnswerLetterRow(Word: String) {
 @Preview
 @Composable
 fun Test() {
-    AnswerLetterRow("footballdvjvnjvdvokdlnvkf")
+    AnswerLetterRow("bjgkb gfl gfdm ldm dklcsmk")
 }
 
 
