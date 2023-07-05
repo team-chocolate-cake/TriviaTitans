@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.screen.category
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -56,21 +57,22 @@ fun CategoryScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryContent(categories: List<String>) {
-
-    Scaffold(modifier = Modifier.fillMaxSize().background(TriviaCustomColors.current.background), topBar = {
+    val colors = TriviaCustomColors.current
+    Scaffold(modifier = Modifier.fillMaxSize(), containerColor =colors.background, topBar = {
         TopAppBar(
-            title = { Text(text = "You want to improve today?",style = Typography.titleMedium,) },
+            colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = colors.background),
+            title = { Text(text = "You want to improve today?",style = Typography.titleMedium, color = colors.onBackground87) },
             navigationIcon = {
                 IconButton(onClick = {/*TODO*/ }) {
-                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Go Back")
+                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Go Back" ,tint = colors.onBackground87)
                 }
             }
         )
     }
     )
-    {it->
+    {padding->
         LazyVerticalGrid(
-            contentPadding = it,
+            contentPadding = PaddingValues(top = padding.calculateTopPadding() , start = 16.dp , end = 16.dp) ,
             columns = GridCells.Fixed(count = 2),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -88,7 +90,7 @@ fun CategoryContent(categories: List<String>) {
 
 }
 
-@Preview
+@Preview()
 @Composable
 fun CategoryScreenPreview() {
     CategoryScreen()
