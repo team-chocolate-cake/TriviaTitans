@@ -63,7 +63,6 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     correct = Correct,
     gameOver = GameOver,
     error = Error
-
 )
 
 @SuppressLint("CompositionLocalNaming")
