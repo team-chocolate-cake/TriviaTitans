@@ -22,7 +22,7 @@ private val DarkColorScheme = darkColorScheme(
     primary = Primary,
     onPrimary = OnPrimary,
     secondary = DarkSecondary,
-    onSecondary = OnSecondary,
+    onSecondary = DarkOnSecondary,
     tertiary = Pink80,
     background = DarkBackground,
 )
@@ -31,6 +31,7 @@ private val LightColorScheme = lightColorScheme(
     primary = Primary,
     onPrimary = OnPrimary,
     secondary = LightSecondary,
+    onSecondary = LightOnSecondary,
     tertiary = Pink40,
     background = LightBackground,
 )
@@ -38,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 val OnLightCustomColorsPalette = CustomColorsPalette(
     primary = Primary,
     onPrimary = OnPrimary,
-    onSecondary = OnSecondary,
+    onSecondary = LightOnSecondary,
     onBackground87 = LightOnBackground87,
     onBackground60 = LightOnBackground60,
     onBackground38 = LightOnBackground38,
@@ -47,13 +48,13 @@ val OnLightCustomColorsPalette = CustomColorsPalette(
     background = LightBackground,
     correct = Correct,
     gameOver = GameOver,
-    error = Error
+    error = LightError
 )
 
 val OnDarkCustomColorsPalette = CustomColorsPalette(
     primary = Primary,
     onPrimary = OnPrimary,
-    onSecondary = OnSecondary,
+    onSecondary = DarkOnSecondary,
     onBackground87 = DarkOnBackground87,
     onBackground60 = DarkOnBackground60,
     onBackground38 = DarkOnBackground38,
@@ -62,7 +63,7 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     background = DarkBackground,
     correct = Correct,
     gameOver = GameOver,
-    error = Error
+    error = DarkError
 )
 
 @SuppressLint("CompositionLocalNaming")
