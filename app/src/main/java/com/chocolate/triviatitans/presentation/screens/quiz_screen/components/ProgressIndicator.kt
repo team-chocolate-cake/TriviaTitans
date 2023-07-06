@@ -14,10 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProgressIndicator(progressPercentage:Float) {
+fun ProgressIndicator(progressPercentage:Float,modifier: Modifier=Modifier) {
     Box(Modifier.clip(RoundedCornerShape(4.dp))){
         Spacer(modifier = Modifier.fillMaxWidth().height(8.dp).background(Color.White))
-        Spacer(modifier = Modifier.fillMaxWidth(progressPercentage).height(8.dp).background(Color.Red))
+        Spacer(modifier = Modifier.fillMaxWidth(progressPercentage).height(8.dp).background(Color(0xFFF21B1B)))
     }
 }
 
