@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +38,7 @@ fun CategoryCard(
     onClick: (Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
-    var isBorder by rememberSaveable { mutableStateOf(false) }
+    var isBorder by remember { mutableStateOf(false) }
 
     Card(
         colors = CardDefaults.cardColors(colors.card),
@@ -89,7 +89,6 @@ fun CategoryCard(
     }
 }
 
-
 @Preview
 @Composable
 fun CategoryScreenPreview() {
@@ -97,7 +96,7 @@ fun CategoryScreenPreview() {
         CategoryCard(
             CategoryUiState(
                 title = "Category",
-                image = R.drawable.ic_launcher_foreground,
+                image = R.drawable.category_art,
                 progress = 0.5f
             ), onClick = {})
     }
