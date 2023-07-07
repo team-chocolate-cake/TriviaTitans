@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.screen.category.composable
+package com.chocolate.triviatitans.screen.category.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +38,7 @@ fun CategoryCard(
     onClick: (Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
-    var isBorder by remember { mutableStateOf(false) }
+    var isBorder by rememberSaveable { mutableStateOf(false) }
 
     Card(
         colors = CardDefaults.cardColors(colors.card),
