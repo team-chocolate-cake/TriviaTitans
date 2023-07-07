@@ -16,14 +16,19 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
 
 @Composable
-fun StartGameButton(color: CustomColorsPalette, onClickStartGame: () -> Unit) {
+fun StartGameButton(
+    color: CustomColorsPalette,
+    onClickStartGame: () -> Unit,
+    ) {
     Button(
         onClick = onClickStartGame,
-        colors = ButtonDefaults.buttonColors(color.primary),
+        colors = ButtonDefaults.buttonColors(color.primary, disabledContainerColor = color.onSecondary),
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
+            .wrapContentHeight()
             .padding(horizontal = 40.dp)
+            .padding(vertical = 16.dp),
+
     ) {
         Text(
             text = "START GAME",
