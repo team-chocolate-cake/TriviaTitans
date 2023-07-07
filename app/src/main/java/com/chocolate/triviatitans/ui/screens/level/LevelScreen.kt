@@ -1,10 +1,15 @@
 package com.chocolate.triviatitans.ui.screens.level
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,6 +44,8 @@ fun LevelScreen(
     )
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LevelContent(
     onClickBack: () -> Unit,
@@ -47,20 +54,23 @@ fun LevelContent(
     state: LevelUiState,
 ) {
     val colors = TriviaCustomColors.current
-    val scrollState = rememberScrollState()
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(state = scrollState)
+    val stateScrollable = rememberScrollState()
+    Scaffold(
+        topBar = { AppBar(onClickBack = onClickBack, color = colors) },
+        modifier = Modifier
+            .fillMaxSize(),
     ) {
-        AppBar(onClickBack = onClickBack, color = colors)
-        LevelImage()
-        Score(state, colors)
-        DescriptionLevel(color = colors)
-        CardLevels(color = colors, onLevelSelected = onLevelSelected, state = state)
-        StartGameButton(
-            color = colors,
-            onClickStartGame = onClickStartGame,
-        )
+        Column(Modifier.fillMaxHeight().verticalScroll(state = stateScrollable)) {
+            LevelImage()
+            Score(state, colors)
+            DescriptionLevel(color = colors)
+            CardLevels(color = colors, onLevelSelected = onLevelSelected, state = state)
+            Spacer(modifier = Modifier.weight(1f))
+            StartGameButton(
+                color = colors,
+                onClickStartGame = onClickStartGame,
+            )
+        }
     }
 }
 

@@ -1,7 +1,6 @@
 package com.chocolate.triviatitans.ui.screens.level.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,7 +12,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
@@ -38,6 +36,10 @@ fun AppBar(onClickBack: () -> Unit, color: CustomColorsPalette) {
                 )
             }
         },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(color.background),
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = color.background.copy(alpha = 1f),
+            scrolledContainerColor = color.background.copy(alpha = 1f)
+        ),
+        modifier = Modifier.fillMaxWidth()
     )
 }
