@@ -7,6 +7,7 @@ data class QuizUIState(
     val isEmpty: Boolean = false,
     val userScore: Int = 0,
     val questionNumber: Int = 0,
+    val levelType:String="Easy"
 ) {
     data class Question(
         val id: Int,
