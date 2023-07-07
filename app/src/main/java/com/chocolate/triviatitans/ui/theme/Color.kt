@@ -15,7 +15,7 @@ val DarkSecondary = Color(0xFF87CEF6)
 val DarkCard = Color(0xFF245977)
 val DarkBorder = Color(0x149C99A1)
 val DarkError = Color(0xC7FF0000)
-val DarkOnSecondary = Color(0xFFA0D3EF)
+val DarkOnSecondary = Color(0xFF1F1F1F)
 
 
 
