@@ -52,9 +52,8 @@ fun CategoryScreen(
 
     CategoryContent(
         state,
-        onCategorySelected = { category ->
-            viewModel.onCategorySelected(category)
-            viewModel.updateSelectedCategories()
+        onCategorySelected = { category , isSelected ->
+            viewModel.onCategorySelected(category ,isSelected )
         }
     )
 }
@@ -63,7 +62,7 @@ fun CategoryScreen(
 @Composable
 fun CategoryContent(
     state: CategoriesUiState,
-    onCategorySelected: (CategoryUiState) -> Unit = {}
+    onCategorySelected: (CategoryUiState , Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
     Scaffold(
@@ -112,7 +111,7 @@ fun CategoryContent(
                             color = colors.onBackground60
                         )
                         Text(
-                            text = state.categoriesSelected.toString(),
+                            text = state.categoriesSelectedCount.toString(),
                             style = MaterialTheme.typography.titleMedium,
                             fontSize = 16.sp,
                             color = colors.primary
@@ -150,8 +149,8 @@ fun CategoryContent(
                 items = state.categories
             ) { category ->
                 CategoryCard(category = category,
-                    onClick = {
-                        onCategorySelected(category)
+                    onClick = {isSelected->
+                        onCategorySelected(category , isSelected)
                     })
             }
         }

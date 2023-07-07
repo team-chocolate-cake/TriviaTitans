@@ -35,9 +35,10 @@ import com.chocolate.triviatitans.viewmodel.category.CategoryUiState
 @Composable
 fun CategoryCard(
     category: CategoryUiState,
-    onClick: () -> Unit
+    onClick: (Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
+    var isBorder by remember { mutableStateOf(false) }
 
     Card(
         colors = CardDefaults.cardColors(colors.card),
@@ -45,8 +46,11 @@ fun CategoryCard(
             .width(160.dp)
             .height(146.dp)
             .clip(RoundedCornerShape(12.dp))
-            .clickable { onClick() },
-        border = if (category.isSelected) BorderStroke(1.dp, colors.primary) else null,
+            .clickable {
+                isBorder = !isBorder
+                onClick(isBorder)
+            },
+        border = if (isBorder) BorderStroke(1.dp, colors.primary) else null,
     ) {
         Column(
             modifier = Modifier
