@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.ui.theme
+package com.chocolate.triviatitans.presentation.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
