@@ -24,7 +24,7 @@ fun AnswersSection(
         }
 
         GameType.Multi_Choice_Images.name -> {
-            AnswerImageGrid()
+            MultiChoiceImagesGame()
         }
         GameType.Word_Wise.name ->{}
 

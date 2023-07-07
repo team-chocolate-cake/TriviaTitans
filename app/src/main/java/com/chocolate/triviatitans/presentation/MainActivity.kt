@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.AnswerImageGrid
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 class MainActivity : ComponentActivity() {

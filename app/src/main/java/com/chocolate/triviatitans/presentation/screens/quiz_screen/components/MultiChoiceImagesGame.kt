@@ -28,7 +28,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Preview(showSystemUi = true)
 @Composable
-fun AnswerImageGrid(
+fun MultiChoiceImagesGame(
     isCorrectAnswer: Boolean = false
 ) {
     val answerColor = remember { mutableStateOf(Color(0x00F8F8F8)) }
