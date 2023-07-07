@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.ui.theme
+package com.chocolate.triviatitans.presentation.theme
 
 import android.annotation.SuppressLint
 import android.app.Activity
