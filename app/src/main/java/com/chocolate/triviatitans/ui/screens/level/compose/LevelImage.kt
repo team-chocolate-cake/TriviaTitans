@@ -16,6 +16,5 @@ fun LevelImage() {
         contentDescription = "Level Image",
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp)
     )
 }
