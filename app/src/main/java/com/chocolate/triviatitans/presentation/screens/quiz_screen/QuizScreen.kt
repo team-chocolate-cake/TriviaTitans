@@ -24,9 +24,8 @@ fun QuizScreen() {
         Modifier
             .fillMaxSize()
             .background(color = TriviaCustomColors.current.background)
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp , vertical = 16.dp)
     ) {
-        SpacerVertical16()
         Header()
         SpacerVertical16()
         ProgressIndicator(progressPercentage = .6f)
