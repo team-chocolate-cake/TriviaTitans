@@ -32,7 +32,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -62,8 +61,7 @@ fun ConfigurationContent() {
                 Text(
                     text = stringResource(id = R.string.game_type),
                     modifier = Modifier.padding(vertical = 8.dp),
-                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.titleMedium,
                     color = TriviaCustomColors.current.onBackground87
                 )
             }
@@ -112,8 +110,7 @@ fun ConfigurationContent() {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.config_title_card4),
-                                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.titleSmall,
                                 color = TriviaCustomColors.current.primary
                             )
 
@@ -121,8 +118,7 @@ fun ConfigurationContent() {
                                 text = stringResource(id = R.string.config_content_card4),
                                 maxLines = 3,
                                 textAlign = TextAlign.Justify,
-                                fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                                fontSize = 22.sp,
+                                style = MaterialTheme.typography.titleMedium,
                                 color = TriviaCustomColors.current.primary
                             )
 
@@ -153,11 +149,10 @@ fun ConfigurationContent() {
                 ) {
                 Text(
                     text = stringResource(id = R.string.play_now),
-                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily, fontSize = 20.sp
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
         }
-
     }
 
 }

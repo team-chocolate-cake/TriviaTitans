@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
@@ -64,8 +62,7 @@ fun ConfigurationCard(
             ) {
                 Text(
                     text = typeTitle,
-                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.titleMedium,
                     color = TriviaCustomColors.current.onBackground87
                 )
 
@@ -73,8 +70,7 @@ fun ConfigurationCard(
                     text = typeDescription,
                     maxLines = 3,
                     textAlign = TextAlign.Justify,
-                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                    fontSize = 12.sp,
+                    style = MaterialTheme.typography.bodySmall,
                     color = TriviaCustomColors.current.onBackground60
                 )
 
