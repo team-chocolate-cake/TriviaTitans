@@ -99,4 +99,6 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
     implementation "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
+
+    implementation "io.coil-kt:coil-compose:2.4.0"
 }
