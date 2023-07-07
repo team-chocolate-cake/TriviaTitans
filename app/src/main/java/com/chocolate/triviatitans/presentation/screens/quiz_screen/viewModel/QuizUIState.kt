@@ -4,10 +4,12 @@ data class QuizUIState(
     val isLoading: Boolean = false,
     var questions: List<Question> = emptyList(),
     val error: String? = null,
-    val isEmpty:Boolean = false,
-){
-    data class Question (
-        val id:Int,
+    val isEmpty: Boolean = false,
+    val userScore: Int = 0,
+    val questionNumber: Int = 0,
+) {
+    data class Question(
+        val id: Int,
         var question: String = "",
         var category: String = "",
         var difficulty: String = "",
