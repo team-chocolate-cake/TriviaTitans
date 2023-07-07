@@ -2,11 +2,9 @@ package com.chocolate.triviatitans.viewmodel.category
 
 
 data class CategoriesUiState(
-    val isLoading: Boolean = false,
     val categories: List<CategoryUiState> = emptyList(),
     val categoriesSelectedCount: Int = 0,
-    val categoriesSelected: List<CategoryUiState> = mutableListOf(),
-    val error: String? = null
+    val categoriesSelected: List<CategoryUiState> = listOf(),
 )
 
 data class CategoryUiState(
