@@ -1,7 +1,6 @@
 package com.chocolate.triviatitans.ui.screens.level.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
@@ -26,9 +25,7 @@ fun StartGameButton(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = 40.dp)
-            .padding(vertical = 16.dp),
-
+            .padding(horizontal = 40.dp, vertical = 16.dp)
     ) {
         Text(
             text = "START GAME",
