@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.screens.configuration
+package com.chocolate.triviatitans.presentation.screens.configuration
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.ui.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
 fun ConfigurationCard(typeTitle:String,
