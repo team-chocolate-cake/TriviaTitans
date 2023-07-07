@@ -7,14 +7,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
 import com.chocolate.triviatitans.view_model.level.LevelUiState
+import com.chocolate.triviatitans.view_model.level.TypeLevel
 
 @Composable
 fun CardLevels(
     color: CustomColorsPalette,
-    onLevelSelected: (String) -> Unit,
+    onLevelSelected: (TypeLevel) -> Unit,
     state: LevelUiState
 ) {
     Row(
@@ -24,25 +29,28 @@ fun CardLevels(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 40.dp, end = 40.dp, bottom = 32.dp)
+            .padding(horizontal = 40.dp)
     ) {
         ItemLevel(
             color = color,
-            text = "Easy",
-            backgroundColor = if (state.selectedLevel == "Easy") color.primary else color.onSecondary,
-            onClickItemLevel = onLevelSelected
+            state = state,
+            typeLevel = TypeLevel.Easy,
+            painter = painterResource(id = R.drawable.ic_easy_level),
+            onClickItemLevel = {onLevelSelected(it)}
         )
         ItemLevel(
             color = color,
-            text = "Medium",
-            backgroundColor = if (state.selectedLevel == "Medium") color.primary else color.onSecondary,
-            onClickItemLevel = onLevelSelected
+            state = state,
+            typeLevel = TypeLevel.Medium,
+            painter = painterResource(id = R.drawable.ic_medium_level),
+            onClickItemLevel = {onLevelSelected(it)}
         )
         ItemLevel(
             color = color,
-            text = "Hard",
-            backgroundColor = if (state.selectedLevel == "Hard") color.primary else color.onSecondary,
-            onClickItemLevel = onLevelSelected
+            state = state,
+            typeLevel = TypeLevel.Hard,
+            painter = painterResource(id = R.drawable.ic_hard_level),
+            onClickItemLevel = {onLevelSelected(it)}
         )
     }
 }
