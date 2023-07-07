@@ -23,7 +23,7 @@ fun TopBar(
     val colors = TriviaCustomColors.current
 
     TopAppBar(
-        colors = TopAppBarDefaults.smallTopAppBarColors(colors.background),
+        colors = TopAppBarDefaults.smallTopAppBarColors(colors.background.copy(alpha =1f)),
         title = {
             Text(
                 text = title,
