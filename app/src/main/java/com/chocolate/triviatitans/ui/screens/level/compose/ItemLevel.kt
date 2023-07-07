@@ -1,6 +1,7 @@
 package com.chocolate.triviatitans.ui.screens.level.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,13 +26,15 @@ fun ItemLevel(
     color: CustomColorsPalette,
     text: String,
     tint: Color = Color(0xFFEDECEF),
-    backgroundColor: Color
+    backgroundColor: Color,
+    onClickItemLevel: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
             .width(90.dp)
             .height(120.dp)
             .background(color = backgroundColor, shape = RoundedCornerShape(8.dp))
+            .clickable { onClickItemLevel(text) }
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_level),
