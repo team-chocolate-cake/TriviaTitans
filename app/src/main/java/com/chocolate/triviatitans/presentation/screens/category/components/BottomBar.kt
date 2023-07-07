@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.screen.category.components
+package com.chocolate.triviatitans.presentation.screens.category.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.chocolate.triviatitans.ui.theme.TriviaCustomColors
-import com.chocolate.triviatitans.ui.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun BottomBar(

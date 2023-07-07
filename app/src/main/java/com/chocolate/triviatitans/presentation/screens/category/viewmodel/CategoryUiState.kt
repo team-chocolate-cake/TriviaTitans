@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.viewmodel.category
+package com.chocolate.triviatitans.presentation.screens.category.viewmodel
 
 
 data class CategoriesUiState(

@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.screen.category
+package com.chocolate.triviatitans.presentation.screens.category
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -9,14 +9,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.chocolate.triviatitans.screen.category.components.BottomBar
-import com.chocolate.triviatitans.screen.category.components.TopBar
-import com.chocolate.triviatitans.screen.category.components.Content
-import com.chocolate.triviatitans.ui.theme.TriviaCustomColors
-import com.chocolate.triviatitans.ui.theme.TriviaTitansTheme
-import com.chocolate.triviatitans.viewmodel.category.CategoriesUiState
-import com.chocolate.triviatitans.viewmodel.category.CategoryUiState
-import com.chocolate.triviatitans.viewmodel.category.CategoryViewModel
+import com.chocolate.triviatitans.presentation.screens.category.components.BottomBar
+import com.chocolate.triviatitans.presentation.screens.category.components.TopBar
+import com.chocolate.triviatitans.presentation.screens.category.components.Content
+import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoriesUiState
+import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
+import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
+import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun CategoryScreen(

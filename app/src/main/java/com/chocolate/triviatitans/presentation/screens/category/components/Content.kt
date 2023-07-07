@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.screen.category.components
+package com.chocolate.triviatitans.presentation.screens.category.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -6,11 +6,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chocolate.triviatitans.screen.category.CategoryScreen
-import com.chocolate.triviatitans.ui.theme.TriviaTitansTheme
-import com.chocolate.triviatitans.viewmodel.category.CategoryUiState
+import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 
 @Composable
 fun Content(
@@ -37,7 +34,7 @@ fun Content(
                 category = category,
                 onClick = { isSelected ->
                     onCategorySelected(category, isSelected)
-                },
+                }
             )
         }
     }

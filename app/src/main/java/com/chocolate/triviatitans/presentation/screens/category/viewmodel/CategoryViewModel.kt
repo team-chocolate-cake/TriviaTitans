@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.viewmodel.category
+package com.chocolate.triviatitans.presentation.screens.category.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.chocolate.triviatitans.R

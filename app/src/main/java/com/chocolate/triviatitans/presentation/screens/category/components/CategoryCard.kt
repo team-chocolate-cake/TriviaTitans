@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.screen.category.components
+package com.chocolate.triviatitans.presentation.screens.category.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,9 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.ui.theme.TriviaCustomColors
-import com.chocolate.triviatitans.ui.theme.TriviaTitansTheme
-import com.chocolate.triviatitans.viewmodel.category.CategoryUiState
+import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
+import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun CategoryCard(
@@ -38,7 +38,7 @@ fun CategoryCard(
     onClick: (Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
-    var isBorder by remember { mutableStateOf(false) }
+    var isBorder by rememberSaveable { mutableStateOf(false) }
 
     Card(
         colors = CardDefaults.cardColors(colors.card),
@@ -98,6 +98,7 @@ fun CategoryScreenPreview() {
                 title = "Category",
                 image = R.drawable.category_art,
                 progress = 0.5f
-            ), onClick = {})
+            ), onClick = {}
+        )
     }
 }

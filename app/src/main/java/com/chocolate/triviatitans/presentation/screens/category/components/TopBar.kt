@@ -1,5 +1,4 @@
-package com.chocolate.triviatitans.screen.category.components
-
+package com.chocolate.triviatitans.presentation.screens.category.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -12,8 +11,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.chocolate.triviatitans.ui.theme.TriviaCustomColors
-import com.chocolate.triviatitans.ui.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
