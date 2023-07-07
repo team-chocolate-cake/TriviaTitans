@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TriviaTitans</string>
     <string name="sub_title_descripation_level">Choose your level wisely! Easy questions await beginners, while hard questions will challenge even the sharpest minds.</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 </resources>
