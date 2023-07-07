@@ -15,7 +15,6 @@ class CategoryViewModel @Inject constructor(
     private val _state = MutableStateFlow(CategoriesUiState())
     val state = _state.asStateFlow()
 
-
     init {
         getCategories()
     }
@@ -60,5 +59,4 @@ class CategoryViewModel @Inject constructor(
             CategoryUiState("food_and_drink", "Food And Drink", R.drawable.category_food),
         )
     }
-
 }
