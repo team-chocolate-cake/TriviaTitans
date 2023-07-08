@@ -107,4 +107,7 @@ dependencies {
 
     /// lottie
     implementation ("com.airbnb.android:lottie-compose:6.0.0")
+
+    /// SpinWheel
+    implementation 'com.github.commandiron:SpinWheelCompose:1.0.3'
 }
