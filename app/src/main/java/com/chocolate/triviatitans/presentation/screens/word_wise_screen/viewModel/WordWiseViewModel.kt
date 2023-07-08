@@ -25,20 +25,29 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
     }
 
     private fun getUserQuestions() {
-        _state.update { it.copy(isLoading = true) }
+        updateState { it.copy(isLoading = true) }
         tryToExecute(
             call = { getUserQuestionsUseCase(10, "science", "hard") },
             onSuccess = ::onSuccessUserQuestions,
-            onError = {
-                Log.i("questions", "getUserQuestions: $it")
-            }
+            onError = ::onErrorUserQuestions
         )
     }
 
     private fun onSuccessUserQuestions(userQuestions: List<TextChoiceEntity>) {
-        _state.update { it.copy(isLoading = false) }
-        val questionsUiState = userQuestions.map { WordWiseMapper().map(it) }
-        _state.update { it.copy(questionUiStates = questionsUiState) }
+        updateState {
+            it.copy(
+                isLoading = false,
+                questionUiStates = userQuestions.map { WordWiseMapper().map(it) }
+            )
+        }
+    }
+
+    private fun onErrorUserQuestions(throwable: Throwable) {
+        Log.i("questions", "getUserQuestions: $throwable")
+    }
+
+    private fun updateState(transform: (WordWiseUIState) -> WordWiseUIState) {
+        _state.update(transform)
     }
 
     private fun <T> tryToExecute(
@@ -50,11 +59,15 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
         viewModelScope.launch(dispatcher) {
             try {
                 call().also(onSuccess)
-            } catch (th: Throwable) {
-                onError(th)
+            } catch (throwable: Throwable) {
+                onError(throwable)
             }
         }
     }
 
-
+    fun onLetterClicked(letter:String) {
+        _state.update {
+          it.copy(selectedLetterList=_state.value.selectedLetterList+letter)
+        }
+    }
 }

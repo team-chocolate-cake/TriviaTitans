@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun QuestionLettersLazyGird(
     charsList: List<Char>,
+    selectedLetterList: List<String>,
     modifier: Modifier = Modifier,
 ) {
 
@@ -24,9 +25,12 @@ fun QuestionLettersLazyGird(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            AnswerLetterCard(
-                text = charsList[index].toString(),
+            ClickableTextCard(
+                text = selectedLetterList[index].ifEmpty { " " },
+                onClick = { false }
             )
         }
+
     }
 }
+

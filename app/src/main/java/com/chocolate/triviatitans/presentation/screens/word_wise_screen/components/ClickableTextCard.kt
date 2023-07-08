@@ -17,9 +17,8 @@ import com.chocolate.triviatitans.presentation.theme.Primary
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
-fun AnswerLetterCard(text: String) {
+fun ClickableTextCard(text: String, onClick: (String) -> Unit) {
     val isSelected = remember { mutableStateOf(false) }
-
 
     if (isSelected.value) {
         Box(
@@ -30,8 +29,10 @@ fun AnswerLetterCard(text: String) {
                     shape = RoundedCornerShape(size = 8.dp)
                 )
                 .background(Primary, shape = RoundedCornerShape(size = 12.dp))
-                .clickable { isSelected.value = false }
-
+                .clickable {
+                    isSelected.value = false
+                    onClick(text)
+                }
         ) {
             Text(
                 text = text, modifier = Modifier
@@ -48,7 +49,10 @@ fun AnswerLetterCard(text: String) {
                     color = Primary,
                     shape = RoundedCornerShape(size = 8.dp)
                 )
-                .clickable { isSelected.value = true }
+                .clickable {
+                    isSelected.value = true
+                    onClick(text)
+                }
 
         ) {
             Text(
@@ -60,4 +64,3 @@ fun AnswerLetterCard(text: String) {
         }
     }
 }
-

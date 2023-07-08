@@ -10,8 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AnswerLetterLazyGird(
+fun LatterLazyGrid(
     charsList: List<Char>,
+    onLetterClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -24,9 +25,9 @@ fun AnswerLetterLazyGird(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            AnswerLetterCard(
-                text = charsList[index].toString(),
-            )
+            ClickableTextCard(
+                text = charsList[index].toString()
+            ) { onLetterClick }
         }
     }
 }
