@@ -17,20 +17,20 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 
 
 @Composable
-fun CongratulationsAnimation(rawRes: Int) {
+fun CongratulationsAnimation(rawRes: Int, modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(rawRes))
     val progress by animateLottieCompositionAsState(
         composition = composition,
         iterations = LottieConstants.IterateForever
     )
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(350.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LottieAnimation(
-            modifier = Modifier.size(400.dp),
+            modifier = modifier.size(400.dp),
             composition = composition,
             progress = { progress })
     }
