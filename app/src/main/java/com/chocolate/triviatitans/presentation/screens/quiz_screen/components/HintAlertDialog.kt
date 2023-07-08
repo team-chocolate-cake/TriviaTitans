@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HintAlertDialog(onDissmiss:()->Unit,correctAnswer:String) {
+fun HintAlertDialog(onDissmiss: () -> Unit, correctAnswer: String) {
     AlertDialog(
-        onDismissRequest =  onDissmiss,
+        onDismissRequest = onDissmiss,
         title = { Text("Answer") },
         text = { Text(correctAnswer) },
         confirmButton = {

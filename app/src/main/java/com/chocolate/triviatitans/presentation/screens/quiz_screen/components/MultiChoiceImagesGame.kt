@@ -57,8 +57,9 @@ fun MultiChoiceImagesGame(
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxSize()
                         .clickable {
+
                             selectedIndex.value = index
-                            isCorrectAnswer.value = item == state.questionUiStates[index].correctAnswer
+                            isCorrectAnswer.value = item == question.correctAnswer
                             answerColor.value =
                                 if (isCorrectAnswer.value) correctColor else errorColor
 
