@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
@@ -16,7 +17,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuizScreenViewModel @Inject constructor(private val getUserQuestionsUseCase: GetUserQuestionsUseCase) :
+class QuizScreenViewModel @Inject constructor(
+    private val getUserQuestionsUseCase: GetUserQuestionsUseCase
+) :
     ViewModel(),
     AnswerCardListener, HintListener {
     private val _state = MutableStateFlow(MultiChoiceTextUiState())
@@ -116,11 +119,15 @@ class QuizScreenViewModel @Inject constructor(private val getUserQuestionsUseCas
 
     override fun onClickReset() {
         _state.update {
+            val isLastQuestion = it.questionNumber == it.questionUiStates.size
+            Log.i("gg", "${it.questionNumber} == ${it.questionUiStates.size } = $isLastQuestion")
             it.copy(
                 questionNumber = it.questionNumber + 1,
                 hintReset = it.hintReset.copy(
                     numberOfTries = (it.hintReset.numberOfTries - 1),
-                    isActive = it.hintReset.numberOfTries >= 2
+                    isActive =
+                    it.hintReset.numberOfTries > 1 && isLastQuestion
+
                 )
             )
         }
