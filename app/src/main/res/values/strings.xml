@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">TriviaTitans</string>
+    <string name="total_select">Total select</string>
+    <string name="next">Next</string>
+    <string name="category_image">Category Image</string>
+    <string name="go_back">Go Back</string>
+    <string name="you_want_to_improve_today">You want to improve today?</string>
 
     <string name="config_title_card1">Multi Choice</string>
     <string name="config_content_card1">Answer questions and choose the correct option to test your knowledge </string>
@@ -18,11 +23,5 @@
     <string name="play_now">Play Now</string>
 
     <string name="game_type">Game Type</string>
-
-
-
-
-
-
 
 </resources>
