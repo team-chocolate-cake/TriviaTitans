@@ -20,26 +20,44 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.AnswerCardListener
 import com.chocolate.triviatitans.presentation.theme.LightBorder
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 @Composable
-fun Card(questionAlphabet: Char, question: String, isCorrectAnswer: Boolean) {
+fun AnswerCard(
+    answerAlphabet: Char,
+    answer: String,
+    answerCardListener: AnswerCardListener,
+    questionNumber: Int,
+    correctAnswer: String,
+    isButtonsEnabled: Boolean,
+    modifier: Modifier = Modifier,
+) {
     val cardColor = TriviaCustomColors.current
     val answerColor = remember { mutableStateOf(cardColor.card) }
-    val errorColor = TriviaCustomColors.current.error
-    val correctColor = TriviaCustomColors.current.correct
 
     Box(Modifier.clip(RoundedCornerShape(12.dp))) {
-        Row(modifier = Modifier
-            .clickable { answerColor.value = if (isCorrectAnswer) correctColor else errorColor }
+        Row(modifier = modifier
+            .clickable(enabled = isButtonsEnabled) {
+                answerColor.value =
+                    if (answer == correctAnswer) cardColor.correct else cardColor.error
+                answerCardListener.updateButtonState(false)
+                Timer().schedule(500) {
+                    answerCardListener.onClickCard(answer, questionNumber)
+                    answerColor.value = cardColor.card
+                    answerCardListener.updateButtonState(true)
+                }
+            }
             .background(color = answerColor.value)
             .padding(horizontal = 16.dp, vertical = 20.dp)
             .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically)
         {
-            Text(text = questionAlphabet.toString(), color = cardColor.onBackground87)
+            Text(text = answerAlphabet.toString(), color = cardColor.onBackground87)
             SpacerHorizontal8Dp()
             Divider(
                 color = LightBorder,
@@ -49,7 +67,7 @@ fun Card(questionAlphabet: Char, question: String, isCorrectAnswer: Boolean) {
                     .clip(RoundedCornerShape(4.dp))
             )
             SpacerHorizontal8Dp()
-            Text(text = question, color = cardColor.onBackground87)
+            Text(text = answer, color = cardColor.onBackground87)
         }
     }
 }
@@ -58,6 +76,16 @@ fun Card(questionAlphabet: Char, question: String, isCorrectAnswer: Boolean) {
 @Composable
 fun CardPreview() {
     TriviaTitansTheme() {
-        Card('A', "Soccer", false)
+        AnswerCard('A', "Soccer", object : AnswerCardListener {
+            override fun onClickCard(question: String, questionNumber: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun updateButtonState(value: Boolean) {
+                TODO("Not yet implemented")
+            }
+
+
+        }, questionNumber = 0, "", true)
     }
 }
