@@ -8,7 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.Header
+import androidx.navigation.NavHostController
+import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.LatterLazyGrid
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.QuestionLettersLazyGird
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel.WordWiseUIState
@@ -16,7 +17,7 @@ import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewMode
 
 
 @Composable
-fun WordWiseScreen() {
+fun WordWiseScreen(navController: NavHostController) {
     val viewModel: WordWiseViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState().value
     WordWiseContent(state = state, onLetterClick = viewModel::onLetterClicked)
@@ -46,8 +47,3 @@ fun WordWiseContent(
     }
 }
 
-@Preview
-@Composable
-fun WorldWiseScreen() {
-    WordWiseScreen()
-}

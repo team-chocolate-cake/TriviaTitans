@@ -1,5 +1,9 @@
-package com.chocolate.triviatitans.ui
+package com.chocolate.triviatitans.presentation
 
-sealed class Screen(val route: String){
-    object LevelScreen: Screen("levelScreen")
+sealed class Screens(val route: String){
+    object LevelScreen: Screens("levelScreen")
+    object WordWiseScreen: Screens("wordWiseScreen")
+
+    object HomeScreen: Screens("homeScreen")
+
 }
