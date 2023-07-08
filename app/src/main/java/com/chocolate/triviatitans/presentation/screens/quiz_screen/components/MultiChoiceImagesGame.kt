@@ -27,12 +27,15 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.Answ
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
 
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 @Composable
 fun MultiChoiceImagesGame(
-    state : MultiChoiceTextUiState,
+    state: MultiChoiceTextUiState,
     question: MultiChoiceTextUiState.QuestionUiState,
     answerCardListener: AnswerCardListener,
+    isButtonsEnabled: Boolean
 ) {
     val answerColor = remember { mutableStateOf(Color(0x00F8F8F8)) }
     val isCorrectAnswer = remember { mutableStateOf(false) }
@@ -43,7 +46,7 @@ fun MultiChoiceImagesGame(
 
 
     LazyVerticalGrid(
-        columns =  GridCells.Fixed(2),
+        columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -58,17 +61,32 @@ fun MultiChoiceImagesGame(
                         .height(height = 200f.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxSize()
-                        .clickable {
+                        .clickable(enabled = isButtonsEnabled) {
 
                             selectedIndex.value = index
                             isCorrectAnswer.value = item == question.correctAnswer
                             answerColor.value =
                                 if (isCorrectAnswer.value) correctColor else errorColor
 
-                            answerCardListener.onClickCard(item, state.questionNumber, isCorrectAnswer.value)
+                            answerCardListener.updateButtonState(false)
 
-                        }.border(
-                            BorderStroke(2.dp,  if (selectedIndex.value == index) answerColor.value else Color(0x00F8F8F8) ),
+                            Timer().schedule(500) {
+                                answerCardListener.onClickCard(
+                                    item,
+                                    state.questionNumber,
+                                    isCorrectAnswer.value
+                                )
+                                answerColor.value = Color(0x00F8F8F8)
+                                answerCardListener.updateButtonState(true)
+                            }
+
+                        }
+                        .border(
+                            BorderStroke(
+                                2.dp, if (selectedIndex.value == index) {
+                                    answerColor.value
+                                } else Color(0x00F8F8F8)
+                            ),
                             shape = RoundedCornerShape(12.dp)
                         ),
                     contentScale = ContentScale.Crop,

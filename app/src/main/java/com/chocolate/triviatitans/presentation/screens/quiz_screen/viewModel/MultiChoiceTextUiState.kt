@@ -20,7 +20,7 @@ data class MultiChoiceTextUiState(
         val difficulty: String = "",
         val correctAnswer: String = "",
         val incorrectAnswers: List<String> = emptyList(),
-        val randomAnswers: List<String> = ((incorrectAnswers.toMutableList()).distinct().take(3) + (correctAnswer)).shuffled()
+        val randomAnswers: List<String> = (((incorrectAnswers.toMutableList()).distinct()).take(3) + (correctAnswer)).shuffled()
     )
 
     data class HintButton(
