@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">TriviaTitans</string>
+    <string name="present_image">present image</string>
+    <string name="return_to_home">Return to home</string>
+    <string name="go_to_next_level">Go to next level</string>
+    <string name="you_earned_200_points">You earned 200 points</string>
+    <string name="congrats">Congrats</string>
+    <string name="game_over">Game Over !</string>
+    <string name="unfortionatly_u_lose_this_please_retry_it">"Unfortionatly u lose this \n please retry it "</string>
+    <string name="retry">Retry</string>
+    <string name="spin_the_wheel_to_get_your_reward">Spin the wheel to get \n your Reward</string>
     <string name="total_select">Total select</string>
     <string name="next">Next</string>
     <string name="category_image">Category Image</string>
