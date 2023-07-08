@@ -24,9 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
@@ -38,7 +38,7 @@ fun CategoryCard(
     onClick: (Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
-    var isBorder by rememberSaveable { mutableStateOf(false) }
+    var isSelected by rememberSaveable { mutableStateOf(false) }
 
     Card(
         colors = CardDefaults.cardColors(colors.card),
@@ -47,10 +47,10 @@ fun CategoryCard(
             .height(146.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                isBorder = !isBorder
-                onClick(isBorder)
+                isSelected = !isSelected
+                onClick(isSelected)
             },
-        border = if (isBorder) BorderStroke(1.dp, colors.primary) else null,
+        border = if (isSelected) BorderStroke(1.dp, colors.primary) else null,
     ) {
         Column(
             modifier = Modifier
@@ -67,13 +67,12 @@ fun CategoryCard(
                     .width(100.dp)
                     .height(80.dp),
                 painter = painterResource(id = category.image),
-                contentDescription = "Category Image",
+                contentDescription = stringResource(R.string.category_image),
             )
 
             Text(
                 text = category.title,
                 style = MaterialTheme.typography.titleMedium,
-                fontSize = 14.sp,
                 color = colors.onBackground87
             )
 

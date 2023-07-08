@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TriviaTitans</string>
+    <string name="total_select">Total select</string>
+    <string name="next">Next</string>
+    <string name="category_image">Category Image</string>
+    <string name="go_back">Go Back</string>
+    <string name="you_want_to_improve_today">You want to improve today?</string>
 </resources>

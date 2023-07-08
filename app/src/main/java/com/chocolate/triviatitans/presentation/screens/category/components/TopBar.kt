@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
@@ -35,7 +37,7 @@ fun TopBar(
             IconButton(onClick = { onBackClick() }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Go Back",
+                    contentDescription = stringResource(R.string.go_back),
                     tint = colors.onBackground87
                 )
             }

@@ -17,9 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
@@ -45,15 +46,13 @@ fun BottomBar(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Total select",
+                    text = stringResource(R.string.total_select),
                     style = MaterialTheme.typography.titleMedium,
-                    fontSize = 12.sp,
                     color = colors.onBackground60
                 )
                 Text(
                     text = count,
                     style = MaterialTheme.typography.titleMedium,
-                    fontSize = 16.sp,
                     color = colors.primary
                 )
             }
@@ -63,9 +62,8 @@ fun BottomBar(
                 colors = ButtonDefaults.buttonColors(containerColor = colors.primary)
             ) {
                 Text(
-                    text = "Next",
+                    text = stringResource(R.string.next),
                     style = MaterialTheme.typography.titleMedium,
-                    fontSize = 14.sp,
                     color = Color.White
                 )
             }

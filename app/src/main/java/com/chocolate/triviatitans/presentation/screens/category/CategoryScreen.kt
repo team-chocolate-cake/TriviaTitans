@@ -7,8 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.components.BottomBar
 import com.chocolate.triviatitans.presentation.screens.category.components.TopBar
 import com.chocolate.triviatitans.presentation.screens.category.components.Content
@@ -46,7 +48,7 @@ fun CategoryContent(
         containerColor = colors.background,
         topBar = {
             TopBar(
-                title = "You want to improve today?",
+                title = stringResource(R.string.you_want_to_improve_today),
                 onBackClick = { /*TODO*/ },
             )
         },
