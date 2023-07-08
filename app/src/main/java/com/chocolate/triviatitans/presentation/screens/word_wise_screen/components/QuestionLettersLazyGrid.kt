@@ -7,12 +7,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun QuestionLettersLazyGird(
     charsList: List<Char>,
-    selectedLetterList: List<String>,
+    selectedLetterList: List<Char>,
     modifier: Modifier = Modifier,
 ) {
 
@@ -25,12 +26,21 @@ fun QuestionLettersLazyGird(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            ClickableTextCard(
-                text = selectedLetterList[index].ifEmpty { " " },
-                onClick = { false }
+            val value = (selectedLetterList + List(charsList.size) { ' ' })[index]
+            CorrectAnswerTextCard(
+                text = value,
             )
         }
 
     }
+}
+
+@Preview
+@Composable
+fun QuestionLettersLazyGirdPreview() {
+    QuestionLettersLazyGird(
+        charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
+        selectedLetterList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')
+    )
 }
 

@@ -7,12 +7,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun LatterLazyGrid(
     charsList: List<Char>,
-    onLetterClick: (String) -> Unit,
+    onLetterClick: (Char) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -25,11 +26,20 @@ fun LatterLazyGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            ClickableTextCard(
-                text = charsList[index].toString()
-            ) { onLetterClick }
+            LettersTextCard(
+                text = charsList[index]
+            ) { onLetterClick(it) }
         }
     }
+}
+
+@Preview
+@Composable
+fun LatterLazyGridPreview() {
+    LatterLazyGrid(
+        charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
+        onLetterClick = {}
+    )
 }
 
 

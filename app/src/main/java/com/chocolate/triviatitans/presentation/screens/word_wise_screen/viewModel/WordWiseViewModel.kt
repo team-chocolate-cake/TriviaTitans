@@ -65,9 +65,9 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
         }
     }
 
-    fun onLetterClicked(letter:String) {
+    fun onLetterClicked(letter: Char) {
         _state.update {
-          it.copy(selectedLetterList=_state.value.selectedLetterList+letter)
+            it.copy(selectedLetterList = _state.value.selectedLetterList + letter)
         }
     }
 }

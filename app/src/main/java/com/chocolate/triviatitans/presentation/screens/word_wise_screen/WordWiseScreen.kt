@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.Header
@@ -24,7 +25,7 @@ fun WordWiseScreen() {
 @Composable
 fun WordWiseContent(
     state: WordWiseUIState,
-    onLetterClick: (String) -> Unit,
+    onLetterClick: (Char) -> Unit,
 ) {
     if (state.questionUiStates.isNotEmpty()) {
         Column(Modifier.padding(horizontal = 16.dp)) {
@@ -32,24 +33,21 @@ fun WordWiseContent(
 
             QuestionLettersLazyGird(
                 charsList = state
-                    .questionUiStates[state.questionNumber]
-                    .correctAnswer
-                    .uppercase()
-                    .replace(" ", "-")
-                    .toList(),
+                    .questionUiStates[state.questionNumber].correctAnswerLetters,
                 selectedLetterList = state.selectedLetterList,
             )
             LatterLazyGrid(
                 charsList = state
-                    .questionUiStates[state.questionNumber]
-                    .correctAnswer
-                    .uppercase()
-                    .replace(" ", "")
-                    .toList()
-                    .shuffled()
-                , onLetterClick = onLetterClick
+                    .questionUiStates[state.questionNumber].correctAnswerLetters,
+                onLetterClick = onLetterClick
             )
 
         }
     }
+}
+
+@Preview
+@Composable
+fun WorldWiseScreen() {
+    WordWiseScreen()
 }
