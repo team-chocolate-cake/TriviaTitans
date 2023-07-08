@@ -11,7 +11,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
-fun Header() {
+fun Header(question:String) {
     Column {
         PlayerDashBoard()
         SpacerVertical16()
@@ -20,7 +20,7 @@ fun Header() {
         ProgressIndicator(progressPercentage = .6f)
         SpacerVertical32()
         Text(
-            text = "What sport is best known as the ‘king of sports ?",
+            text = question,
             style = MaterialTheme.typography.titleMedium,
             color = TriviaCustomColors.current.onBackground87
         )
@@ -30,6 +30,6 @@ fun Header() {
 @Preview(showSystemUi = true)
 @Composable
 fun HeaderPreview() {
-    TriviaTitansTheme() { Header() }
+    TriviaTitansTheme() { Header("") }
 }
 
