@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,16 +30,21 @@ fun QuestionHint(
     @DrawableRes icon: Int,
     numberOfTries: Int,
     modifier: Modifier = Modifier,
-    imageModifier: Modifier = Modifier
+    imageModifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     val questionHintColor = TriviaCustomColors.current
-    Box(modifier = modifier.size(64.dp), contentAlignment = Alignment.BottomEnd) {
+    Box(
+        modifier = modifier
+            .size(64.dp),
+        contentAlignment = Alignment.BottomEnd
+    ) {
         Image(
             painter = painterResource(id = icon),
             contentDescription = "question help",
             modifier = Modifier
                 .fillMaxSize()
-                .clip(CircleShape)
+                .clip(CircleShape).clickable(onClick = onClick)
                 .background(TriviaCustomColors.current.primary)
                 .then(imageModifier)
         )
@@ -65,7 +71,7 @@ fun QuestionHintPreview() {
         QuestionHint(
             icon = R.drawable.ic_heart,
             3,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp), onClick = {}
         )
     }
 }
