@@ -38,7 +38,7 @@ fun AnswersSection(
         }
 
         GameType.Multi_Choice_Images.name -> {
-            MultiChoiceImagesGame(state = state , question = question)
+            MultiChoiceImagesGame(state = state , question = question , answerCardListener = answerCardListener ,)
         }
 
         GameType.Word_Wise.name -> {}

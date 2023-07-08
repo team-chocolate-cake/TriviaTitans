@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
 
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
@@ -31,6 +32,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 fun MultiChoiceImagesGame(
     state : MultiChoiceTextUiState,
     question: MultiChoiceTextUiState.QuestionUiState,
+    answerCardListener: AnswerCardListener,
 ) {
     val answerColor = remember { mutableStateOf(Color(0x00F8F8F8)) }
     val isCorrectAnswer = remember { mutableStateOf(false) }
@@ -62,6 +64,8 @@ fun MultiChoiceImagesGame(
                             isCorrectAnswer.value = item == question.correctAnswer
                             answerColor.value =
                                 if (isCorrectAnswer.value) correctColor else errorColor
+
+                            answerCardListener.onClickCard(item, state.questionNumber, isCorrectAnswer.value)
 
                         }.border(
                             BorderStroke(2.dp,  if (selectedIndex.value == index) answerColor.value else Color(0x00F8F8F8) ),
