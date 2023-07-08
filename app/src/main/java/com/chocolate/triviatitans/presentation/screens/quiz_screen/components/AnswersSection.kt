@@ -6,27 +6,62 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.screens.GameType
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.AnswerCardListener
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
 
 @Composable
 fun AnswersSection(
-    gameType: String = "Multi_Choice_Images"
+    answerCardListener: AnswerCardListener,
+    gameType: String = "Multi_Choice",
+    question: MultiChoiceTextUiState.QuestionUiState,
+    questionNumber: Int,
+    isButtonsEnabled: Boolean
 ) {
 
+    val givenQuestion = question.randomAnswers
     when (gameType) {
-
         GameType.Multi_Choice.name -> {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Card('A', "Soccer", true)
-                Card('B', "Swimming", false)
-                Card('C', "Tennis", false)
-                Card('D', "Baseball", false)
+                AnswerCard(
+                    'A',
+                    givenQuestion[0],
+                    answerCardListener,
+                    questionNumber,
+                    question.correctAnswer,
+                    isButtonsEnabled
+                )
+                AnswerCard(
+                    'B',
+                    givenQuestion[1],
+                    answerCardListener,
+                    questionNumber,
+                    question.correctAnswer,
+                    isButtonsEnabled
+                )
+                AnswerCard(
+                    'C',
+                    givenQuestion[2],
+                    answerCardListener,
+                    questionNumber,
+                    question.correctAnswer,
+                    isButtonsEnabled
+                )
+                AnswerCard(
+                    'D',
+                    givenQuestion[3],
+                    answerCardListener,
+                    questionNumber,
+                    question.correctAnswer,
+                    isButtonsEnabled
+                )
             }
         }
 
         GameType.Multi_Choice_Images.name -> {
             MultiChoiceImagesGame()
         }
-        GameType.Word_Wise.name ->{}
+
+        GameType.Word_Wise.name -> {}
 
     }
 }
@@ -34,5 +69,20 @@ fun AnswersSection(
 @Preview(showSystemUi = true)
 @Composable
 fun AnswersSectionPreview() {
-    AnswersSection()
+    AnswersSection(
+        answerCardListener = object : AnswerCardListener {
+            override fun onClickCard(question: String, questionNumber: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun updateButtonState(value: Boolean) {
+                TODO("Not yet implemented")
+            }
+
+
+        },
+        question = MultiChoiceTextUiState.QuestionUiState(id = ""),
+        questionNumber = 0,
+        isButtonsEnabled = true
+    )
 }
