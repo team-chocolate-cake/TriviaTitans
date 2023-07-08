@@ -28,7 +28,7 @@ fun Content(
     ) {
         items(
             items = categories,
-            key = { category -> category.name }
+            key = { category -> category.id }
         ) { category ->
             CategoryCard(
                 category = category,

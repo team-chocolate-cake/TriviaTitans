@@ -43,20 +43,31 @@ class CategoryViewModel @Inject constructor(
 
     private fun categories(): List<CategoryUiState> {
         return listOf(
-            CategoryUiState("geography", "Geography", R.drawable.category_geography),
-            CategoryUiState("music", "Music", R.drawable.category_music),
-            CategoryUiState("sport_and_leisure", "Sport and leisure", R.drawable.category_sport),
-            CategoryUiState("film_and_tv", "Movie and Tv", R.drawable.category_movies),
-            CategoryUiState("arts_and_literature", "Arts and literature", R.drawable.category_art),
-            CategoryUiState("history", "History", R.drawable.category_history),
+            CategoryUiState(1, "geography", "Geography", R.drawable.category_geography),
+            CategoryUiState(2, "music", "Music", R.drawable.category_music),
+            CategoryUiState(3, "sport_and_leisure", "Sport and leisure", R.drawable.category_sport),
+            CategoryUiState(4, "film_and_tv", "Movie and Tv", R.drawable.category_movies),
             CategoryUiState(
+                5,
+                "arts_and_literature",
+                "Arts and literature",
+                R.drawable.category_art
+            ),
+            CategoryUiState(6, "history", "History", R.drawable.category_history),
+            CategoryUiState(
+                7,
                 "society_and_culture",
                 "Society and culture",
                 R.drawable.category_society
             ),
-            CategoryUiState("science", "Science", R.drawable.category_science),
-            CategoryUiState("general_knowledge", "General Knowledge", R.drawable.category_general),
-            CategoryUiState("food_and_drink", "Food And Drink", R.drawable.category_food),
+            CategoryUiState(8, "science", "Science", R.drawable.category_science),
+            CategoryUiState(
+                9,
+                "general_knowledge",
+                "General Knowledge",
+                R.drawable.category_general
+            ),
+            CategoryUiState(10, "food_and_drink", "Food And Drink", R.drawable.category_food),
         )
     }
 }

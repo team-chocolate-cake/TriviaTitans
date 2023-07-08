@@ -29,17 +29,17 @@ fun CategoryScreen(
 
     CategoryContent(
         state = state,
-    ) { category, isSelected ->
-        if (isSelected) viewModel.onCategorySelected(category)
-        else viewModel.onCategoryDeselected(category)
-    }
+        onCategorySelected = viewModel::onCategorySelected,
+        onCategoryDeselected = viewModel::onCategoryDeselected
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryContent(
     state: CategoriesUiState,
-    onCategorySelected: (CategoryUiState, Boolean) -> Unit
+    onCategorySelected: (CategoryUiState) -> Unit,
+    onCategoryDeselected: (CategoryUiState) -> Unit
 ) {
     val colors = TriviaCustomColors.current
 
@@ -63,7 +63,10 @@ fun CategoryContent(
         Content(
             padding = padding,
             categories = state.categories,
-            onCategorySelected = onCategorySelected
+            onCategorySelected = { category, isSelected ->
+                if (isSelected) onCategorySelected(category)
+                else onCategoryDeselected(category)
+            }
         )
     }
 }
