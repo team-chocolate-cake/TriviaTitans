@@ -23,7 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +46,7 @@ fun ConfigurationScreen() {
 @Composable
 fun ConfigurationContent() {
 
-    var selectedIndex by remember {
+    var selectedIndex by rememberSaveable{
         mutableStateOf(-1)
     }
 
@@ -56,7 +56,7 @@ fun ConfigurationContent() {
             .background(TriviaCustomColors.current.background)
             .padding(16.dp)
     ) {
-        LazyColumn() {
+        LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
             item {
                 Text(
                     text = stringResource(id = R.string.game_type),
@@ -121,7 +121,6 @@ fun ConfigurationContent() {
                                 style = MaterialTheme.typography.titleMedium,
                                 color = TriviaCustomColors.current.primary
                             )
-
                         }
                         Spacer(Modifier.size(24.dp))
                         Image(
@@ -133,24 +132,24 @@ fun ConfigurationContent() {
                         )
                     }
                 }
-
             }
-        }
+            item {
+                if (selectedIndex != -1) {
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier
+                            .width(250.dp)
+                            .align(Alignment.CenterHorizontally)
+                            .padding(top = 38.dp),
+                        colors = ButtonDefaults.buttonColors(TriviaCustomColors.current.primary),
 
-        if (selectedIndex != -1) {
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .width(250.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 38.dp),
-                colors = ButtonDefaults.buttonColors(TriviaCustomColors.current.primary),
-
-                ) {
-                Text(
-                    text = stringResource(id = R.string.play_now),
-                    style = MaterialTheme.typography.titleMedium,
-                )
+                        ) {
+                        Text(
+                            text = stringResource(id = R.string.play_now),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
+                }
             }
         }
     }
