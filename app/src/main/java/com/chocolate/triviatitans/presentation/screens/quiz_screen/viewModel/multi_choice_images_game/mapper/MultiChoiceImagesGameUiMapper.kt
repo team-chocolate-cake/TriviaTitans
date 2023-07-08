@@ -6,7 +6,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mul
 import javax.inject.Inject
 
 class MultiChoiceImagesGameUiMapper @Inject constructor(
-    private val mapperInCorrectAnswerUiMapper: InCorrectAnswerUiMapper,
+    private val inCorrectAnswerUiMapper: InCorrectAnswerUiMapper,
 ) :
     Mapper<ImageChoiceEntity, ImageChoiceUIState> {
     override fun map(input: ImageChoiceEntity): ImageChoiceUIState {
@@ -14,8 +14,12 @@ class MultiChoiceImagesGameUiMapper @Inject constructor(
             id = input.id,
             category = input.category,
             correctAnswer = input._correctAnswer,
-            incorrectAnswer = mapperInCorrectAnswerUiMapper.mapNested(input.incorrectAnswer ?: emptyList()),
-                    question = input.question,
+//            incorrectAnswer = inCorrectAnswerUiMapper.mapNested(
+//                input.incorrectAnswer ?: emptyList()
+//            ),
+
+            incorrectAnswer = input._incorrectAnswer.requireNoNulls() ?: emptyList(),
+            question = input.question,
             difficulty = input.difficulty,
         )
     }

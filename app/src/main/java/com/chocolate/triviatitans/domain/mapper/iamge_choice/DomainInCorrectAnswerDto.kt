@@ -6,10 +6,9 @@ import com.chocolate.triviatitans.domain.mapper.Mapper
 import javax.inject.Inject
 
 class DomainInCorrectAnswerDto @Inject constructor() :
-    Mapper<IncorrectAnswer, InCorrectAnswerImageEntity> {
-    override fun map(input: IncorrectAnswer): InCorrectAnswerImageEntity {
-        return InCorrectAnswerImageEntity(
-            imageUrl = input.url ?: ""
-        )
+    Mapper<IncorrectAnswer, String> {
+    override fun map(input: IncorrectAnswer): String {
+        return input.url ?: ""
+
     }
 }

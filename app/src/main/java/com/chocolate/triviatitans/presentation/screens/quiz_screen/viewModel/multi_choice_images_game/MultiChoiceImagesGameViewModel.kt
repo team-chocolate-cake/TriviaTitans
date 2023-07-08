@@ -84,6 +84,6 @@ class MultiChoiceImagesGameViewModel @Inject constructor(
 
 
     private companion object {
-        private const val LIMIT = 10
+        private const val LIMIT = 4
     }
 }

@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -57,24 +58,34 @@ fun MultiChoiceImagesGame(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         state = rememberLazyGridState(),
         content = {
-            itemsIndexed(state.questions) { index, item ->
-                Image(
-                    painter = rememberAsyncImagePainter( item.answers[index]),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .height(height = 200f.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .fillMaxSize()
-                        .clickable {
-                            selectedIndex.value = index
-                            isCorrectAnswer.value = item.answers[index] == item.correctAnswer
-                            answerColor.value = if (isCorrectAnswer.value) correctColor else errorColor
-                        }.border(
-                            BorderStroke(2.dp,  if (selectedIndex.value == index) answerColor.value else Color(0x00F8F8F8) ),
-                            shape = RoundedCornerShape(12.dp)
-                        ),
-                    contentScale = ContentScale.Crop,
-                )
+            if (state.questions.size == 10){
+                Log.i("cc", "MultiChoiceImagesGame: ${state.questions.size}")
+                itemsIndexed(state.questions) { index, item ->
+                    Image(
+                        painter = rememberAsyncImagePainter( item.answers[index]),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .height(height = 200f.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .fillMaxSize()
+                            .clickable {
+                                selectedIndex.value = index
+                                isCorrectAnswer.value = item.answers[index] == item.correctAnswer
+                                answerColor.value =
+                                    if (isCorrectAnswer.value) correctColor else errorColor
+                            }
+                            .border(
+                                BorderStroke(
+                                    2.dp,
+                                    if (selectedIndex.value == index) answerColor.value else Color(
+                                        0x00F8F8F8
+                                    )
+                                ),
+                                shape = RoundedCornerShape(12.dp)
+                            ),
+                        contentScale = ContentScale.Crop,
+                    )
+                }
             }
 
         }
