@@ -5,4 +5,7 @@
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
     <string name="choose_level">Choose Level</string>
+    <string name="level_image">Level Image</string>
+    <string name="start_game">START GAME</string>
+    <string name="difficulty">Difficulty</string>
 </resources>

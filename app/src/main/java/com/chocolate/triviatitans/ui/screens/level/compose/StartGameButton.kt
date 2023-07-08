@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
 
 @Composable
@@ -28,7 +30,7 @@ fun StartGameButton(
             .padding(horizontal = 40.dp, vertical = 16.dp)
     ) {
         Text(
-            text = "START GAME",
+            text = stringResource(R.string.start_game),
             color = Color.White.copy(alpha = 0.87f),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,

@@ -6,14 +6,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
 
 @Composable
 fun TitleText(color: CustomColorsPalette) {
     Text(
-        text = "Difficulty",
+        text = stringResource(R.string.difficulty),
         color = color.primary,
         style = MaterialTheme.typography.titleLarge,
         textAlign = TextAlign.Center,
