@@ -60,13 +60,14 @@ class QuizScreenViewModel @Inject constructor(
         }
     }
 
-    override fun onClickCard(question: String, questionNumber: Int) {
+    override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
         _state.update {
             it.copy(
                 questionNumber = (it.questionNumber + 1)
                     .takeIf { questionNumber -> questionNumber < it.questionUiStates.size } ?: 0,
                 questionUiStates = it.questionUiStates.map
                 { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
+                userScore = if (isCorrectAnswer) it.userScore + 10 else it.userScore
             )
         }
     }
@@ -120,7 +121,6 @@ class QuizScreenViewModel @Inject constructor(
     override fun onClickReset() {
         _state.update {
             val isLastQuestion = it.questionNumber == it.questionUiStates.size
-            Log.i("gg", "${it.questionNumber} == ${it.questionUiStates.size } = $isLastQuestion")
             it.copy(
                 questionNumber = it.questionNumber + 1,
                 hintReset = it.hintReset.copy(
