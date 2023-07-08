@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.chocolate.triviatitans.presentation.screens.category.CategoryScreen
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.WordWiseScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    WordWiseScreen()
+                    CategoryScreen()
                 }
             }
         }

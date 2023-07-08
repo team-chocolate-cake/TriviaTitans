@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.Header
+import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.LatterLazyGrid
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.QuestionLettersLazyGird
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel.WordWiseUIState
@@ -29,7 +29,7 @@ fun WordWiseContent(
 ) {
     if (state.questionUiStates.isNotEmpty()) {
         Column(Modifier.padding(horizontal = 16.dp)) {
-            Header(question = state.questionUiStates[state.questionNumber].question)
+            //Header(question = state.questionUiStates[state.questionNumber].question)
 
             QuestionLettersLazyGird(
                 charsList = state
