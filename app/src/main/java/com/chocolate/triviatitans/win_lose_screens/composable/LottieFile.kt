@@ -17,7 +17,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 
 
 @Composable
-fun CongratulationsAnimation(rawRes: Int, modifier: Modifier = Modifier) {
+fun WinLoseAnimation(rawRes: Int, modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(rawRes))
     val progress by animateLottieCompositionAsState(
         composition = composition,
