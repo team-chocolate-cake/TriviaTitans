@@ -8,4 +8,5 @@
     <string name="game_over">Game Over !</string>
     <string name="unfortionatly_u_lose_this_please_retry_it">"Unfortionatly u lose this \n please retry it "</string>
     <string name="retry">Retry</string>
+    <string name="spin_the_wheel_to_get_your_reward">Spin the wheel to get \n your Reward</string>
 </resources>

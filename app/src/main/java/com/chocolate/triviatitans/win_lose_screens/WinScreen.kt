@@ -33,7 +33,12 @@ fun WinScreen() {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        val (lottie, present, congrats, points, nextLevel, returnToHome) = createRefs()
+        val (lottie,
+            present,
+            congrats,
+            points,
+            nextLevel,
+            returnToHome) = createRefs()
         WinLoseAnimation(
             R.raw.congratulations,
             modifier = Modifier
