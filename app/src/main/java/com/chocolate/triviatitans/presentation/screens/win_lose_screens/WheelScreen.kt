@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.win_lose_screens
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens
 
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.Wheel
 import com.chocolate.triviatitans.ui.theme.LightOnBackground87
-import com.chocolate.triviatitans.win_lose_screens.composable.Wheel
 
 @Preview(showSystemUi = true)
 @Composable

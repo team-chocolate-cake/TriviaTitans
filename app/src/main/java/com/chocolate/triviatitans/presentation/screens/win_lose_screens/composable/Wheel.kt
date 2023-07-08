@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.win_lose_screens.composable
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable
 
 import android.content.Context
 import android.widget.Toast
