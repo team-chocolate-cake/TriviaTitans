@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.AnswersSection
@@ -21,7 +22,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
-fun QuizScreen() {
+fun QuizScreen(navController: NavHostController) {
     val viewModel: QuizScreenViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState().value
     QuizContent(multiChoiceTextUiState = state, viewModel, viewModel, state.isButtonsEnabled)

@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
+import com.chocolate.triviatitans.ui.theme.LightOnBackground87
 import com.chocolate.triviatitans.win_lose_screens.composable.Wheel
 
 @Preview(showSystemUi = true)

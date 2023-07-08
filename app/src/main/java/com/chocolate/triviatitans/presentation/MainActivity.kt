@@ -7,8 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
-import com.chocolate.triviatitans.presentation.screens.word_wise_screen.WordWiseScreen
+import com.chocolate.triviatitans.TriviaNavGraph
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    WordWiseScreen()
+                    TriviaNavGraph()
                 }
             }
         }

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.components.BottomBar
 import com.chocolate.triviatitans.presentation.screens.category.components.TopBar
@@ -22,6 +23,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun CategoryScreen(
+    navController: NavController,
     viewModel: CategoryViewModel = hiltViewModel()
 ) {
 
@@ -30,7 +32,9 @@ fun CategoryScreen(
     CategoryContent(
         state = state,
         onCategorySelected = viewModel::onCategorySelected,
-        onCategoryDeselected = viewModel::onCategoryDeselected
+        onCategoryDeselected = viewModel::onCategoryDeselected,
+        onClickNext = {navController.navigateToLevel()},
+        onClickBack={navController.navigateUp()}
     )
 }
 
@@ -39,7 +43,9 @@ fun CategoryScreen(
 fun CategoryContent(
     state: CategoriesUiState,
     onCategorySelected: (CategoryUiState) -> Unit,
-    onCategoryDeselected: (CategoryUiState) -> Unit
+    onCategoryDeselected: (CategoryUiState) -> Unit,
+    onClickNext :()->Unit,
+    onClickBack :()->Unit
 ) {
     val colors = TriviaCustomColors.current
 
@@ -55,7 +61,7 @@ fun CategoryContent(
         bottomBar = {
             BottomBar(
                 count = state.categoriesSelectedCount.toString(),
-                onNextClick = { /*TODO*/ },
+                onNextClick = onClickNext,
             )
         }
     )

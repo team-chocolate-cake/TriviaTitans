@@ -14,10 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.theme.LightBackground
-import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
-import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
-import com.chocolate.triviatitans.presentation.theme.Primary
+import com.chocolate.triviatitans.ui.theme.LightBackground
+import com.chocolate.triviatitans.ui.theme.LightOnBackground38
+import com.chocolate.triviatitans.ui.theme.LightOnBackground60
+import com.chocolate.triviatitans.ui.theme.Primary
 import com.chocolate.triviatitans.win_lose_screens.composable.ButtonWinLose
 import com.chocolate.triviatitans.win_lose_screens.composable.SpaceTop
 import com.chocolate.triviatitans.win_lose_screens.composable.TextDescription

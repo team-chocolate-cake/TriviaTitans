@@ -8,6 +8,6 @@ import com.chocolate.triviatitans.presentation.screens.word_wise_screen.WordWise
 
 fun NavGraphBuilder.homeRoute(navController: NavHostController){
     composable(route = Screens.HomeScreen.route){
-        WordWiseScreen(navController)
+        HomeScreen(navController)
     }
 }

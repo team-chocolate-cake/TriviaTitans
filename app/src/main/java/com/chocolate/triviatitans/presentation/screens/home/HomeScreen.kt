@@ -43,7 +43,7 @@ fun HomeScreen(navController: NavHostController) {
         HomeContent()
     }
 }
-
+@Preview(showSystemUi = true)
 @Composable
 fun HomeContent() {
 

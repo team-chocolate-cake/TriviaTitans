@@ -30,7 +30,7 @@ fun WordWiseContent(
 ) {
     if (state.questionUiStates.isNotEmpty()) {
         Column(Modifier.padding(horizontal = 16.dp)) {
-            Header(question = state.questionUiStates[state.questionNumber].question)
+//            Header(question = state.questionUiStates[state.questionNumber].question)
 
             QuestionLettersLazyGird(
                 charsList = state

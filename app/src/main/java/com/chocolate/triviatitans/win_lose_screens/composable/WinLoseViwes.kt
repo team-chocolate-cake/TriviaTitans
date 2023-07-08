@@ -12,11 +12,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.chocolate.triviatitans.presentation.theme.GameOver
-import com.chocolate.triviatitans.presentation.theme.LightBackground
-import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
-import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
 import com.chocolate.triviatitans.presentation.theme.firaSansFamily
+import com.chocolate.triviatitans.ui.theme.GameOver
+import com.chocolate.triviatitans.ui.theme.LightBackground
+import com.chocolate.triviatitans.ui.theme.LightOnBackground38
+import com.chocolate.triviatitans.ui.theme.LightOnBackground60
 
 @Composable
 fun TextTitle(text: String, modifier: Modifier = Modifier) {
