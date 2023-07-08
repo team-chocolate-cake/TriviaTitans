@@ -8,7 +8,10 @@ data class MultiChoiceTextUiState(
     val userScore: Int = 0,
     val questionNumber: Int = 0,
     val levelType: String = "Easy",
-    val isButtonsEnabled:Boolean = true,
+    val isButtonsEnabled: Boolean = true,
+    val hintFiftyFifty: HintButton = HintButton(),
+    val hintHeart: HintButton = HintButton(),
+    val hintReset: HintButton = HintButton(),
 ) {
     data class QuestionUiState(
         val id: String = "",
@@ -17,8 +20,11 @@ data class MultiChoiceTextUiState(
         val difficulty: String = "",
         val correctAnswer: String = "",
         val incorrectAnswers: List<String> = emptyList(),
-        val randomAnswers:List<String> = (incorrectAnswers.toMutableList() + (correctAnswer))
-    ) {
-    }
+        val randomAnswers: List<String> = (((incorrectAnswers.toMutableList()).distinct()).take(3) + (correctAnswer)).shuffled()
+    )
 
+    data class HintButton(
+        val isActive: Boolean = true,
+        val numberOfTries: Int = 3
+    )
 }

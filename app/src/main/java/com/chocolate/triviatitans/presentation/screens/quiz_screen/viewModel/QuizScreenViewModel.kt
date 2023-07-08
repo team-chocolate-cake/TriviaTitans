@@ -1,11 +1,15 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.AnswerCardListener
-import com.chocolate.triviatitans.usecase.GetUserQuestionsUseCase
+import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
+import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
+import com.chocolate.triviatitans.presentation.screens.GameType
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper.MultiChoiceImagesGameUiMapper
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper.QuizQuestionsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,14 +20,29 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuizScreenViewModel @Inject constructor(private val getUserQuestionsUseCase: GetUserQuestionsUseCase) :
+class QuizScreenViewModel @Inject constructor(
+    private val getUserQuestionsUseCase: GetUserQuestionsUseCase,
+    private val getQuestionsUseCase: GetMultiChoiceImagesGameUseCase,
+    private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
+) :
     ViewModel(),
-    AnswerCardListener {
+    AnswerCardListener, HintListener {
     private val _state = MutableStateFlow(MultiChoiceTextUiState())
     val state = _state.asStateFlow()
 
+    private val gameType = GameType.Multi_Choice_Images.name
+
     init {
-        getUserQuestions()
+
+        when (gameType) {
+            GameType.Multi_Choice_Images.name -> {
+                getUserQuestionsImagesGame()
+            }
+
+            else -> {
+                getUserQuestions()
+            }
+        }
     }
 
     private fun getUserQuestions() {
@@ -32,16 +51,41 @@ class QuizScreenViewModel @Inject constructor(private val getUserQuestionsUseCas
             call = { getUserQuestionsUseCase(10, "science", "easy") },
             onSuccess = ::onSuccessUserQuestions,
             onError = {
-                Log.i("questions", "getUserQuestions: $it")
             }
         )
     }
+
+    private fun getUserQuestionsImagesGame() {
+        _state.update { it.copy(isLoading = true) }
+        tryToExecute(
+            call = {
+                getQuestionsUseCase(
+                    10,
+                    "music",
+                    "easy"
+                ).map { multiChoiceImagesGameUiMapper.map(it) }
+            },
+            onSuccess = ::onGetAllQuestionsSuccess,
+            onError = {
+            }
+        )
+    }
+
+    private fun onGetAllQuestionsSuccess(items: List<MultiChoiceTextUiState.QuestionUiState>) {
+        _state.update {
+            it.copy(
+                questionUiStates = items,
+                isLoading = false,
+                error = null,
+            )
+        }
+    }
+
 
     private fun onSuccessUserQuestions(userQuestions: List<TextChoiceEntity>) {
         _state.update { it.copy(isLoading = false) }
         val questionsUiState = userQuestions.map { QuizQuestionsMapper().map(it) }
         _state.update { it.copy(questionUiStates = questionsUiState) }
-        Log.i("questions", "onSuccessUserQuestions: $questionsUiState")
     }
 
     private fun <T> tryToExecute(
@@ -59,19 +103,16 @@ class QuizScreenViewModel @Inject constructor(private val getUserQuestionsUseCas
         }
     }
 
-    override fun onClickCard(question: String, questionNumber: Int) {
+    override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
         _state.update {
-            it.copy(questionNumber =
-            (it.questionNumber + 1).takeIf { questionNumber -> questionNumber < 10 }
-                ?: 0,
-                questionUiStates = it.questionUiStates.map { s -> s.copy(randomAnswers = s.randomAnswers.shuffled()) })
+            it.copy(
+                questionNumber = (it.questionNumber + 1)
+                    .takeIf { questionNumber -> questionNumber < it.questionUiStates.size } ?: 0,
+                questionUiStates = it.questionUiStates.map
+                { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
+                userScore = if (isCorrectAnswer) it.userScore + 10 else it.userScore
+            )
         }
-//        Log.i("gg", "question: ${_state.value.questionUiStates[questionNumber].question}")
-//        Log.i("gg", "random answers: ${_state.value.questionUiStates[questionNumber].randomAnswers}")
-//        Log.i("gg", "incorrect: ${_state.value.questionUiStates[questionNumber].incorrectAnswers}")
-//        Log.i("gg", "correct: ${_state.value.questionUiStates[questionNumber].correctAnswer}")
-//        return question == _state.value.questionUiStates[questionNumber].question
-
     }
 
     override fun updateButtonState(value: Boolean) {
@@ -80,7 +121,58 @@ class QuizScreenViewModel @Inject constructor(private val getUserQuestionsUseCas
         }
     }
 
-    private fun getQuestionColor(question: String, questionNumber: Int): Boolean {
-        return question == _state.value.questionUiStates[questionNumber].question
+    override fun onClickFiftyFifty() {
+        _state.update {
+            it.copy(
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
+                    isActive = it.hintFiftyFifty.numberOfTries >= 2
+                ),
+            )
+        }
+        _state.update { item ->
+            val currentQuestionNumber = state.value.questionNumber
+            val currentQuestionUiStates = state.value.questionUiStates
+            val updatedQuestionUiStates =
+                currentQuestionUiStates.mapIndexed { index, questionUiState ->
+                    if (index == currentQuestionNumber) {
+                        val filteredQuestions =
+                            (questionUiState.incorrectAnswers - questionUiState.correctAnswer)
+                                .shuffled()
+                                .take(1) + questionUiState.correctAnswer
+
+                        questionUiState.copy(randomAnswers = filteredQuestions)
+                    } else {
+                        questionUiState
+                    }
+                }
+            item.copy(questionUiStates = updatedQuestionUiStates)
+        }
+    }
+
+    override fun onClickHeart() {
+        _state.update {
+            it.copy(
+                hintHeart = it.hintHeart.copy(
+                    numberOfTries = (it.hintHeart.numberOfTries - 1),
+                    isActive = it.hintHeart.numberOfTries >= 2
+                )
+            )
+        }
+    }
+
+    override fun onClickReset() {
+        _state.update {
+            val isLastQuestion = it.questionNumber == it.questionUiStates.size
+            it.copy(
+                questionNumber = it.questionNumber + 1,
+                hintReset = it.hintReset.copy(
+                    numberOfTries = (it.hintReset.numberOfTries - 1),
+                    isActive =
+                    it.hintReset.numberOfTries > 1 && isLastQuestion
+
+                )
+            )
+        }
     }
 }

@@ -1,7 +1,8 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper
 
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.mapper.Mapper
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
 
 class QuizQuestionsMapper: Mapper<TextChoiceEntity, MultiChoiceTextUiState.QuestionUiState> {
     override fun map(input: TextChoiceEntity): MultiChoiceTextUiState.QuestionUiState {

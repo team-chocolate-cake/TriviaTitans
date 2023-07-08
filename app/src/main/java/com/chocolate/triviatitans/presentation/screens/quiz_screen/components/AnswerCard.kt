@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
+import com.chocolate.triviatitans.presentation.theme.LightBorder
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.AnswerCardListener
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -43,11 +45,12 @@ fun AnswerCard(
     Box(Modifier.clip(RoundedCornerShape(12.dp))) {
         Row(modifier = modifier
             .clickable(enabled = isButtonsEnabled) {
+                val isCorrectAnswer = answer == correctAnswer
                 answerColor.value =
                     if (answer == correctAnswer) cardColor.correct else cardColor.error
                 answerCardListener.updateButtonState(false)
                 Timer().schedule(500) {
-                    answerCardListener.onClickCard(answer, questionNumber)
+                    answerCardListener.onClickCard(answer, questionNumber, isCorrectAnswer)
                     answerColor.value = cardColor.card
                     answerCardListener.updateButtonState(true)
                 }
@@ -77,7 +80,11 @@ fun AnswerCard(
 fun CardPreview() {
     TriviaTitansTheme() {
         AnswerCard('A', "Soccer", object : AnswerCardListener {
-            override fun onClickCard(question: String, questionNumber: Int) {
+            override fun onClickCard(
+                question: String,
+                questionNumber: Int,
+                isCorrectAnswer: Boolean
+            ) {
                 TODO("Not yet implemented")
             }
 

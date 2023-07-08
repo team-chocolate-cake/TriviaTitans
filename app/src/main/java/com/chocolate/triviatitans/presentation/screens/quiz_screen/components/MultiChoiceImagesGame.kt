@@ -23,37 +23,37 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
 
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import java.util.Timer
+import kotlin.concurrent.schedule
 
-@Preview(showSystemUi = true)
 @Composable
 fun MultiChoiceImagesGame(
-    isCorrectAnswer: Boolean = false
+    state: MultiChoiceTextUiState,
+    question: MultiChoiceTextUiState.QuestionUiState,
+    answerCardListener: AnswerCardListener,
+    isButtonsEnabled: Boolean
 ) {
     val answerColor = remember { mutableStateOf(Color(0x00F8F8F8)) }
+    val isCorrectAnswer = remember { mutableStateOf(false) }
     val errorColor: Color = TriviaCustomColors.current.error
     val correctColor: Color = TriviaCustomColors.current.correct
-
 
     var selectedIndex = remember { mutableStateOf(-1) }
 
 
-    val items = listOf(
-        "https://img.freepik.com/free-photo/portrait-handsome-man-with-dark-hairstyle-bristle-toothy-smile-dressed-white-sweatshirt-feels-very-glad-poses-indoor-pleased-european-guy-being-good-mood-smiles-positively-emotions-concept_273609-61405.jpg",
-        "https://img.freepik.com/free-photo/portrait-handsome-man-with-dark-hairstyle-bristle-toothy-smile-dressed-white-sweatshirt-feels-very-glad-poses-indoor-pleased-european-guy-being-good-mood-smiles-positively-emotions-concept_273609-61405.jpg",
-        "https://img.freepik.com/free-photo/portrait-handsome-man-with-dark-hairstyle-bristle-toothy-smile-dressed-white-sweatshirt-feels-very-glad-poses-indoor-pleased-european-guy-being-good-mood-smiles-positively-emotions-concept_273609-61405.jpg",
-        "https://img.freepik.com/free-photo/portrait-handsome-man-with-dark-hairstyle-bristle-toothy-smile-dressed-white-sweatshirt-feels-very-glad-poses-indoor-pleased-european-guy-being-good-mood-smiles-positively-emotions-concept_273609-61405.jpg"
-    )
     LazyVerticalGrid(
-        columns =  GridCells.Fixed(2),
+        columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         state = rememberLazyGridState(),
         content = {
-            itemsIndexed(items) { index, item ->
+            itemsIndexed(question.randomAnswers) { index, item ->
                 Image(
                     painter = rememberAsyncImagePainter(item),
                     contentDescription = "",
@@ -61,11 +61,32 @@ fun MultiChoiceImagesGame(
                         .height(height = 200f.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxSize()
-                        .clickable {
+                        .clickable(enabled = isButtonsEnabled) {
+
                             selectedIndex.value = index
-                            answerColor.value = if (isCorrectAnswer) correctColor else errorColor
-                        }.border(
-                            BorderStroke(2.dp,  if (selectedIndex.value == index) answerColor.value else Color(0x00F8F8F8) ),
+                            isCorrectAnswer.value = item == question.correctAnswer
+                            answerColor.value =
+                                if (isCorrectAnswer.value) correctColor else errorColor
+
+                            answerCardListener.updateButtonState(false)
+
+                            Timer().schedule(500) {
+                                answerCardListener.onClickCard(
+                                    item,
+                                    state.questionNumber,
+                                    isCorrectAnswer.value
+                                )
+                                answerColor.value = Color(0x00F8F8F8)
+                                answerCardListener.updateButtonState(true)
+                            }
+
+                        }
+                        .border(
+                            BorderStroke(
+                                2.dp, if (selectedIndex.value == index) {
+                                    answerColor.value
+                                } else Color(0x00F8F8F8)
+                            ),
                             shape = RoundedCornerShape(12.dp)
                         ),
                     contentScale = ContentScale.Crop,
