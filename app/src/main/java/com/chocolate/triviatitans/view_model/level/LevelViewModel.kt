@@ -1,7 +1,9 @@
 package com.chocolate.triviatitans.view_model.level
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.chocolate.triviatitans.ui.screens.level.LevelArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,10 +12,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LevelViewModel @Inject constructor(
-
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val _state = MutableStateFlow(LevelUiState())
     val state = _state.asStateFlow()
+    private val args: LevelArgs = LevelArgs(savedStateHandle)
 
     init {
         getScore()
