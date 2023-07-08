@@ -31,7 +31,7 @@ fun QuizScreen(
     viewModel: QuizScreenViewModel = hiltViewModel(),
     gameViewModel: MultiChoiceImagesGameViewModel = hiltViewModel(),
 ) {
-    val state by gameViewModel.state.collectAsState()
+    val state = gameViewModel.state.collectAsState().value
 
     Column(
         Modifier
@@ -39,16 +39,17 @@ fun QuizScreen(
             .background(color = TriviaCustomColors.current.background)
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
-        Header()
-        Log.i("bbbb", "QuizScreen:${state.questions[state.questionCount].question} ")
 
-        Text(
-            text = "state.questions[0].question.toString()",
-            style = MaterialTheme.typography.titleMedium,
-            color = TriviaCustomColors.current.onBackground87
-        )
-        SpacerVertical16()
-        AnswersSection(state)
+        if (state.questions.isNotEmpty()) {
+            Header()
+            Text(
+                text = state.questions[state.questionCount].question,
+                style = MaterialTheme.typography.titleMedium,
+                color = TriviaCustomColors.current.onBackground87
+            )
+            SpacerVertical16()
+            AnswersSection(state)
+        }
     }
 }
 

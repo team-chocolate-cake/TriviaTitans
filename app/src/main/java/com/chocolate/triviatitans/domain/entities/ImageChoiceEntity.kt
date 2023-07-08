@@ -9,5 +9,4 @@ data class ImageChoiceEntity(
     val difficulty: String
 ){
     val _correctAnswer = correctAnswer[0].imageUrl
-    val _incorrectAnswer = incorrectAnswer[0]
 }

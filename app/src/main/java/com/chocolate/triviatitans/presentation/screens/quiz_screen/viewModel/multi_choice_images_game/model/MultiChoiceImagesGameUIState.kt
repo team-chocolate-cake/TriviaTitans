@@ -13,6 +13,6 @@ data class MultiChoiceImagesGameUIState(
     val questionCount: Int = 0,
     val heartCount: Int = 3,
     val points: Int = 0,
-    val changeQuestionCount: Int = 0,
-    val deleteQuestionCount: Int = 0,
+    val changeQuestionCountGift: Int = 0,
+    val deleteQuestionCountGift: Int = 0,
 )

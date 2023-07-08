@@ -34,9 +34,3 @@ fun AnswersSection(
         GameType.word_wise.name ->{}
     }
 }
-
-//@Preview(showSystemUi = true)
-//@Composable
-//fun AnswersSectionPreview() {
-//    AnswersSection()
-//}

@@ -34,7 +34,8 @@ class MultiChoiceImagesGameViewModel @Inject constructor(
                     limit = LIMIT,
                     categories = "music",
                     difficulties = GameLevel.easy.name
-                ).map { multiChoiceImagesGameUiMapper.map(it) }.also { Log.i("bb", "getQuestions:$it ") }
+                ).map { multiChoiceImagesGameUiMapper.map(it) }
+                    .also { Log.i("bb", "getQuestions:$it ") }
             },
             onSuccess = ::onGetAllQuestionsSuccess,
             onError = ::onError,
@@ -71,6 +72,14 @@ class MultiChoiceImagesGameViewModel @Inject constructor(
 
 
     override fun onClickAnswer(answerPosition: Int) {
+
+        _state.update {
+            it.copy(questionCount =
+            (it.questionCount + 1).takeIf { questionCount -> questionCount < 10 }
+                ?: 0,
+                questions = it.questions.map { s ->
+                    s.copy(answers = s.answers) })
+        }
     }
 
 

@@ -6,9 +6,8 @@ data class ImageChoiceUIState(
     val id: String,
     val category: String,
     val correctAnswer: String,
-    val incorrectAnswer: List<InCorrectAnswerImageEntity>,
+    val incorrectAnswer: List<List<InCorrectAnswerImageUIState>>,
     val question: String,
     val difficulty: String,
-){
-    val answers : List<String> = (incorrectAnswer + correctAnswer).shuffled() as List<String>
-}
+    val answers: List<Any> = (incorrectAnswer + correctAnswer).distinct().shuffled()
+)

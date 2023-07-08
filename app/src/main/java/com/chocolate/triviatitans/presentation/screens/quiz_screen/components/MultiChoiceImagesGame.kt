@@ -59,7 +59,7 @@ fun MultiChoiceImagesGame(
         content = {
             itemsIndexed(state.questions) { index, item ->
                 Image(
-                    painter = rememberAsyncImagePainter(item.answers),
+                    painter = rememberAsyncImagePainter( item.answers[index]),
                     contentDescription = "",
                     modifier = Modifier
                         .height(height = 200f.dp)
@@ -67,6 +67,7 @@ fun MultiChoiceImagesGame(
                         .fillMaxSize()
                         .clickable {
                             selectedIndex.value = index
+                            isCorrectAnswer.value = item.answers[index] == item.correctAnswer
                             answerColor.value = if (isCorrectAnswer.value) correctColor else errorColor
                         }.border(
                             BorderStroke(2.dp,  if (selectedIndex.value == index) answerColor.value else Color(0x00F8F8F8) ),
