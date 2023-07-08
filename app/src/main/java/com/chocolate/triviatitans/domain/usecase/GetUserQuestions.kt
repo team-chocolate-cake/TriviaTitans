@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.usecase
+package com.chocolate.triviatitans.domain.usecase
 
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity

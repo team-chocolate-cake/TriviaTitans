@@ -59,6 +59,7 @@ fun QuizContent(
                 question = currentQuestion,
                 questionNumber = multiChoiceTextUiState.questionNumber,
                 isButtonsEnabled = isButtonsEnabled,
+                state = multiChoiceTextUiState,
             )
         }
     }

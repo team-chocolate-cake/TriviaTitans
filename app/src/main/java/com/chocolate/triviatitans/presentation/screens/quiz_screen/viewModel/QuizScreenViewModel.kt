@@ -1,12 +1,15 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
+import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
+import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
+import com.chocolate.triviatitans.presentation.screens.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.usecase.GetUserQuestionsUseCase
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper.MultiChoiceImagesGameUiMapper
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper.QuizQuestionsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,15 +21,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuizScreenViewModel @Inject constructor(
-    private val getUserQuestionsUseCase: GetUserQuestionsUseCase
+    private val getUserQuestionsUseCase: GetUserQuestionsUseCase,
+    private val getQuestionsUseCase: GetMultiChoiceImagesGameUseCase,
+    private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
 ) :
     ViewModel(),
     AnswerCardListener, HintListener {
     private val _state = MutableStateFlow(MultiChoiceTextUiState())
     val state = _state.asStateFlow()
 
+    private val gameType = GameType.Multi_Choice_Images.name
+
     init {
-        getUserQuestions()
+
+        when (gameType) {
+            GameType.Multi_Choice_Images.name -> {
+                getUserQuestionsImagesGame()
+            }
+
+            else -> {
+                getUserQuestions()
+            }
+        }
     }
 
     private fun getUserQuestions() {
@@ -38,6 +54,33 @@ class QuizScreenViewModel @Inject constructor(
             }
         )
     }
+
+    private fun getUserQuestionsImagesGame() {
+        _state.update { it.copy(isLoading = true) }
+        tryToExecute(
+            call = {
+                getQuestionsUseCase(
+                    10,
+                    "music",
+                    "easy"
+                ).map { multiChoiceImagesGameUiMapper.map(it) }
+            },
+            onSuccess = ::onGetAllQuestionsSuccess,
+            onError = {
+            }
+        )
+    }
+
+    private fun onGetAllQuestionsSuccess(items: List<MultiChoiceTextUiState.QuestionUiState>) {
+        _state.update {
+            it.copy(
+                questionUiStates = items,
+                isLoading = false,
+                error = null,
+            )
+        }
+    }
+
 
     private fun onSuccessUserQuestions(userQuestions: List<TextChoiceEntity>) {
         _state.update { it.copy(isLoading = false) }

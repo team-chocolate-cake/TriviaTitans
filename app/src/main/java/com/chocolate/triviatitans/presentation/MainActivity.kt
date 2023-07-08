@@ -12,7 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

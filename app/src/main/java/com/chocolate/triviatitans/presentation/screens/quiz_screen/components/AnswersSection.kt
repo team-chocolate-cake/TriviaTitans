@@ -12,12 +12,14 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.Mul
 @Composable
 fun AnswersSection(
     answerCardListener: AnswerCardListener,
-    gameType: String = "Multi_Choice",
+    gameType: String = GameType.Multi_Choice_Images.name,
     question: MultiChoiceTextUiState.QuestionUiState,
     questionNumber: Int,
-    isButtonsEnabled: Boolean
+    isButtonsEnabled: Boolean,
+    state : MultiChoiceTextUiState,
 ) {
     val givenQuestion = question.randomAnswers
+
     when (gameType) {
         GameType.Multi_Choice.name -> {
             LazyColumn() {
@@ -36,7 +38,7 @@ fun AnswersSection(
         }
 
         GameType.Multi_Choice_Images.name -> {
-            MultiChoiceImagesGame()
+            MultiChoiceImagesGame(state = state , question = question)
         }
 
         GameType.Word_Wise.name -> {}
@@ -44,27 +46,28 @@ fun AnswersSection(
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun AnswersSectionPreview() {
-    AnswersSection(
-        answerCardListener = object : AnswerCardListener {
-            override fun onClickCard(
-                question: String,
-                questionNumber: Int,
-                isCorrectAnswer: Boolean
-            ) {
-                TODO("Not yet implemented")
-            }
-
-            override fun updateButtonState(value: Boolean) {
-                TODO("Not yet implemented")
-            }
-
-
-        },
-        question = MultiChoiceTextUiState.QuestionUiState(id = ""),
-        questionNumber = 0,
-        isButtonsEnabled = true
-    )
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//fun AnswersSectionPreview() {
+//    AnswersSection(
+//        answerCardListener = object : AnswerCardListener {
+//            override fun onClickCard(
+//                question: String,
+//                questionNumber: Int,
+//                isCorrectAnswer: Boolean
+//            ) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun updateButtonState(value: Boolean) {
+//                TODO("Not yet implemented")
+//            }
+//
+//
+//        },
+//        question = MultiChoiceTextUiState.QuestionUiState(id = ""),
+//        questionNumber = 0,
+//        isButtonsEnabled = true,
+//        state = null,
+//    )
+//}
