@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.data.repository
 
+import android.util.Log
 import com.chocolate.triviatitans.data.remote.service.TriviaTitansService
 import com.chocolate.triviatitans.domain.entities.ImageChoiceEntity
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
@@ -17,7 +18,13 @@ class TriviaTitansRepositoryImpl @Inject constructor(
         categories: String,
         difficulties: String
     ): List<TextChoiceEntity> {
-       val textChoiceRemoteDTOs =  wrapApiCall {  triviaTitansService.getTextChoiceQuestion(limit, categories, difficulties)}
+        val textChoiceRemoteDTOs = wrapApiCall {
+            triviaTitansService.getTextChoiceQuestion(
+                limit,
+                categories,
+                difficulties
+            )
+        }
         return domainTextChoiceEntity.mapSingle(textChoiceRemoteDTOs)
     }
 
@@ -26,7 +33,13 @@ class TriviaTitansRepositoryImpl @Inject constructor(
         categories: String,
         difficulties: String
     ): List<ImageChoiceEntity> {
-        val imageChoiceRemoteDTOs = wrapApiCall {  triviaTitansService.getImageChoiceQuestion(limit, categories, difficulties) }
+        val imageChoiceRemoteDTOs = wrapApiCall {
+            triviaTitansService.getImageChoiceQuestion(
+                limit = limit,
+               categories= categories,
+               difficulties= difficulties
+            )
+        }.also { Log.i("bbb", "getQuestions:$it ") }
         return domainImageChoiceEntity.mapSingle(imageChoiceRemoteDTOs)
     }
 

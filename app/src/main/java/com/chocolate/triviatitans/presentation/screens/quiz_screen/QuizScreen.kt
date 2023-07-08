@@ -1,5 +1,7 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,14 +21,17 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.An
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.Header
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.ProgressIndicator
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.QuizScreenViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice_images_game.MultiChoiceImagesGameViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun QuizScreen(
-    viewModel: QuizScreenViewModel = hiltViewModel()
+    viewModel: QuizScreenViewModel = hiltViewModel(),
+    gameViewModel: MultiChoiceImagesGameViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by gameViewModel.state.collectAsState()
 
     Column(
         Modifier
@@ -35,8 +40,15 @@ fun QuizScreen(
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
         Header()
+        Log.i("bbbb", "QuizScreen:${state.questions[state.questionCount].question} ")
+
+        Text(
+            text = "state.questions[0].question.toString()",
+            style = MaterialTheme.typography.titleMedium,
+            color = TriviaCustomColors.current.onBackground87
+        )
         SpacerVertical16()
-        AnswersSection()
+        AnswersSection(state)
     }
 }
 

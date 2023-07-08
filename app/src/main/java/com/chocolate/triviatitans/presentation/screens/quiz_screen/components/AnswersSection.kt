@@ -5,16 +5,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chocolate.triviatitans.presentation.screens.GameType
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.chocolate.triviatitans.presentation.common.type.GameType
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice_images_game.MultiChoiceImagesGameViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice_images_game.model.MultiChoiceImagesGameUIState
 
 @Composable
 fun AnswersSection(
-    gameType: String = "Multi_Choice_Images"
+    state: MultiChoiceImagesGameUIState,
+    gameType: String = GameType.image_choice.name
 ) {
 
     when (gameType) {
 
-        GameType.Multi_Choice.name -> {
+        GameType.text_choice.name -> {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Card('A', "Soccer", true)
                 Card('B', "Swimming", false)
@@ -23,16 +27,16 @@ fun AnswersSection(
             }
         }
 
-        GameType.Multi_Choice_Images.name -> {
-            MultiChoiceImagesGame()
+        GameType.image_choice.name -> {
+            MultiChoiceImagesGame(state)
         }
-        GameType.Word_Wise.name ->{}
-
+        
+        GameType.word_wise.name ->{}
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun AnswersSectionPreview() {
-    AnswersSection()
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//fun AnswersSectionPreview() {
+//    AnswersSection()
+//}

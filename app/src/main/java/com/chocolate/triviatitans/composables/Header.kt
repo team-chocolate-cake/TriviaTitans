@@ -19,11 +19,7 @@ fun Header() {
         SpacerVertical16()
         ProgressIndicator(progressPercentage = .6f)
         SpacerVertical32()
-        Text(
-            text = "What sport is best known as the ‘king of sports ?",
-            style = MaterialTheme.typography.titleMedium,
-            color = TriviaCustomColors.current.onBackground87
-        )
+
     }
 }
 
