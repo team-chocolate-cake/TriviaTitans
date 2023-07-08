@@ -44,6 +44,7 @@ val GameOver = Color(0xFFF4AF00)
 data class CustomColorsPalette(
     val primary: Color = Color.Unspecified,
     val onPrimary: Color = Color.Unspecified,
+    val secondary: Color = Color.Unspecified,
     val onSecondary: Color = Color.Unspecified,
     val onBackground87: Color = Color.Unspecified,
     val onBackground60: Color = Color.Unspecified,
