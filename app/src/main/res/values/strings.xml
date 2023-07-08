@@ -24,4 +24,12 @@
 
     <string name="game_type">Game Type</string>
 
+    <string name="sub_title_descripation_level">Choose your level wisely! Easy questions await beginners, while hard questions will challenge even the sharpest minds.</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="choose_level">Choose Level</string>
+    <string name="level_image">Level Image</string>
+    <string name="start_game">START GAME</string>
+    <string name="difficulty">Difficulty</string>
 </resources>
