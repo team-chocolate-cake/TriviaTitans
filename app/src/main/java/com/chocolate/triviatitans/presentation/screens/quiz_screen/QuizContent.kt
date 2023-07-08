@@ -41,20 +41,22 @@ fun QuizContent(
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
         if (multiChoiceTextUiState.questionUiStates.isNotEmpty()) {
+            val currentQuestion = multiChoiceTextUiState
+                .questionUiStates[multiChoiceTextUiState.questionNumber]
             Header(
-                question = multiChoiceTextUiState.questionUiStates[multiChoiceTextUiState.questionNumber].question,
+                question = currentQuestion.question,
                 hintListener = hintListener,
                 fiftyHint = multiChoiceTextUiState.hintFiftyFifty,
                 heartHint = multiChoiceTextUiState.hintHeart,
                 resetHint = multiChoiceTextUiState.hintReset,
                 questionNumber = multiChoiceTextUiState.questionNumber + 1,
                 multiChoiceTextUiState.userScore,
-                correctAnswer = multiChoiceTextUiState.questionUiStates[multiChoiceTextUiState.questionNumber].correctAnswer
+                correctAnswer = currentQuestion.correctAnswer
             )
             SpacerVertical16()
             AnswersSection(
                 answerCardListener,
-                question = multiChoiceTextUiState.questionUiStates[multiChoiceTextUiState.questionNumber],
+                question = currentQuestion,
                 questionNumber = multiChoiceTextUiState.questionNumber,
                 isButtonsEnabled = isButtonsEnabled,
             )
@@ -67,9 +69,14 @@ fun QuizContent(
 fun QuizScreenPreview() {
     TriviaTitansTheme() {
         QuizContent(MultiChoiceTextUiState(), object : AnswerCardListener {
-            override fun onClickCard(question: String, questionNumber: Int) {
+            override fun onClickCard(
+                question: String,
+                questionNumber: Int,
+                isCorrectAnswer: Boolean
+            ) {
                 TODO("Not yet implemented")
             }
+
 
             override fun updateButtonState(value: Boolean) {
                 TODO("Not yet implemented")
