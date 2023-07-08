@@ -5,7 +5,7 @@
     android:viewportHeight="104">
   <path
       android:pathData="M4,0L28,0A4,4 0,0 1,32 4L32,28A4,4 0,0 1,28 32L4,32A4,4 0,0 1,0 28L0,4A4,4 0,0 1,4 0z"
-      android:fillColor="#27A5EC"/>
+      android:fillColor="#A0D3EF"/>
   <path
       android:pathData="M21.42,12.57L19.5,21H17.5L16.03,13.9L14.51,21H12.55L10.59,12.57H12.06L13.58,19.98L15.24,12.57H16.89L18.47,19.98L20.01,12.57H21.42Z"
       android:fillColor="#ffffff"/>
@@ -17,7 +17,7 @@
       android:fillColor="#ffffff"/>
   <path
       android:pathData="M76,0L100,0A4,4 0,0 1,104 4L104,28A4,4 0,0 1,100 32L76,32A4,4 0,0 1,72 28L72,4A4,4 0,0 1,76 0z"
-      android:fillColor="#27A5EC"/>
+      android:fillColor="#002B44"/>
   <path
       android:pathData="M91.87,21H89.84L85.36,11.64C85.42,12.38 85.47,13.06 85.5,13.69C85.54,14.31 85.56,15.06 85.56,15.94V21H84.14V9.98H86.12L90.65,19.35C90.62,19.07 90.58,18.59 90.52,17.9C90.47,17.2 90.44,16.57 90.44,15.99V9.98H91.87V21Z"
       android:fillColor="#ffffff"/>
@@ -35,13 +35,13 @@
       android:fillColor="#ffffff"/>
   <path
       android:pathData="M76,36L100,36A4,4 0,0 1,104 40L104,64A4,4 0,0 1,100 68L76,68A4,4 0,0 1,72 64L72,40A4,4 0,0 1,76 36z"
-      android:fillColor="#27A5EC"/>
+      android:fillColor="#A0D3EF"/>
   <path
       android:pathData="M86.76,45.98C88.42,45.98 89.75,46.37 90.76,47.14C91.77,47.91 92.28,49.34 92.28,51.43C92.28,53.47 91.77,54.91 90.76,55.75C89.75,56.58 88.53,57 87.09,57H84.45V45.98H86.76ZM85.97,47.19V55.8H87.2C88.23,55.8 89.06,55.49 89.7,54.86C90.34,54.23 90.66,53.09 90.66,51.43C90.66,50.27 90.49,49.38 90.16,48.76C89.83,48.13 89.41,47.71 88.9,47.51C88.39,47.3 87.78,47.19 87.09,47.19H85.97Z"
       android:fillColor="#ffffff"/>
   <path
       android:pathData="M4,72L28,72A4,4 0,0 1,32 76L32,100A4,4 0,0 1,28 104L4,104A4,4 0,0 1,0 100L0,76A4,4 0,0 1,4 72z"
-      android:fillColor="#27A5EC"/>
+      android:fillColor="#F4AF00"/>
   <path
       android:pathData="M13.67,93V81.98H19.53L19.35,83.19H15.19V86.95H18.79V88.15H15.19V93H13.67Z"
       android:fillColor="#ffffff"/>

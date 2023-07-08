@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -50,7 +51,32 @@ fun HomeContent() {
     var selectedIndex by rememberSaveable{
         mutableStateOf(-1)
     }
-
+    val configurations = listOf(
+        ConfigurationUiState(
+            title = stringResource(id = R.string.config_title_card1),
+            description = stringResource(id = R.string.config_content_card1),
+            image = R.drawable.configuratoin_multi_choice_icon,
+            currentIndex = 1,
+            index = selectedIndex,
+            selected = { i -> selectedIndex = i }
+        ),
+        ConfigurationUiState(
+            title = stringResource(id = R.string.config_title_card2),
+            description = stringResource(id = R.string.config_content_card2),
+            image = R.drawable.configuratoin_multi_choice_images_icon,
+            currentIndex = 2,
+            index = selectedIndex,
+            selected = { i -> selectedIndex = i }
+        ),
+        ConfigurationUiState(
+            title = stringResource(id = R.string.config_title_card3),
+            description = stringResource(id = R.string.config_content_card3),
+            image = R.drawable.configuratoin_word_wise_icon,
+            currentIndex = 3,
+            index = selectedIndex,
+            selected = { i -> selectedIndex = i }
+        )
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,30 +92,15 @@ fun HomeContent() {
                     color = TriviaCustomColors.current.onBackground87
                 )
             }
-            item {
-                ConfigurationCard(typeTitle = stringResource(id = R.string.config_title_card1),
-                    typeDescription = stringResource(id = R.string.config_content_card1),
-                    typeImage = R.drawable.configuratoin_multi_choice_icon,
-                    currentIndex = 1,
-                    index = selectedIndex,
-                    selected = { i -> selectedIndex = i })
-            }
-            item {
-                ConfigurationCard(typeTitle = stringResource(id = R.string.config_title_card2),
-                    typeDescription = stringResource(id = R.string.config_content_card2),
-                    typeImage = R.drawable.configuratoin_multi_choice_images_icon,
-                    currentIndex = 2,
-                    index = selectedIndex,
-                    selected = { i -> selectedIndex = i })
-
-            }
-            item {
-                ConfigurationCard(typeTitle = stringResource(id = R.string.config_title_card3),
-                    typeDescription = stringResource(id = R.string.config_content_card3),
-                    typeImage = R.drawable.configuratoin_word_wise_icon,
-                    currentIndex = 3,
-                    index = selectedIndex,
-                    selected = { i -> selectedIndex = i })
+            items(configurations) { configurationCard ->
+                ConfigurationCard(
+                    typeTitle = configurationCard.title,
+                    typeDescription = configurationCard.description,
+                    typeImage = configurationCard.image,
+                    currentIndex = configurationCard.currentIndex,
+                    index = configurationCard.index,
+                    selected = configurationCard.selected
+                )
             }
             item {
                 Card(
@@ -112,7 +123,7 @@ fun HomeContent() {
                             Text(
                                 text = stringResource(id = R.string.config_title_card4),
                                 style = MaterialTheme.typography.titleSmall,
-                                color = TriviaCustomColors.current.primary
+                                color = TriviaCustomColors.current.onBackground38
                             )
 
                             Text(
@@ -120,7 +131,7 @@ fun HomeContent() {
                                 maxLines = 3,
                                 textAlign = TextAlign.Justify,
                                 style = MaterialTheme.typography.titleMedium,
-                                color = TriviaCustomColors.current.primary
+                                color = TriviaCustomColors.current.onBackground87
                             )
                         }
                         Spacer(Modifier.size(24.dp))
