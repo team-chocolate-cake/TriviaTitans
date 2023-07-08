@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,24 +18,14 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 @Composable
 fun QuestionHintsSection(
     hintListener: HintListener,
-    fiftyHint: MultiChoiceTextUiState.HintButton,
+    fiftyFiftyHint: MultiChoiceTextUiState.HintButton,
     heartHint: MultiChoiceTextUiState.HintButton,
     resetHint: MultiChoiceTextUiState.HintButton,
     correctAnswer: String,
 ) {
     val showDialog = remember { mutableStateOf(false) }
     if (showDialog.value) {
-        AlertDialog(
-            onDismissRequest = { showDialog.value = false },
-            title = { Text("Answer") },
-            text = { Text(correctAnswer) },
-            confirmButton = {
-                TextButton(onClick = { showDialog.value = false }) {
-                    Text("Ok".uppercase())
-                }
-            },
-
-            )
+        HintAlertDialog(onDissmiss = { showDialog.value = false }, correctAnswer = correctAnswer)
     }
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -47,9 +34,9 @@ fun QuestionHintsSection(
     ) {
         QuestionHint(
             icon = R.drawable.ic_50_50,
-            numberOfTries = fiftyHint.numberOfTries,
+            numberOfTries = fiftyFiftyHint.numberOfTries,
             imageModifier = Modifier.padding(16.dp),
-            onClick = { if (fiftyHint.isActive) hintListener.onClickFiftyFifty() }
+            onClick = { if (fiftyFiftyHint.isActive) hintListener.onClickFiftyFifty() }
         )
         QuestionHint(
             icon = R.drawable.ic_heart,
