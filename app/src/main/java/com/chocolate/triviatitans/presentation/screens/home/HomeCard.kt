@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.configuration
+package com.chocolate.triviatitans.presentation.screens.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

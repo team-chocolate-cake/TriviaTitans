@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.configuration
+package com.chocolate.triviatitans.presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,19 +32,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
-fun ConfigurationScreen() {
+fun HomeScreen(navController: NavHostController) {
     TriviaTitansTheme() {
-        ConfigurationContent()
+        HomeContent()
     }
 }
 
 @Composable
-fun ConfigurationContent() {
+fun HomeContent() {
 
     var selectedIndex by rememberSaveable{
         mutableStateOf(-1)
@@ -157,8 +158,3 @@ fun ConfigurationContent() {
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewConfigurationScreen() {
-    ConfigurationScreen()
-}
