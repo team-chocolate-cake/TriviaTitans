@@ -49,7 +49,11 @@ fun AnswersSection(
 fun AnswersSectionPreview() {
     AnswersSection(
         answerCardListener = object : AnswerCardListener {
-            override fun onClickCard(question: String, questionNumber: Int) {
+            override fun onClickCard(
+                question: String,
+                questionNumber: Int,
+                isCorrectAnswer: Boolean
+            ) {
                 TODO("Not yet implemented")
             }
 
