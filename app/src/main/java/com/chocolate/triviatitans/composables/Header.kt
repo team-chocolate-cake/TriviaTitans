@@ -5,7 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.PlayerDashBoard
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.PlayerGameAppBarInfo
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.ProgressIndicator
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.QuestionHintsSection
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -25,7 +25,7 @@ fun Header(
     correctAnswer: String
 ) {
     Column {
-        PlayerDashBoard(questionNumber, userScore)
+        PlayerGameAppBarInfo(questionNumber, userScore)
         SpacerVertical16()
         QuestionHintsSection(
             hintListener = hintListener, fiftyHint,
