@@ -18,6 +18,7 @@ import com.chocolate.triviatitans.presentation.screens.category.components.Conte
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoriesUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
+import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
@@ -33,7 +34,7 @@ fun CategoryScreen(
         state = state,
         onCategorySelected = viewModel::onCategorySelected,
         onCategoryDeselected = viewModel::onCategoryDeselected,
-        onClickNext = {navController.navigateToLevel()},
+        onClickNext = {navController.navigateToLevel(state.categoriesSelected.toString())},
         onClickBack={navController.navigateUp()}
     )
 }
@@ -55,7 +56,7 @@ fun CategoryContent(
         topBar = {
             TopBar(
                 title = stringResource(R.string.you_want_to_improve_today),
-                onBackClick = { /*TODO*/ },
+                onBackClick = onClickBack,
             )
         },
         bottomBar = {
@@ -81,6 +82,6 @@ fun CategoryContent(
 @Composable
 fun CategoryScreenPreview() {
     TriviaTitansTheme {
-        CategoryScreen()
+       // CategoryScreen()
     }
 }

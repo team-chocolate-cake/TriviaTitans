@@ -1,5 +1,8 @@
+@file:Suppress("IMPLICIT_CAST_TO_ANY")
+
 package com.chocolate.triviatitans.presentation.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,20 +38,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
     TriviaTitansTheme() {
-        HomeContent()
+        HomeContent(
+            onSelectedMultiChoiceText = { navController.navigateToCategory(1) },
+            onSelectedMultiChoiceImage = { navController.navigateToCategory(2) },
+            onSelectedWordWise = { navController.navigateToCategory(3) }
+        )
     }
 }
-@Preview(showSystemUi = true)
-@Composable
-fun HomeContent() {
 
-    var selectedIndex by rememberSaveable{
+@Composable
+fun HomeContent(
+    onSelectedMultiChoiceText: () -> Unit,
+    onSelectedMultiChoiceImage: () -> Unit,
+    onSelectedWordWise: () -> Unit
+
+) {
+
+    var selectedIndex by rememberSaveable {
         mutableStateOf(-1)
     }
     val configurations = listOf(
@@ -148,7 +162,16 @@ fun HomeContent() {
             item {
                 if (selectedIndex != -1) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            Log.e("banan", "Clicked $selectedIndex")
+                            val selectedConfiguration = configurations[selectedIndex]
+                            val route = when (selectedConfiguration.currentIndex) {
+                                1 -> onSelectedMultiChoiceText
+                                2 -> onSelectedMultiChoiceImage
+                                3 -> onSelectedWordWise
+                                else -> ""
+                            }
+                        },
                         modifier = Modifier
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally)

@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.configuration
+package com.chocolate.triviatitans.presentation.screens.home
 
 data class ConfigurationUiState(
     val title: String,

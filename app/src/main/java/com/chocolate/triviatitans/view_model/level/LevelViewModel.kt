@@ -26,21 +26,21 @@ class LevelViewModel @Inject constructor(
             TypeLevel.Easy -> {
                 _state.update {
                     it.copy(
-                        score = it.score // get easy score from local data base
+                        score = it.score
                     )
                 }
             }
             TypeLevel.Medium -> {
                 _state.update {
                     it.copy(
-                        score = it.score * 2 // get medium score from local data base
+                        score = it.score * 2
                     )
                 }
             }
             TypeLevel.Hard -> {
                 _state.update {
                     it.copy(
-                        score = it.score * 3 // get hard score from local data base
+                        score = it.score * 3
                     )
                 }
             }

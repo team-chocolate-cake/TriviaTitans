@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.win_lose_screens
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,15 +13,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.ButtonWinLose
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.SpaceTop
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.TextDescription
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.TextTitle
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.WinLoseAnimation
 import com.chocolate.triviatitans.ui.theme.LightBackground
 import com.chocolate.triviatitans.ui.theme.LightOnBackground38
 import com.chocolate.triviatitans.ui.theme.LightOnBackground60
 import com.chocolate.triviatitans.ui.theme.Primary
-import com.chocolate.triviatitans.win_lose_screens.composable.ButtonWinLose
-import com.chocolate.triviatitans.win_lose_screens.composable.SpaceTop
-import com.chocolate.triviatitans.win_lose_screens.composable.TextDescription
-import com.chocolate.triviatitans.win_lose_screens.composable.TextTitle
-import com.chocolate.triviatitans.win_lose_screens.composable.WinLoseAnimation
+
 
 
 @Preview(showSystemUi = true)

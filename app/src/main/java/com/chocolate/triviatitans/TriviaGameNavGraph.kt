@@ -21,5 +21,6 @@ fun TriviaNavGraph() {
         wordWiseRoute(navController)
         levelRoute(navController)
         quizRoute(navController)
+
     }
 }

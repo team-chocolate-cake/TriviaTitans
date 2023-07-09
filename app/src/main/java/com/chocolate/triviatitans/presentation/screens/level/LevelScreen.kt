@@ -37,7 +37,7 @@ fun LevelScreen(
 ) {
     val state by viewModel.state.collectAsState()
     LevelContent(
-        onClickBack = { navController.popBackStack() },
+        onClickBack = { navController.navigateUp() },
         onClickStartGame = {},
         onLevelSelected = viewModel::updateSelectedLevel,
         state = state,
