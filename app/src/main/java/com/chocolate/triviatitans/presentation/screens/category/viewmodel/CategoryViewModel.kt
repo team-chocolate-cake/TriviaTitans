@@ -18,15 +18,17 @@ class CategoryViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(CategoriesUiState())
     val state = _state.asStateFlow()
-    val args: CategoryArgs = CategoryArgs (checkNotNull(savedStateHandle["selectedGame"]) )
+   // val args = checkNotNull(savedStateHandle.get<Int>("index"))
+
+    val args = checkNotNull(savedStateHandle["index"])
 
     init {
         getCategories()
-        Log.e("category View model",args.selectedGame.toString())
     }
 
     private fun getCategories() {
         _state.update { it.copy(categories = categories()) }
+        Log.d("index", args.toString())
     }
 
     fun onCategorySelected(categoryUiState: CategoryUiState) {

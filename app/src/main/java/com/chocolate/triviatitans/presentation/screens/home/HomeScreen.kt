@@ -2,7 +2,6 @@
 
 package com.chocolate.triviatitans.presentation.screens.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +24,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -35,31 +35,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.Screens
-import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    ) {
-    TriviaTitansTheme() {
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsState()
+    TriviaTitansTheme {
         HomeContent(
-            onSelectedMultiChoiceText = {selectedGame->
-//                navController.navigate(Screens.CategoryScreen.route,)
-                navController.navigateToCategory(selectedGame)
-                Log.e("banan", "onSelectedMultiChoiceText")
-            },
-            onSelectedMultiChoiceImage = {selectedGame->
-                navController.navigateToCategory(selectedGame)
-                Log.e("banan", "onSelectedMultiChoiceImage")
-            },
-            onSelectedWordWise = {selectedGame->
-                navController.navigateToCategory(selectedGame)
-                Log.e("banan", "onSelectedWordWise")
+            state = state.currentIndex,
+            onClickNext = {
+                navController.navigate("${Screens.CategoryScreen.route}/$it")
             }
         )
     }
@@ -67,12 +60,9 @@ fun HomeScreen(
 
 @Composable
 fun HomeContent(
-    onSelectedMultiChoiceText: (Int) -> Unit,
-    onSelectedMultiChoiceImage: (Int) -> Unit,
-    onSelectedWordWise: (Int) -> Unit
-
+    state: Int,
+    onClickNext: (Int) -> Unit,
 ) {
-
     var selectedIndex by rememberSaveable {
         mutableStateOf(-1)
     }
@@ -81,7 +71,7 @@ fun HomeContent(
             title = stringResource(id = R.string.config_title_card1),
             description = stringResource(id = R.string.config_content_card1),
             image = R.drawable.configuratoin_multi_choice_icon,
-            currentIndex = 1,
+            currentIndex = 0,
             index = selectedIndex,
             selected = { i -> selectedIndex = i }
         ),
@@ -89,7 +79,7 @@ fun HomeContent(
             title = stringResource(id = R.string.config_title_card2),
             description = stringResource(id = R.string.config_content_card2),
             image = R.drawable.configuratoin_multi_choice_images_icon,
-            currentIndex = 2,
+            currentIndex = 1,
             index = selectedIndex,
             selected = { i -> selectedIndex = i }
         ),
@@ -97,7 +87,7 @@ fun HomeContent(
             title = stringResource(id = R.string.config_title_card3),
             description = stringResource(id = R.string.config_content_card3),
             image = R.drawable.configuratoin_word_wise_icon,
-            currentIndex = 3,
+            currentIndex = 2,
             index = selectedIndex,
             selected = { i -> selectedIndex = i }
         )
@@ -174,26 +164,7 @@ fun HomeContent(
                 if (selectedIndex != -1) {
                     Button(
                         onClick = {
-                            val selectedConfiguration = configurations[selectedIndex]
-                            val route = when (selectedConfiguration.currentIndex) {
-                                0 -> {
-                                    onSelectedMultiChoiceText(selectedConfiguration.index)
-                                    Log.e("bananWhen", "Clicked $selectedIndex")
-                                }
-
-                                1 -> {
-                                    onSelectedMultiChoiceImage(selectedConfiguration.index)
-                                    Log.e("bananWhen", "Clicked $selectedIndex")
-
-                                }
-
-                                2 -> {
-                                    onSelectedWordWise(selectedConfiguration.index)
-                                    Log.e("bananWhen", "Clicked $selectedIndex")
-                                }
-
-                                else -> ""
-                            }
+                            onClickNext(state)
                         },
                         modifier = Modifier
                             .width(250.dp)
@@ -211,7 +182,4 @@ fun HomeContent(
             }
         }
     }
-
 }
-
-
