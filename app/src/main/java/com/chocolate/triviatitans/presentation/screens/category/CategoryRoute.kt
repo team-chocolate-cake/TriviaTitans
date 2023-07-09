@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.category
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,7 +21,10 @@ fun NavGraphBuilder.categoryRoute(navController: NavController) {
     }
 }
 fun NavController.navigateToCategory(selectedGame: Int) {
+    Log.e("ToCategory1","navigateToCategory1")
     navigate("${Screens.CategoryScreen.route}/$selectedGame")
+    Log.e("ToCategory2","navigateToCategory2")
+
 }
 
 class LevelArgs(savedStateHandle: SavedStateHandle) {
