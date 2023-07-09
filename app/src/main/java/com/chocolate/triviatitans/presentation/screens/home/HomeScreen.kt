@@ -34,10 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
@@ -45,25 +43,33 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    navController: NavController,
+    ) {
     TriviaTitansTheme() {
         HomeContent(
-            onSelectedMultiChoiceText = { navController.navigate(Screens.CategoryScreen.route)
-            //    navController.navigateToCategory(0)
-                                        Log.e("banan","onSelectedMultiChoiceText" )},
-//            onSelectedMultiChoiceImage = { navController.navigateToCategory(1)
-//                Log.e("banan","onSelectedMultiChoiceImage" )},
-//            onSelectedWordWise = { navController.navigateToCategory(2)
-//                Log.e("banan","onSelectedWordWise" )}
+            onSelectedMultiChoiceText = {selectedGame->
+//                navController.navigate(Screens.CategoryScreen.route,)
+                navController.navigateToCategory(selectedGame)
+                Log.e("banan", "onSelectedMultiChoiceText")
+            },
+            onSelectedMultiChoiceImage = {selectedGame->
+                navController.navigateToCategory(selectedGame)
+                Log.e("banan", "onSelectedMultiChoiceImage")
+            },
+            onSelectedWordWise = {selectedGame->
+                navController.navigateToCategory(selectedGame)
+                Log.e("banan", "onSelectedWordWise")
+            }
         )
     }
 }
 
 @Composable
 fun HomeContent(
-    onSelectedMultiChoiceText: () -> Unit,
-//    onSelectedMultiChoiceImage: () -> Unit,
-//    onSelectedWordWise: () -> Unit
+    onSelectedMultiChoiceText: (Int) -> Unit,
+    onSelectedMultiChoiceImage: (Int) -> Unit,
+    onSelectedWordWise: (Int) -> Unit
 
 ) {
 
@@ -71,7 +77,7 @@ fun HomeContent(
         mutableStateOf(-1)
     }
     val configurations = listOf(
-        ConfigurationUiState(
+        HomeUiState(
             title = stringResource(id = R.string.config_title_card1),
             description = stringResource(id = R.string.config_content_card1),
             image = R.drawable.configuratoin_multi_choice_icon,
@@ -79,7 +85,7 @@ fun HomeContent(
             index = selectedIndex,
             selected = { i -> selectedIndex = i }
         ),
-        ConfigurationUiState(
+        HomeUiState(
             title = stringResource(id = R.string.config_title_card2),
             description = stringResource(id = R.string.config_content_card2),
             image = R.drawable.configuratoin_multi_choice_images_icon,
@@ -87,7 +93,7 @@ fun HomeContent(
             index = selectedIndex,
             selected = { i -> selectedIndex = i }
         ),
-        ConfigurationUiState(
+        HomeUiState(
             title = stringResource(id = R.string.config_title_card3),
             description = stringResource(id = R.string.config_content_card3),
             image = R.drawable.configuratoin_word_wise_icon,
@@ -168,23 +174,26 @@ fun HomeContent(
                 if (selectedIndex != -1) {
                     Button(
                         onClick = {
-//                            val selectedConfiguration = configurations[selectedIndex]
-//                            val route = when (selectedConfiguration.currentIndex) {
-//                                0-> {
-                                    onSelectedMultiChoiceText
-                                /*    Log.e("bananWhen", "Clicked $selectedIndex")
+                            val selectedConfiguration = configurations[selectedIndex]
+                            val route = when (selectedConfiguration.currentIndex) {
+                                0 -> {
+                                    onSelectedMultiChoiceText(selectedConfiguration.index)
+                                    Log.e("bananWhen", "Clicked $selectedIndex")
                                 }
+
                                 1 -> {
-                                    onSelectedMultiChoiceImage
+                                    onSelectedMultiChoiceImage(selectedConfiguration.index)
                                     Log.e("bananWhen", "Clicked $selectedIndex")
 
                                 }
+
                                 2 -> {
-                                    onSelectedWordWise
+                                    onSelectedWordWise(selectedConfiguration.index)
                                     Log.e("bananWhen", "Clicked $selectedIndex")
                                 }
+
                                 else -> ""
-                            }*/
+                            }
                         },
                         modifier = Modifier
                             .width(250.dp)

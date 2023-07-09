@@ -8,14 +8,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.chocolate.triviatitans.presentation.Screens
-import com.chocolate.triviatitans.presentation.screens.category.LevelArgs.Companion.Games_ARGS
-import com.chocolate.triviatitans.presentation.screens.level.LevelScreen
+
 
 fun NavGraphBuilder.categoryRoute(navController: NavController) {
     composable(
-        "${Screens.CategoryScreen.route}/${Games_ARGS}",
+        "${Screens.CategoryScreen.route}/${CategoryArgs.Games_ARGS}",
         arguments = listOf(
-            navArgument(Games_ARGS) { NavType.IntType}
+            navArgument(CategoryArgs.Games_ARGS) { NavType.IntType}
         )) {
         CategoryScreen(navController = navController)
     }
@@ -27,7 +26,7 @@ fun NavController.navigateToCategory(selectedGame: Int) {
 
 }
 
-class LevelArgs(savedStateHandle: SavedStateHandle) {
+class CategoryArgs(savedStateHandle: SavedStateHandle) {
     val selectedGame: Int = checkNotNull(savedStateHandle[Games_ARGS])
 
     companion object {

@@ -22,18 +22,18 @@ fun TriviaNavGraph() {
         navController = navController,
         startDestination = Screens.HomeScreen.route
     ) {
-      //  homeRoute(navController)
-        composable(Screens.HomeScreen.route){
-            HomeScreen(navController = navController)
-        }
-      //  categoryRoute(navController)
-        composable(Screens.CategoryScreen.route){
-            CategoryScreen(navController = navController)
-        }
-      //  levelRoute(navController)
-        composable(Screens.LevelScreen.route){
-            LevelScreen(navController = navController)
-        }
+        homeRoute(navController)
+//        composable(Screens.HomeScreen.route){
+//            HomeScreen(navController = navController)
+//        }
+        categoryRoute(navController)
+//        composable(Screens.CategoryScreen.route){
+//            CategoryScreen(navController = navController)
+//        }
+       levelRoute(navController)
+//        composable(Screens.LevelScreen.route){
+//            LevelScreen(navController = navController)
+//        }
         wordWiseRoute(navController)
         quizRoute(navController)
 
