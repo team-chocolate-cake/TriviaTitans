@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.components
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

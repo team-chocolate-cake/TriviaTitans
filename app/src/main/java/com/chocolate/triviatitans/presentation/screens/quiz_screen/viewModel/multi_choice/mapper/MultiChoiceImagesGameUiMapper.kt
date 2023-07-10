@@ -1,8 +1,8 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper
 
 import com.chocolate.triviatitans.domain.entities.ImageChoiceEntity
 import com.chocolate.triviatitans.domain.mapper.Mapper
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
 import javax.inject.Inject
 
 class MultiChoiceImagesGameUiMapper @Inject constructor() :

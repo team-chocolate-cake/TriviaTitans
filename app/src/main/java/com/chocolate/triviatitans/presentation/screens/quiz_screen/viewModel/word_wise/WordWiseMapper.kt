@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise
 
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.mapper.Mapper

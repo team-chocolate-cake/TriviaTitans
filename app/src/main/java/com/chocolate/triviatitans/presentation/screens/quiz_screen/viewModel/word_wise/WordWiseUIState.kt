@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise
 
 data class WordWiseUIState(
     val isLoading: Boolean = true,

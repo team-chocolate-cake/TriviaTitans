@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.word_wise_screen
+package com.chocolate.triviatitans.presentation.screens.quiz_screen
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -7,6 +7,6 @@ import com.chocolate.triviatitans.presentation.Screens
 
 fun NavGraphBuilder.wordWiseRoute(navController: NavHostController){
     composable(route =Screens.WordWiseScreen.route){
-        WordWiseScreen(navController)
+        QuizScreen(navController)
     }
 }

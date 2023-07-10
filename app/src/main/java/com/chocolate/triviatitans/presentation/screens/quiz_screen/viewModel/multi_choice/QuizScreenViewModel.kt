@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,8 +9,8 @@ import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
 import com.chocolate.triviatitans.presentation.screens.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper.MultiChoiceImagesGameUiMapper
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mapper.QuizQuestionsMapper
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.MultiChoiceImagesGameUiMapper
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.QuizQuestionsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

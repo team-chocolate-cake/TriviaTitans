@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.components
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text

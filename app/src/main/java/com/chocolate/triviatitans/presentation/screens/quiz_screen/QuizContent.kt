@@ -8,30 +8,37 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.AnswersSection
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.AnswersSection
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.QuizScreenViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.QuizScreenViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseUIState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
 fun QuizScreen(navController: NavHostController) {
+
     val quizScreenViewModel: QuizScreenViewModel = hiltViewModel()
     val quizScreenState = quizScreenViewModel.state.collectAsState().value
+    val wordWiseViewModel: WordWiseViewModel = hiltViewModel()
+    val wordWiseState = wordWiseViewModel.state.collectAsState().value
 
     QuizContent(
         multiChoiceTextUiState = quizScreenState,
         quizScreenViewModel,
         gameType = quizScreenViewModel.gameTypeArgs.toString().toInt(),
         quizScreenViewModel,
-        quizScreenState.isButtonsEnabled
+        quizScreenState.isButtonsEnabled,
+        wordWiseState,
+        wordWiseViewModel::onLetterClicked
+
     )
     Log.d(
         "level_type",
@@ -45,7 +52,9 @@ fun QuizContent(
     answerCardListener: AnswerCardListener,
     gameType: Int,
     hintListener: HintListener,
-    isButtonsEnabled: Boolean
+    isButtonsEnabled: Boolean,
+    wordWiseState: WordWiseUIState,
+    onLetterClick: (Char) -> Unit,
 ) {
     Column(
         Modifier
@@ -73,42 +82,10 @@ fun QuizContent(
                 question = currentQuestion,
                 questionNumber = multiChoiceTextUiState.questionNumber,
                 isButtonsEnabled = isButtonsEnabled,
-                state = multiChoiceTextUiState,
+                multiChoiceTextUiState = multiChoiceTextUiState,
+                wordWiseUIState = wordWiseState,
+                onLetterClick = onLetterClick
             )
         }
     }
 }
-
-@Preview(showSystemUi = true)
-@Composable
-fun QuizScreenPreview() {
-    /* TriviaTitansTheme() {
-         QuizContent(MultiChoiceTextUiState(), object : AnswerCardListener {
-             override fun onClickCard(
-                 question: String,
-                 questionNumber: Int,
-                 isCorrectAnswer: Boolean
-             ) {
-                 TODO("Not yet implemented")
-             }
-
-
-             override fun updateButtonState(value: Boolean) {
-                 TODO("Not yet implemented")
-             }
-         }, isButtonsEnabled = true, hintListener = object : HintListener {
-             override fun onClickFiftyFifty() {
-                 TODO("Not yet implemented")
-             }
-
-             override fun onClickHeart() {
-                 TODO("Not yet implemented")
-             }
-
-             override fun onClickReset() {
-                 TODO("Not yet implemented")
-             }
-         }, gameType = 0)
-     }*/
-}
-

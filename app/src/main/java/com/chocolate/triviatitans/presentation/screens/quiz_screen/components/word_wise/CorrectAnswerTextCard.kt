@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.word_wise_screen.components
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.word_wise
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape

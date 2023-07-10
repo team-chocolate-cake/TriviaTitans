@@ -5,11 +5,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.PlayerGameAppBarInfo
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.ProgressIndicator
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.QuestionHintsSection
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.PlayerGameAppBarInfo
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.ProgressIndicator
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.QuestionHintsSection
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 

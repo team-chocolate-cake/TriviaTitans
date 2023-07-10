@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice
 
 data class MultiChoiceTextUiState(
     val isLoading: Boolean = true,
