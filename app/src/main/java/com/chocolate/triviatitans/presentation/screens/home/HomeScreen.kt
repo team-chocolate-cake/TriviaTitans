@@ -1,5 +1,3 @@
-@file:Suppress("IMPLICIT_CAST_TO_ANY")
-
 package com.chocolate.triviatitans.presentation.screens.home
 
 import androidx.compose.foundation.Image
@@ -24,7 +22,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -35,7 +32,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.Screens
@@ -44,14 +40,11 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
-    viewModel: HomeViewModel = hiltViewModel()
+    navController: NavController
 ) {
-    val state by viewModel.state.collectAsState()
     TriviaTitansTheme {
         HomeContent(
-            state = state.currentIndex,
-            onClickNext = {
+            onClickButton = {
                 navController.navigate("${Screens.CategoryScreen.route}/$it")
             }
         )
@@ -60,8 +53,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeContent(
-    state: Int,
-    onClickNext: (Int) -> Unit,
+    onClickButton: (Int) -> Unit,
 ) {
     var selectedIndex by rememberSaveable {
         mutableStateOf(-1)
@@ -164,7 +156,7 @@ fun HomeContent(
                 if (selectedIndex != -1) {
                     Button(
                         onClick = {
-                            onClickNext(state)
+                            onClickButton(selectedIndex)
                         },
                         modifier = Modifier
                             .width(250.dp)

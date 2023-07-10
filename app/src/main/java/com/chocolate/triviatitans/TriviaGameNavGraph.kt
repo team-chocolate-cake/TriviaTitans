@@ -30,9 +30,9 @@ fun TriviaNavGraph() {
             HomeScreen(navController = navController)
         }
         composable(
-            "${Screens.CategoryScreen.route}/{index}",
+            "${Screens.CategoryScreen.route}/{currentIndex}",
             arguments = listOf(
-                navArgument("index") { NavType.IntType }
+                navArgument("currentIndex") { NavType.IntType }
             )
         ) {
             CategoryScreen(navController = navController)

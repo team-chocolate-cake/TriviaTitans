@@ -64,11 +64,6 @@ fun CategoryContent(
     onClickNext: () -> Unit,
     onClickBack: () -> Unit
 ) {
-
-
-
-
-
     val colors = TriviaCustomColors.current
 
     Scaffold(
