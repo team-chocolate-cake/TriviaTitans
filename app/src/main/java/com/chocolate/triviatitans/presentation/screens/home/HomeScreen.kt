@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
@@ -44,8 +45,8 @@ fun HomeScreen(
 ) {
     TriviaTitansTheme {
         HomeContent(
-            onClickButton = {
-                navController.navigate(Screens.SpinWheelScreen.route)
+            onClickButton = {selectedGame->
+               navController.navigateToCategory(selectedGame)
             }
         )
     }

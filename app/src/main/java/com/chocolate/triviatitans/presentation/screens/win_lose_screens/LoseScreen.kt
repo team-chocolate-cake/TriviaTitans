@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -16,6 +15,8 @@ import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.SpacerVertical24
 import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
+import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.ButtonWinLose
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextDescription
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextTitle
@@ -23,12 +24,23 @@ import com.chocolate.triviatitans.presentation.screens.win_lose_screens.componen
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
-import com.chocolate.triviatitans.presentation.theme.Primary
-
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 
 @Composable
 fun LoseScreen(navController: NavController) {
+    TriviaTitansTheme {
+        LoseContent(
+            onClickReturnToHomeButton = {
+                navController.navigateToHome()
+            }
+        )
+    }
+}
+@Composable
+fun LoseContent(
+    onClickReturnToHomeButton:() -> Unit,
+    ){
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -78,14 +90,7 @@ fun LoseScreen(navController: NavController) {
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
             onClick = {
-                navController.navigate(Screens.HomeScreen.route) {
-                    popUpTo(Screens.HomeScreen.route) { inclusive = true }
-                }
-                BackHandler(enabled = true) {
-                    navController.navigate(Screens.HomeScreen.route) {
-                        popUpTo(Screens.HomeScreen.route) { inclusive = true }
-                    }
-                }
+                onClickReturnToHomeButton()
             }
             ,
             buttonColor = LightBackground,
@@ -97,5 +102,8 @@ fun LoseScreen(navController: NavController) {
                 end.linkTo(parent.end)
             }
         )
+        BackHandler(enabled = true) {
+            onClickReturnToHomeButton()
+        }
     }
 }

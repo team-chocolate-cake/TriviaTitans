@@ -19,18 +19,17 @@ fun NavGraphBuilder.categoryRoute(navController: NavController) {
         CategoryScreen(navController = navController)
     }
 }
-fun NavController.navigateToCategory(selectedGame: Int) {
-    Log.e("ToCategory1","navigateToCategory1")
-    navigate("${Screens.CategoryScreen.route}/$selectedGame")
-    Log.e("ToCategory2","navigateToCategory2")
+
+fun NavController.navigateToCategory(currentIndex: Int) {
+    navigate("${Screens.CategoryScreen.route}/$currentIndex")
 
 }
 
 class CategoryArgs(savedStateHandle: SavedStateHandle) {
-    val selectedGame: Int = checkNotNull(savedStateHandle[Games_ARGS])
+    val currentIndex: Int = checkNotNull(savedStateHandle[Games_ARGS])
 
     companion object {
-        const val Games_ARGS = "selectedGame"
+        const val Games_ARGS = "currentIndex"
     }
 }
 

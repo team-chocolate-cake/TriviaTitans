@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.view_model.level
+package com.chocolate.triviatitans.presentation.screens.level.level
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

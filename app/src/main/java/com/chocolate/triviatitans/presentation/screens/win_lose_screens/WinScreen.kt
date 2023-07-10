@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.win_lose_screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.SpacerHorizontal24
 import com.chocolate.triviatitans.composables.SpacerVertical24
 import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.ButtonWinLose
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextDescription
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextTitle
@@ -26,10 +28,24 @@ import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
 import com.chocolate.triviatitans.presentation.theme.Primary
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
 fun WinScreen(navController: NavController, prize: String) {
+    TriviaTitansTheme() {
+        WinContent(
+            onClickToHomeButton = { navController.navigateToHome() },
+            prize
+        )
+    }
+}
+
+@Composable
+fun WinContent(
+    onClickToHomeButton:() -> Unit
+    , prize: String
+){
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -87,7 +103,7 @@ fun WinScreen(navController: NavController, prize: String) {
 //        )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
-            onClick = { navController.navigate(Screens.HomeScreen.route) },
+            onClick = { onClickToHomeButton() },
             buttonColor = LightBackground,
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
@@ -97,5 +113,9 @@ fun WinScreen(navController: NavController, prize: String) {
                 end.linkTo(parent.end)
             }
         )
+
+        BackHandler(enabled = true) {
+            onClickToHomeButton()
+            }
+        }
     }
-}

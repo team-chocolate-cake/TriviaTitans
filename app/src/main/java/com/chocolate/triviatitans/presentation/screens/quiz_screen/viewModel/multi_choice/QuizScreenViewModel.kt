@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
 import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
-import com.chocolate.triviatitans.presentation.screens.GameType
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.MultiChoiceImagesGameUiMapper
