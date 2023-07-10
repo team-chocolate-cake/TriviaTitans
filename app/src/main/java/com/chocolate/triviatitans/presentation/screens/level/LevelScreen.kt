@@ -40,7 +40,18 @@ fun LevelScreen(
     val state by viewModel.state.collectAsState()
     LevelContent(
         onClickBack = { navController.navigateUp() },
-        onClickStartGame = {},
+        onClickStartGame = {
+            val levelType = when (state.selectedLevel) {
+                TypeLevel.Easy -> TypeLevel.Easy.name
+                TypeLevel.Medium -> TypeLevel.Medium.name
+                TypeLevel.Hard -> TypeLevel.Hard.name
+            }
+            navController.navigate(
+                "${Screens.QuizScreen.route}/${viewModel.categoriesArgs
+                }/${viewModel.gameTypeArgs}/$levelType"
+            )
+        }
+        ,
         onLevelSelected = viewModel::updateSelectedLevel,
         state = state,
     )

@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
@@ -24,18 +25,23 @@ class QuizScreenViewModel @Inject constructor(
     private val getUserQuestionsUseCase: GetUserQuestionsUseCase,
     private val getQuestionsUseCase: GetMultiChoiceImagesGameUseCase,
     private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
+    savedStateHandle: SavedStateHandle,
 ) :
     ViewModel(),
     AnswerCardListener, HintListener {
     private val _state = MutableStateFlow(MultiChoiceTextUiState())
     val state = _state.asStateFlow()
 
-    private val gameType = GameType.Multi_Choice_Images.name
+    val categoriesArgs: String = checkNotNull(savedStateHandle["categories"])
+    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
+    val levelTypeArgs: String = checkNotNull(savedStateHandle["level_type"])
+
+
+    private val gameType = GameType.MULTI_CHOICE_IMAGES.name
 
     init {
-
         when (gameType) {
-            GameType.Multi_Choice_Images.name -> {
+            GameType.MULTI_CHOICE_IMAGES.name -> {
                 getUserQuestionsImagesGame()
             }
 

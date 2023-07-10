@@ -3,7 +3,6 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.components
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.chocolate.triviatitans.composables.SpacerVertical8
 import com.chocolate.triviatitans.presentation.screens.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
@@ -12,16 +11,16 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.Mul
 @Composable
 fun AnswersSection(
     answerCardListener: AnswerCardListener,
-    gameType: String = GameType.Multi_Choice_Images.name,
+    gameType: Int = GameType.MULTI_CHOICE_IMAGES.ordinal,
     question: MultiChoiceTextUiState.QuestionUiState,
     questionNumber: Int,
     isButtonsEnabled: Boolean,
-    state : MultiChoiceTextUiState,
+    state: MultiChoiceTextUiState,
 ) {
     val givenQuestion = question.randomAnswers
 
     when (gameType) {
-        GameType.Multi_Choice.name -> {
+        GameType.MULTI_CHOICE.ordinal -> {
             LazyColumn() {
                 itemsIndexed(givenQuestion) { index, questionGiven ->
                     AnswerCard(
@@ -37,11 +36,16 @@ fun AnswersSection(
             }
         }
 
-        GameType.Multi_Choice_Images.name -> {
-            MultiChoiceImagesGame(state = state , question = question , answerCardListener = answerCardListener ,isButtonsEnabled =isButtonsEnabled)
+        GameType.MULTI_CHOICE_IMAGES.ordinal -> {
+            MultiChoiceImagesGame(
+                state = state,
+                question = question,
+                answerCardListener = answerCardListener,
+                isButtonsEnabled = isButtonsEnabled
+            )
         }
 
-        GameType.Word_Wise.name -> {}
+        GameType.WORD_WISE.ordinal -> {}
 
     }
 }

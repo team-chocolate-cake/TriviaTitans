@@ -42,7 +42,7 @@ fun TriviaNavGraph() {
             LevelScreen(navController = navController)
         }
 
-        /*composable(
+        composable(
             "${Screens.QuizScreen.route}/{categories}/{game_type}/{level_type}",
             arguments = listOf(
                 navArgument("categories") { NavType.StringType },
@@ -51,7 +51,7 @@ fun TriviaNavGraph() {
             )
         ) {
             QuizScreen(navController = navController)
-        }*/
+        }
 
     }
 }

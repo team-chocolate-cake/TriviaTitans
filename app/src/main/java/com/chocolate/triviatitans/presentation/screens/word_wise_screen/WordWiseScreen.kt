@@ -30,6 +30,7 @@ fun WordWiseContent(
 ) {
     if (state.questionUiStates.isNotEmpty()) {
         Column(Modifier.padding(horizontal = 16.dp)) {
+
 //            Header(question = state.questionUiStates[state.questionNumber].question)
 
             QuestionLettersLazyGird(
@@ -42,7 +43,6 @@ fun WordWiseContent(
                     .questionUiStates[state.questionNumber].correctAnswerLetters,
                 onLetterClick = onLetterClick
             )
-
         }
     }
 }

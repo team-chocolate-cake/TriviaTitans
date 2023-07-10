@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,19 +20,30 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.Hint
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.MultiChoiceTextUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.QuizScreenViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
-import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun QuizScreen(navController: NavHostController) {
-    val viewModel: QuizScreenViewModel = hiltViewModel()
-    val state = viewModel.state.collectAsState().value
-    QuizContent(multiChoiceTextUiState = state, viewModel, viewModel, state.isButtonsEnabled)
+    val quizScreenViewModel: QuizScreenViewModel = hiltViewModel()
+    val quizScreenState = quizScreenViewModel.state.collectAsState().value
+
+    QuizContent(
+        multiChoiceTextUiState = quizScreenState,
+        quizScreenViewModel,
+        gameType = quizScreenViewModel.gameTypeArgs.toString().toInt(),
+        quizScreenViewModel,
+        quizScreenState.isButtonsEnabled
+    )
+    Log.d(
+        "level_type",
+        "${quizScreenViewModel.gameTypeArgs}+${quizScreenViewModel.categoriesArgs}+${quizScreenViewModel.levelTypeArgs}"
+    )
 }
 
 @Composable
 fun QuizContent(
     multiChoiceTextUiState: MultiChoiceTextUiState,
     answerCardListener: AnswerCardListener,
+    gameType: Int,
     hintListener: HintListener,
     isButtonsEnabled: Boolean
 ) {
@@ -57,6 +69,7 @@ fun QuizContent(
             SpacerVertical16()
             AnswersSection(
                 answerCardListener,
+                gameType = gameType,
                 question = currentQuestion,
                 questionNumber = multiChoiceTextUiState.questionNumber,
                 isButtonsEnabled = isButtonsEnabled,
@@ -69,33 +82,33 @@ fun QuizContent(
 @Preview(showSystemUi = true)
 @Composable
 fun QuizScreenPreview() {
-    TriviaTitansTheme() {
-        QuizContent(MultiChoiceTextUiState(), object : AnswerCardListener {
-            override fun onClickCard(
-                question: String,
-                questionNumber: Int,
-                isCorrectAnswer: Boolean
-            ) {
-                TODO("Not yet implemented")
-            }
+    /* TriviaTitansTheme() {
+         QuizContent(MultiChoiceTextUiState(), object : AnswerCardListener {
+             override fun onClickCard(
+                 question: String,
+                 questionNumber: Int,
+                 isCorrectAnswer: Boolean
+             ) {
+                 TODO("Not yet implemented")
+             }
 
 
-            override fun updateButtonState(value: Boolean) {
-                TODO("Not yet implemented")
-            }
-        }, isButtonsEnabled = true, hintListener = object : HintListener {
-            override fun onClickFiftyFifty() {
-                TODO("Not yet implemented")
-            }
+             override fun updateButtonState(value: Boolean) {
+                 TODO("Not yet implemented")
+             }
+         }, isButtonsEnabled = true, hintListener = object : HintListener {
+             override fun onClickFiftyFifty() {
+                 TODO("Not yet implemented")
+             }
 
-            override fun onClickHeart() {
-                TODO("Not yet implemented")
-            }
+             override fun onClickHeart() {
+                 TODO("Not yet implemented")
+             }
 
-            override fun onClickReset() {
-                TODO("Not yet implemented")
-            }
-        })
-    }
+             override fun onClickReset() {
+                 TODO("Not yet implemented")
+             }
+         }, gameType = 0)
+     }*/
 }
 
