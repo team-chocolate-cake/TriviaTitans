@@ -10,29 +10,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.ButtonWinLose
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.SpaceTop
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.TextDescription
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.TextTitle
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.WinLoseAnimation
-import com.chocolate.triviatitans.ui.theme.LightBackground
-import com.chocolate.triviatitans.ui.theme.LightOnBackground38
-import com.chocolate.triviatitans.ui.theme.LightOnBackground60
-import com.chocolate.triviatitans.ui.theme.Primary
-
-
+import com.chocolate.triviatitans.composables.SpacerVertical24
+import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.ButtonWinLose
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextDescription
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextTitle
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.WinLoseAnimation
+import com.chocolate.triviatitans.presentation.theme.LightBackground
+import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
+import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
+import com.chocolate.triviatitans.presentation.theme.Primary
+import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
-fun WinScreen(navController: NavController) {
+fun WinScreen(navController: NavController, prize: String) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
+            .background(Win)
             .padding(16.dp)
     ) {
         val (lottie,
@@ -51,7 +50,7 @@ fun WinScreen(navController: NavController) {
             painter = painterResource(id = R.drawable.present),
             contentDescription = stringResource(R.string.present_image),
             modifier = Modifier.constrainAs(present) {
-                top.linkTo(parent.top, margin = 180.dp)
+                top.linkTo(parent.top, margin = 220.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -62,9 +61,9 @@ fun WinScreen(navController: NavController) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             })
-        SpaceTop(space = 24)
+        SpacerVertical24()
         TextDescription(
-            stringResource(R.string.you_earned_200_points),
+            stringResource(R.string.you_earned_200_points) + ' ' + prize,
             modifier = Modifier.constrainAs(points) {
                 top.linkTo(congrats.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
@@ -73,7 +72,7 @@ fun WinScreen(navController: NavController) {
 
         ButtonWinLose(
             text = stringResource(R.string.go_to_next_level),
-            onClick = {},
+            onClick = { navController.navigate(Screens.QuizScreen.route) },
             buttonColor = Primary,
             borderColor = Color.Transparent,
             textColor = LightBackground,
@@ -85,7 +84,7 @@ fun WinScreen(navController: NavController) {
         )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
-            onClick = {},
+            onClick = { navController.navigate(Screens.HomeScreen.route) },
             buttonColor = LightBackground,
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,

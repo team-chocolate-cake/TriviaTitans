@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

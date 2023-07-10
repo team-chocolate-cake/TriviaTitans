@@ -45,7 +45,7 @@ fun HomeScreen(
     TriviaTitansTheme {
         HomeContent(
             onClickButton = {
-                navController.navigate("${Screens.CategoryScreen.route}/$it")
+                navController.navigate(Screens.SpinWheelScreen.route)
             }
         )
     }
@@ -90,15 +90,14 @@ fun HomeContent(
             .background(TriviaCustomColors.current.background)
             .padding(16.dp)
     ) {
+        Text(
+            text = stringResource(id = R.string.game_type),
+            modifier = Modifier.padding(top = 24.dp),
+            style = MaterialTheme.typography.titleMedium,
+            color = TriviaCustomColors.current.onBackground87,
+            textAlign = TextAlign.Start
+        )
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.game_type),
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = TriviaCustomColors.current.onBackground87
-                )
-            }
             items(configurations) { configurationCard ->
                 ConfigurationCard(
                     typeTitle = configurationCard.title,

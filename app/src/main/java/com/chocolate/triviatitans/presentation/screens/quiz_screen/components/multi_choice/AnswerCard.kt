@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
-import com.chocolate.triviatitans.ui.theme.LightBorder
+import com.chocolate.triviatitans.presentation.theme.LightBorder
 import java.util.Timer
 import kotlin.concurrent.schedule
 

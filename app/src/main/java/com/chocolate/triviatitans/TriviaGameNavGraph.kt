@@ -11,6 +11,7 @@ import com.chocolate.triviatitans.presentation.screens.category.CategoryScreen
 import com.chocolate.triviatitans.presentation.screens.home.HomeScreen
 import com.chocolate.triviatitans.presentation.screens.level.LevelScreen
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.LoseScreen
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.SpinWheelScreen
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.WinScreen
 
@@ -59,13 +60,28 @@ fun TriviaNavGraph() {
             SpinWheelScreen(navController = navController)
         }
 
-        composable(
+      /*  composable(
             "${Screens.WinScreen.route}/{prize}",
             arguments = listOf(
                 navArgument("prize") { NavType.StringType }
             )
         ) {
             WinScreen(navController = navController)
+        }*/
+
+        composable(
+            "${Screens.WinScreen.route}/{prize}",
+            arguments = listOf(
+                navArgument("prize") { NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val prize = backStackEntry.arguments?.getString("prize") ?: ""
+            WinScreen(navController = navController, prize = prize)
+        }
+
+
+        composable(Screens.LoseScreen.route) {
+            LoseScreen(navController = navController)
         }
 
     }

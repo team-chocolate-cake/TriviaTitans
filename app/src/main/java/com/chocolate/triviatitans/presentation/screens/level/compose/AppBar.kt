@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
+import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

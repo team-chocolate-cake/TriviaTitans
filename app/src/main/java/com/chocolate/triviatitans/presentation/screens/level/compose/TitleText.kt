@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
+import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
 
 @Composable
 fun TitleText(color: CustomColorsPalette) {

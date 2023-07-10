@@ -31,7 +31,6 @@ fun QuestionLettersLazyGird(
                 text = value,
             )
         }
-
     }
 }
 

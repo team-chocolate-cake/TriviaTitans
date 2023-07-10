@@ -17,31 +17,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.chocolate.triviatitans.ui.theme.Correct
-import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
-import com.chocolate.triviatitans.ui.theme.DarkBackground
-import com.chocolate.triviatitans.ui.theme.DarkBorder
-import com.chocolate.triviatitans.ui.theme.DarkCard
-import com.chocolate.triviatitans.ui.theme.DarkError
-import com.chocolate.triviatitans.ui.theme.DarkOnBackground38
-import com.chocolate.triviatitans.ui.theme.DarkOnBackground60
-import com.chocolate.triviatitans.ui.theme.DarkOnBackground87
-import com.chocolate.triviatitans.ui.theme.DarkOnSecondary
-import com.chocolate.triviatitans.ui.theme.DarkSecondary
-import com.chocolate.triviatitans.ui.theme.GameOver
-import com.chocolate.triviatitans.ui.theme.LightBackground
-import com.chocolate.triviatitans.ui.theme.LightBorder
-import com.chocolate.triviatitans.ui.theme.LightCard
-import com.chocolate.triviatitans.ui.theme.LightError
-import com.chocolate.triviatitans.ui.theme.LightOnBackground38
-import com.chocolate.triviatitans.ui.theme.LightOnBackground60
-import com.chocolate.triviatitans.ui.theme.LightOnBackground87
-import com.chocolate.triviatitans.ui.theme.LightOnSecondary
-import com.chocolate.triviatitans.ui.theme.LightSecondary
-import com.chocolate.triviatitans.ui.theme.OnPrimary
-import com.chocolate.triviatitans.ui.theme.Pink40
-import com.chocolate.triviatitans.ui.theme.Pink80
-import com.chocolate.triviatitans.ui.theme.Primary
 
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,

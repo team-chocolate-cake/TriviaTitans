@@ -19,12 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
-import com.chocolate.triviatitans.ui.theme.LightOnSecondary
+import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
+import com.chocolate.triviatitans.presentation.theme.LightOnSecondary
 import com.chocolate.triviatitans.view_model.level.LevelUiState
 import com.chocolate.triviatitans.view_model.level.TypeLevel
 

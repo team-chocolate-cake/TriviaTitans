@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens.components
 
 import android.content.Context
 import android.widget.Toast
@@ -19,14 +19,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.chocolate.triviatitans.ui.theme.LightOnBackground87
+import androidx.navigation.NavController
+import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 import com.commandiron.spin_wheel_compose.SpinWheel
 import com.commandiron.spin_wheel_compose.SpinWheelDefaults
 import com.commandiron.spin_wheel_compose.state.rememberSpinWheelState
 import kotlinx.coroutines.launch
 
 @Composable
-fun Wheel(modifier: Modifier = Modifier, context: Context) {
+fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavController) {
+    val selectedPie = remember { mutableStateOf("") }
     val iconList by remember {
         mutableStateOf(
             listOf(
@@ -45,7 +48,6 @@ fun Wheel(modifier: Modifier = Modifier, context: Context) {
         rotationPerSecond = 2f,
         easing = LinearOutSlowInEasing,
         startDegree = 90f,
-        resultDegree = 212f,
         autoSpinDelay = null
     )
     val coroutineScope = rememberCoroutineScope()
@@ -59,15 +61,16 @@ fun Wheel(modifier: Modifier = Modifier, context: Context) {
                     spinningState.value = true
                     coroutineScope.launch {
                         spinWheelState.spin { pieIndex ->
-                            val selectedPie = iconList[pieIndex]
-                            Toast
-                                .makeText(
-                                    context,
-                                    "Selected Pie: $selectedPie",
-                                    Toast.LENGTH_SHORT
-                                )
-                                .show()
+                            selectedPie.value = iconList[pieIndex]
+                            Toast.makeText(
+                                context,
+                                "Selected Pie: ${selectedPie.value}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             spinningState.value = false
+                            navController.navigate(
+                                "${Screens.WinScreen.route}/${selectedPie.value}"
+                            )
                         }
                     }
                 }
@@ -106,8 +109,11 @@ fun Wheel(modifier: Modifier = Modifier, context: Context) {
                     fontSize = 16.sp,
                     modifier = Modifier.align(Alignment.Center)
                 )
+                // Update the selectedPie value when the wheel is stopped
+                if (!spinningState.value) {
+                    selectedPie.value = iconList[pieIndex]
+                }
             }
         }
     }
 }
-

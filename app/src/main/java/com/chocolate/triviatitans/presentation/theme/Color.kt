@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.ui.theme
+package com.chocolate.triviatitans.presentation.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -18,7 +18,6 @@ val DarkError = Color(0xC7FF0000)
 val DarkOnSecondary = Color(0xFF1F1F1F)
 
 
-
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
@@ -33,12 +32,11 @@ val LightError = Color(0x99FF0000)
 val LightOnSecondary = Color(0xFFA0D3EF)
 
 
-
 val Primary = Color(0xFF27A5EC)
 val OnPrimary = Color(0xFFFFFFFF)
 val Correct = Color(0xCC32CD32)
 val GameOver = Color(0xFFF4AF00)
-
+val Win = Color(0xFFF5FCFF)
 
 @Immutable
 data class CustomColorsPalette(

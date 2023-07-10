@@ -14,8 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.chocolate.triviatitans.ui.theme.CustomColorsPalette
-import com.chocolate.triviatitans.ui.theme.LightOnSecondary
+import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
+import com.chocolate.triviatitans.presentation.theme.LightOnSecondary
 import com.chocolate.triviatitans.view_model.level.LevelUiState
 
 @Composable
