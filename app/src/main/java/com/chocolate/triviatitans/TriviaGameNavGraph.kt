@@ -11,6 +11,8 @@ import com.chocolate.triviatitans.presentation.screens.category.CategoryScreen
 import com.chocolate.triviatitans.presentation.screens.home.HomeScreen
 import com.chocolate.triviatitans.presentation.screens.level.LevelScreen
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.SpinWheelScreen
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.WinScreen
 
 @Composable
 fun TriviaNavGraph() {
@@ -51,6 +53,19 @@ fun TriviaNavGraph() {
             )
         ) {
             QuizScreen(navController = navController)
+        }
+
+        composable(Screens.SpinWheelScreen.route) {
+            SpinWheelScreen(navController = navController)
+        }
+
+        composable(
+            "${Screens.WinScreen.route}/{prize}",
+            arguments = listOf(
+                navArgument("prize") { NavType.StringType }
+            )
+        ) {
+            WinScreen(navController = navController)
         }
 
     }

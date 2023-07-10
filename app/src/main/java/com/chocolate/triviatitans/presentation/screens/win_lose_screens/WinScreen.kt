@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.win_lose_screens
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,6 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.ButtonWinLose
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.SpaceTop
@@ -26,9 +28,8 @@ import com.chocolate.triviatitans.ui.theme.Primary
 
 
 
-@Preview(showSystemUi = true)
 @Composable
-fun WinScreen() {
+fun WinScreen(navController: NavController) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()

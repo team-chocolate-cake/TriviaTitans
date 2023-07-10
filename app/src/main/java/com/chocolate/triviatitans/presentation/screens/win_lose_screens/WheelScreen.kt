@@ -14,13 +14,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.composable.Wheel
 import com.chocolate.triviatitans.ui.theme.LightOnBackground87
 
-@Preview(showSystemUi = true)
 @Composable
-fun SpinWheel() {
+fun SpinWheelScreen(navController: NavController) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -51,4 +52,3 @@ fun SpinWheel() {
         )
     }
 }
-
