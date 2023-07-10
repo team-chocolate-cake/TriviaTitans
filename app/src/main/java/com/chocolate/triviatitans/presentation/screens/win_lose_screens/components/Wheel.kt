@@ -30,13 +30,18 @@ import kotlinx.coroutines.launch
 @Composable
 fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavController) {
     val selectedPie = remember { mutableStateOf("") }
-    val iconList by remember {
+    val randomNumberOfGifts by remember {
+        mutableStateOf(
+            List(4) { (1..10).random() }
+        )
+    }
+    val iconList by remember(randomNumberOfGifts) {
         mutableStateOf(
             listOf(
-                "Bonus",
-                "Hearts",
-                "Delete Two answers",
-                "Change The Question",
+                "${randomNumberOfGifts[0]} Bonus",
+                "${randomNumberOfGifts[1]} Hearts",
+                "${randomNumberOfGifts[2]} Delete Two answers",
+                "${randomNumberOfGifts[3]} Change The Question",
                 "Hard Luck"
             )
         )
@@ -62,11 +67,13 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                     coroutineScope.launch {
                         spinWheelState.spin { pieIndex ->
                             selectedPie.value = iconList[pieIndex]
-                            Toast.makeText(
-                                context,
-                                "Selected Pie: ${selectedPie.value}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast
+                                .makeText(
+                                    context,
+                                    "Selected Pie: ${selectedPie.value}",
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
                             spinningState.value = false
                             navController.navigate(
                                 "${Screens.WinScreen.route}/${selectedPie.value}"
@@ -109,7 +116,6 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                     fontSize = 16.sp,
                     modifier = Modifier.align(Alignment.Center)
                 )
-                // Update the selectedPie value when the wheel is stopped
                 if (!spinningState.value) {
                     selectedPie.value = iconList[pieIndex]
                 }
