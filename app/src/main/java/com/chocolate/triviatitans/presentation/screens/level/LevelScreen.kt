@@ -27,9 +27,9 @@ import com.chocolate.triviatitans.ui.screens.level.compose.DescriptionLevel
 import com.chocolate.triviatitans.ui.screens.level.compose.LevelImage
 import com.chocolate.triviatitans.ui.screens.level.compose.Score
 import com.chocolate.triviatitans.ui.screens.level.compose.StartGameButton
-import com.chocolate.triviatitans.presentation.screens.level.level.LevelUiState
-import com.chocolate.triviatitans.presentation.screens.level.level.LevelViewModel
-import com.chocolate.triviatitans.presentation.screens.level.level.TypeLevel
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelViewModel
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
 
 
 @Composable

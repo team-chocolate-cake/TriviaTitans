@@ -12,6 +12,7 @@ import com.chocolate.triviatitans.presentation.screens.category.categoryRoute
 import com.chocolate.triviatitans.presentation.screens.home.HomeScreen
 import com.chocolate.triviatitans.presentation.screens.home.homeRoute
 import com.chocolate.triviatitans.presentation.screens.level.LevelScreen
+import com.chocolate.triviatitans.presentation.screens.level.levelRoute
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizScreen
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.LoseScreen
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.SpinWheelScreen
@@ -27,7 +28,7 @@ fun TriviaNavGraph() {
     {
         homeRoute(navController)
         categoryRoute(navController)
-
+        levelRoute(navController)
         composable(
             "${Screens.LevelScreen.route}/{categories}/{game_type}",
             arguments = listOf(

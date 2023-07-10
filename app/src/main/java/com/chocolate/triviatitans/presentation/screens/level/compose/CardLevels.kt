@@ -11,8 +11,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
-import com.chocolate.triviatitans.presentation.screens.level.level.LevelUiState
-import com.chocolate.triviatitans.presentation.screens.level.level.TypeLevel
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
 
 @Composable
 fun CardLevels(

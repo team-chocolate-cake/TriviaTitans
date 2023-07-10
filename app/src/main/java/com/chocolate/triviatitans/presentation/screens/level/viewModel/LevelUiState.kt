@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.level.level
+package com.chocolate.triviatitans.presentation.screens.level.viewModel
 
 data class LevelUiState(
     val selectedLevel: TypeLevel = TypeLevel.Easy,

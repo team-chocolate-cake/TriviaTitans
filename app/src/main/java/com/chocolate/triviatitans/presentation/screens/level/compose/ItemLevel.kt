@@ -23,8 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
 import com.chocolate.triviatitans.presentation.theme.LightOnSecondary
-import com.chocolate.triviatitans.presentation.screens.level.level.LevelUiState
-import com.chocolate.triviatitans.presentation.screens.level.level.TypeLevel
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
 
 @Composable
 fun ItemLevel(
