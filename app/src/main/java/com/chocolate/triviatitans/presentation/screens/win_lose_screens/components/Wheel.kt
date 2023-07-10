@@ -100,7 +100,7 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(8.dp)
+                    .padding(4.dp)
             ) {
                 Text(
                     text = iconList[pieIndex],
@@ -109,7 +109,6 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                     fontSize = 16.sp,
                     modifier = Modifier.align(Alignment.Center)
                 )
-                // Update the selectedPie value when the wheel is stopped
                 if (!spinningState.value) {
                     selectedPie.value = iconList[pieIndex]
                 }

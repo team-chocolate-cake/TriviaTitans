@@ -15,11 +15,18 @@ fun SpacerHorizontal4(){
 fun SpacerHorizontal8(){
     Spacer(modifier = Modifier.width(8.dp))
 }
+@Composable
+fun SpacerHorizontal24(){
+    Spacer(modifier = Modifier.width(24.dp))
+
+}
+
 
 @Composable
 fun SpacerVertical4(){
     Spacer(modifier = Modifier.height(4.dp))
 }
+
 @Composable
 fun SpacerVertical8(){
     Spacer(modifier = Modifier.height(8.dp))

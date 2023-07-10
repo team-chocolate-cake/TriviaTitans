@@ -2,7 +2,7 @@
     <string name="app_name">TriviaTitans</string>
     <string name="present_image">present image</string>
     <string name="return_to_home">Return to home</string>
-    <string name="go_to_next_level">Go to next level</string>
+    <string name="go_to_next_game">Go for more questions </string>
     <string name="you_earned_200_points">You earned </string>
     <string name="congrats">Congrats</string>
     <string name="game_over">Game Over !</string>

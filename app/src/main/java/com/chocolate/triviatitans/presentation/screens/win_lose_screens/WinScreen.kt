@@ -13,7 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.SpacerHorizontal24
 import com.chocolate.triviatitans.composables.SpacerVertical24
 import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.ButtonWinLose
@@ -34,7 +36,8 @@ fun WinScreen(navController: NavController, prize: String) {
             .background(Win)
             .padding(16.dp)
     ) {
-        val (lottie,
+        val (
+            lottie,
             present,
             congrats,
             points,
@@ -70,18 +73,18 @@ fun WinScreen(navController: NavController, prize: String) {
                 end.linkTo(parent.end)
             })
 
-        ButtonWinLose(
-            text = stringResource(R.string.go_to_next_level),
-            onClick = { navController.navigate(Screens.QuizScreen.route) },
-            buttonColor = Primary,
-            borderColor = Color.Transparent,
-            textColor = LightBackground,
-            modifier = Modifier.constrainAs(nextLevel) {
-                bottom.linkTo(returnToHome.top)
-                start.linkTo(parent.start, margin = 16.dp)
-                end.linkTo(parent.end, margin = 16.dp)
-            }
-        )
+//        ButtonWinLose(
+//            text = stringResource(R.string.go_to_next_game),
+//            onClick = { navController.navigate(Screens.QuizScreen.route) },
+//            buttonColor = Primary,
+//            borderColor = Color.Transparent,
+//            textColor = LightBackground,
+//            modifier = Modifier.constrainAs(nextLevel) {
+//                bottom.linkTo(returnToHome.top)
+//                start.linkTo(parent.start, margin = 16.dp)
+//                end.linkTo(parent.end, margin = 16.dp)
+//            }
+//        )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
             onClick = { navController.navigate(Screens.HomeScreen.route) },
@@ -89,7 +92,7 @@ fun WinScreen(navController: NavController, prize: String) {
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
             modifier = Modifier.constrainAs(returnToHome) {
-                bottom.linkTo(parent.bottom, margin = 164.dp)
+                bottom.linkTo(parent.bottom, margin = 128.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
