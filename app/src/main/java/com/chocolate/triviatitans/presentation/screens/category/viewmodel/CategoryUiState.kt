@@ -9,7 +9,7 @@ data class CategoriesUiState(
 
 data class CategoryUiState(
     val id: Int = 0,
-    val name: String = "",
+    val name: String = "", // I want to pass it
     val title: String = "",
     val image: Int = 0,
     val progress: Float = 0.6f,

@@ -5,7 +5,7 @@ data class LevelUiState(
     val score: Int = 10,
 )
 enum class TypeLevel(name: String) {
-    Easy("Easy"),
-    Medium("Medium"),
-    Hard("Hard")
+    Easy("easy"),
+    Medium("medium"),
+    Hard("hard")
 }

@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.level
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.ui.screens.level.compose.AppBar
@@ -42,6 +44,10 @@ fun LevelScreen(
         onLevelSelected = viewModel::updateSelectedLevel,
         state = state,
     )
+    Log.d(
+        "categories",
+        "categories -> ${viewModel.categoriesArgs}+ Game Type -> ${viewModel.gameTypeArgs}"
+    )
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -60,7 +66,11 @@ fun LevelContent(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        Column(Modifier.fillMaxHeight().verticalScroll(state = stateScrollable)) {
+        Column(
+            Modifier
+                .fillMaxHeight()
+                .verticalScroll(state = stateScrollable)
+        ) {
             LevelImage()
             Score(state, colors)
             DescriptionLevel(color = colors)
@@ -80,7 +90,7 @@ fun LevelContent(
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
 )
 fun MyPreview() {
-    TriviaTitansTheme() {
+    TriviaTitansTheme {
         LevelContent(
             onClickBack = {},
             onClickStartGame = {},

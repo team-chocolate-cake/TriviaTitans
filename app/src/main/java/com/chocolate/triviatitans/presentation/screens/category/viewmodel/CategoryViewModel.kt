@@ -1,6 +1,7 @@
 package com.chocolate.triviatitans.presentation.screens.category.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.chocolate.triviatitans.R
@@ -21,13 +22,15 @@ class CategoryViewModel @Inject constructor(
 
     val args = checkNotNull(savedStateHandle["currentIndex"])
 
+    private val _selectedCardNames = mutableStateListOf<String>()
+    val selectedCardNames: List<String> get() = _selectedCardNames
+
     init {
         getCategories()
     }
 
     private fun getCategories() {
         _state.update { it.copy(categories = categories()) }
-        Log.d("currentIndex", args.toString())
     }
 
     fun onCategorySelected(categoryUiState: CategoryUiState) {
@@ -37,6 +40,7 @@ class CategoryViewModel @Inject constructor(
                 categoriesSelectedCount = it.categoriesSelectedCount + 1
             )
         }
+        _selectedCardNames.add(categoryUiState.name)
     }
 
     fun onCategoryDeselected(categoryUiState: CategoryUiState) {
@@ -46,6 +50,7 @@ class CategoryViewModel @Inject constructor(
                 categoriesSelectedCount = it.categoriesSelectedCount - 1
             )
         }
+        _selectedCardNames.remove(categoryUiState.name)
     }
 
     private fun categories(): List<CategoryUiState> {

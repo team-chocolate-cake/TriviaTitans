@@ -2,7 +2,6 @@ package com.chocolate.triviatitans.view_model.level
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.chocolate.triviatitans.presentation.screens.level.LevelArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,17 +11,19 @@ import javax.inject.Inject
 @HiltViewModel
 class LevelViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
     private val _state = MutableStateFlow(LevelUiState())
     val state = _state.asStateFlow()
-    private val args: LevelArgs = LevelArgs(savedStateHandle)
+
+    val categoriesArgs: String = checkNotNull(savedStateHandle["categories"])
+    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
 
     init {
         getScore()
     }
 
     private fun getScore() {
-        when(_state.value.selectedLevel){
+        when (_state.value.selectedLevel) {
             TypeLevel.Easy -> {
                 _state.update {
                     it.copy(
@@ -30,6 +31,7 @@ class LevelViewModel @Inject constructor(
                     )
                 }
             }
+
             TypeLevel.Medium -> {
                 _state.update {
                     it.copy(
@@ -37,6 +39,7 @@ class LevelViewModel @Inject constructor(
                     )
                 }
             }
+
             TypeLevel.Hard -> {
                 _state.update {
                     it.copy(
@@ -48,10 +51,18 @@ class LevelViewModel @Inject constructor(
     }
 
     fun updateSelectedLevel(level: TypeLevel) {
-        when(level){
-            TypeLevel.Easy -> {_state.update { it.copy(selectedLevel = level) }}
-            TypeLevel.Medium -> {_state.update { it.copy(selectedLevel = level) }}
-            TypeLevel.Hard -> {_state.update { it.copy(selectedLevel = level) }}
+        when (level) {
+            TypeLevel.Easy -> {
+                _state.update { it.copy(selectedLevel = level) }
+            }
+
+            TypeLevel.Medium -> {
+                _state.update { it.copy(selectedLevel = level) }
+            }
+
+            TypeLevel.Hard -> {
+                _state.update { it.copy(selectedLevel = level) }
+            }
         }
         getScore()
     }
