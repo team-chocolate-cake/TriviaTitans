@@ -18,14 +18,10 @@ import com.chocolate.triviatitans.ui.theme.Primary
 fun TextCard(
     text: String,
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit = {},
     textColor: Color,
 ) {
     Box(
         modifier = modifier
-            .clickable {
-                onClick(text)
-            }
             .border(
                 width = 1.dp,
                 color = Primary,
@@ -45,5 +41,5 @@ fun TextCard(
 @Preview
 @Composable
 fun TextCardPreview() {
-    TextCard(text = "A", onClick = {}, textColor = Color.White)
+    TextCard(text = "A", textColor = Color.White)
 }
