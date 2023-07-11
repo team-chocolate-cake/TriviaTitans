@@ -11,10 +11,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun QuestionLettersLazyGird(
+fun QuestionLettersLazyGrid(
     charsList: List<Char>,
     selectedLetterList: List<Char>,
     modifier: Modifier = Modifier,
+    onDeleteCharacter: (Int) -> Unit, // Callback for deleting a character
 ) {
 
     LazyVerticalGrid(
@@ -29,18 +30,10 @@ fun QuestionLettersLazyGird(
             val value = (selectedLetterList + List(charsList.size) { ' ' })[index]
             CorrectAnswerTextCard(
                 text = value,
+                onClick = { onDeleteCharacter(index) } // Call the onDeleteCharacter callback
             )
         }
-
     }
 }
 
-@Preview
-@Composable
-fun QuestionLettersLazyGirdPreview() {
-    QuestionLettersLazyGird(
-        charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
-        selectedLetterList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')
-    )
-}
 
