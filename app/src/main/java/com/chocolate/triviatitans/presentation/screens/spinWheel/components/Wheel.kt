@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens.components
+package com.chocolate.triviatitans.presentation.screens.spinWheel.components
 
 import android.content.Context
 import android.widget.Toast
@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.screens.win.navigateToWinScreen
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 import com.commandiron.spin_wheel_compose.SpinWheel

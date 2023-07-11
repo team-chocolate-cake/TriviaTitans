@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.spinWheel.view_model.SpinWheelViewModel
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.Wheel
+import com.chocolate.triviatitans.presentation.screens.spinWheel.components.Wheel
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 
 @Composable
