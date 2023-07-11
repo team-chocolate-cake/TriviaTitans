@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.KeyboardLatterLazyGrid
-import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.QuestionLettersLazyGird
+import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.QuestionLettersLazyGrid
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel.WordWiseUIState
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel.WordWiseViewModel
 
@@ -17,22 +17,28 @@ import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewMode
 fun WordWiseScreen() {
     val viewModel: WordWiseViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState().value
-    WordWiseContent(state = state, onLetterClick = viewModel::onLetterClicked)
+    WordWiseContent(
+        state = state,
+        onLetterClick = viewModel::onLetterClicked,
+        onDeleteCharacter = viewModel::onDeleteCharacter
+    )
 }
 
 @Composable
 fun WordWiseContent(
     state: WordWiseUIState,
     onLetterClick: (Char) -> Unit,
+    onDeleteCharacter: (Int) -> Unit
 ) {
     if (state.questionUiStates.isNotEmpty()) {
         Column(Modifier.padding(horizontal = 16.dp)) {
             //    Header(question = state.questionUiStates[state.questionNumber].question)
 
-            QuestionLettersLazyGird(
+            QuestionLettersLazyGrid(
                 charsList = state
                     .questionUiStates[state.questionNumber].correctAnswerLetters,
                 selectedLetterList = state.selectedLetterList,
+                onDeleteCharacter = onDeleteCharacter
             )
             KeyboardLatterLazyGrid(
                 charsList = state.keyboardLetters,
