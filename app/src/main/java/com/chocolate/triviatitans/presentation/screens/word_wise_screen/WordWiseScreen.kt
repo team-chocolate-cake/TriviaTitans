@@ -37,8 +37,33 @@ fun WordWiseContent(
                 selectedLetterList = state.selectedLetterList,
             )
             LatterLazyGrid(
-                charsList = state
-                    .questionUiStates[state.questionNumber].correctAnswerLetters,
+                charsList = listOf(
+                    'A',
+                    'B',
+                    'C',
+                    'D',
+                    'E',
+                    'F',
+                    'G',
+                    'H',
+                    'I',
+                    'J',
+                    'K',
+                    'L',
+                    'M',
+                    'N',
+                    'O',
+                    'P',
+                    'Q',
+                    'R',
+                    'S',
+                    'T',
+                    'U',
+                    'V',
+                    'X',
+                    'Y',
+                    'Z'
+                ),
                 onLetterClick = onLetterClick
             )
 
