@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -34,7 +35,7 @@ fun ButtonConfirm(onClickConfirm: () -> Unit) {
         modifier = Modifier
             .padding(horizontal = 32.dp)
             .fillMaxWidth()
-            .fillMaxHeight(0.1f)
+            .height(57.dp)
             .background(
                 color = Primary,
                 shape = RoundedCornerShape(size = 12.dp)
@@ -43,7 +44,7 @@ fun ButtonConfirm(onClickConfirm: () -> Unit) {
     ) {
         Row() {
             Icon(
-                modifier = Modifier.padding(PaddingValues(horizontal = 16.dp, vertical = 8.dp)),
+                modifier = Modifier.padding(PaddingValues(horizontal = 16.dp, vertical = 4.dp)),
                 painter = painterResource(id = com.google.android.material.R.drawable.ic_mtrl_chip_checked_circle),
                 contentDescription = null,
             )
