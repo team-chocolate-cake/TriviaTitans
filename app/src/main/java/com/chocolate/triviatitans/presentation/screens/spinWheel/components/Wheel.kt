@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.spinWheel.components
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens.components
 
 import android.content.Context
 import android.widget.Toast
@@ -20,25 +20,38 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.chocolate.triviatitans.presentation.screens.win.navigateToWinScreen
+import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 import com.commandiron.spin_wheel_compose.SpinWheel
 import com.commandiron.spin_wheel_compose.SpinWheelDefaults
 import com.commandiron.spin_wheel_compose.state.rememberSpinWheelState
 import kotlinx.coroutines.launch
 
+private fun prizeType(selectedPie: String, randomNumberOfGifts: List<Int>): String {
+    return when (selectedPie) {
+        "${randomNumberOfGifts[0]} Bonus" -> "bonus"
+        "${randomNumberOfGifts[1]} Hearts" -> "hearts"
+        "${randomNumberOfGifts[2]} Delete Two answers" -> "deleteTwoAnswers"
+        "${randomNumberOfGifts[3]} Change The Question" -> "changeQuestion"
+        else -> ""
+    }
+}
+
 @Composable
-fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavController) {
+fun Wheel(context: Context, navController: NavController) {
     val selectedPie = remember { mutableStateOf("") }
-    val iconList by remember {
+    val randomNumberOfGifts by remember {
         mutableStateOf(
-            listOf(
-                "Bonus",
-                "Hearts",
-                "Delete Two answers",
-                "Change The Question",
-                "Hard Luck"
-            )
+            List(4) { (1..10).random() }
+        )
+    }
+    val iconList = remember(randomNumberOfGifts) {
+        listOf(
+            "${randomNumberOfGifts[0]} Bonus",
+            "${randomNumberOfGifts[1]} Hearts",
+            "${randomNumberOfGifts[2]} Delete Two answers",
+            "${randomNumberOfGifts[3]} Change The Question",
+            "Hard Luck"
         )
     }
     val spinWheelState = rememberSpinWheelState(
@@ -68,7 +81,10 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                                 Toast.LENGTH_SHORT
                             ).show()
                             spinningState.value = false
-                            navController.navigateToWinScreen()
+                            val prizeType = prizeType(selectedPie.value, randomNumberOfGifts)
+                            navController.navigate(
+                                "${Screens.WinScreen.route}/${selectedPie.value.take(1)}/${prizeType}"
+                            )
                         }
                     }
                 }
@@ -98,7 +114,7 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(4.dp)
+                    .padding(8.dp)
             ) {
                 Text(
                     text = iconList[pieIndex],

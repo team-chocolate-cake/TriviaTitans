@@ -1,6 +1,5 @@
-package com.chocolate.triviatitans.presentation.screens.win
+package com.chocolate.triviatitans.presentation.screens.win_lose_screens
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,25 +12,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.SpacerVertical24
-import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
-import com.chocolate.triviatitans.composables.ButtonWinLose
-import com.chocolate.triviatitans.composables.TextDescription
-import com.chocolate.triviatitans.composables.TextTitle
-import com.chocolate.triviatitans.composables.WinLoseAnimation
-import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
+import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.ButtonWinLose
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextDescription
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextTitle
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.WinLoseAnimation
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
 import com.chocolate.triviatitans.presentation.theme.Primary
-import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
+fun WinScreen(navController: NavController) {
+    val winViewModel: WinViewModel = hiltViewModel()
+    val winUiState = winViewModel.state.collectAsState()
 fun WinScreen(navController: NavController) {
     TriviaTitansTheme() {
         WinContent(
@@ -54,8 +52,7 @@ fun WinContent(
             .background(Win)
             .padding(16.dp)
     ) {
-        val (
-            lottie,
+        val (lottie,
             present,
             congrats,
             points,
@@ -84,7 +81,7 @@ fun WinContent(
             })
         SpacerVertical24()
         TextDescription(
-            stringResource(R.string.you_earned_200_points) + ' ' + winViewModel.args,
+            stringResource(R.string.you_earned_200_points) + ' ' + prize,
             modifier = Modifier.constrainAs(points) {
                 top.linkTo(congrats.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
@@ -92,8 +89,8 @@ fun WinContent(
             })
 
         ButtonWinLose(
-            text = stringResource(R.string.go_to_next_game),
-            onClick = { onClickToNextGame() },
+            text = stringResource(R.string.go_to_next_level),
+            onClick = { navController.navigate(Screens.QuizScreen.route) },
             buttonColor = Primary,
             borderColor = Color.Transparent,
             textColor = LightBackground,
@@ -105,12 +102,12 @@ fun WinContent(
         )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
-            onClick = { onClickToHome() },
+            onClick = { navController.navigate(Screens.HomeScreen.route) },
             buttonColor = LightBackground,
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
             modifier = Modifier.constrainAs(returnToHome) {
-                bottom.linkTo(parent.bottom, margin = 128.dp)
+                bottom.linkTo(parent.bottom, margin = 164.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }

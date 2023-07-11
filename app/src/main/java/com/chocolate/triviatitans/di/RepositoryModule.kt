@@ -1,5 +1,7 @@
 package com.chocolate.triviatitans.di
 
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
+import com.chocolate.triviatitans.data.repository.PlayerDataRepositoryImpl
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepositoryImpl
 import dagger.Binds
@@ -15,5 +17,10 @@ abstract class RepositoryModule {
     @Binds
     @ViewModelScoped
     abstract fun bindTriviaRepository(triviaRepositoryImpl: TriviaTitansRepositoryImpl): TriviaTitansRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindPlayerDataRepository(playerDataRepositoryImpl: PlayerDataRepositoryImpl): PlayerDataRepository
+
 
 }
