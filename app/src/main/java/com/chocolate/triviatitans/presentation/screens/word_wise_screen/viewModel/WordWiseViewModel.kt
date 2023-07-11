@@ -1,6 +1,8 @@
 package com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
@@ -91,7 +93,7 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
         }
     }
 
-    fun onClickConfirm() {
+    fun onClickConfirm(context: Context) {
         if (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswer) {
             _state.update {
                 it.copy(
@@ -103,11 +105,7 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
                 )
             }
         } else {
-//            Toast.makeText(this, "Your Answer is wrong", Toast.LENGTH_LONG)
-            Log.i(
-                "mujtaba",
-                "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswer} "
-            )
+            Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
         }
     }
 }
