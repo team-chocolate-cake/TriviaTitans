@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.AnswerLettersLazyGrid
@@ -18,11 +19,12 @@ import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewMode
 fun WordWiseScreen() {
     val viewModel: WordWiseViewModel = hiltViewModel()
     val state = viewModel.state.collectAsState().value
+    val context = LocalContext.current
     WordWiseContent(
         state = state,
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
-        onClickConfirm = viewModel::onClickConfirm
+        onClickConfirm = { viewModel.onClickConfirm(context) }
     )
 }
 
