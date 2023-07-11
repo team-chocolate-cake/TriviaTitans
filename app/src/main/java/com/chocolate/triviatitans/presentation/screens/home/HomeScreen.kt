@@ -47,7 +47,7 @@ fun HomeScreen(
     TriviaTitansTheme {
         HomeContent(
             onClickButton = { selectedGame ->
-                navController.navigateToSpinWheelScreen()
+                navController.navigateToCategory(selectedGame)
             }
         )
     }
