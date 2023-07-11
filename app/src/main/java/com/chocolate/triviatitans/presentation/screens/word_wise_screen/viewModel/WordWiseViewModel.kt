@@ -22,6 +22,7 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
 
     init {
         getUserQuestions()
+        getKeyboardLetters()
     }
 
     private fun getUserQuestions() {
@@ -62,6 +63,17 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
             } catch (throwable: Throwable) {
                 onError(throwable)
             }
+        }
+    }
+
+    private fun getKeyboardLetters() {
+        _state.update {
+            it.copy(
+                keyboardLetters = listOf(
+                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                    'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', ' '
+                )
+            )
         }
     }
 

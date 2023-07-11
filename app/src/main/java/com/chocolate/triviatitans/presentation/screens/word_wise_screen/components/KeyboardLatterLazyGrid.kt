@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LatterLazyGrid(
+fun KeyboardLatterLazyGrid(
     charsList: List<Char>,
     onLetterClick: (Char) -> Unit,
     modifier: Modifier = Modifier,
@@ -26,7 +26,7 @@ fun LatterLazyGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            LettersTextCard(
+            KeyboardLettersTextCard(
                 text = charsList[index]
             ) { onLetterClick(it) }
         }
@@ -35,8 +35,8 @@ fun LatterLazyGrid(
 
 @Preview
 @Composable
-fun LatterLazyGridPreview() {
-    LatterLazyGrid(
+fun KeyboardLatterLazyGridPreview() {
+    KeyboardLatterLazyGrid(
         charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
         onLetterClick = {}
     )

@@ -8,7 +8,8 @@ data class WordWiseUIState(
     val userScore: Int = 0,
     val questionNumber: Int = 0,
     val levelType: String = "Easy",
-    val selectedLetterList: List<Char> = emptyList()
+    val selectedLetterList: List<Char> = emptyList(),
+    val keyboardLetters: List<Char> = emptyList()
 ) {
     data class QuestionUiState(
         val id: String = "",
