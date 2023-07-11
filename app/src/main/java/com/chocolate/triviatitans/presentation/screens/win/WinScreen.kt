@@ -42,7 +42,8 @@ fun WinScreen(navController: NavController) {
             onClickToNextGame = {
                 navController.popBackStack(Screens.LevelScreen.route, true)
             },
-            prize = winViewModel.args.toString()
+            prize = winViewModel.args.toString(),
+            prizeType = winViewModel.prizeType.toString()
         )
     }
 }
@@ -51,7 +52,8 @@ fun WinScreen(navController: NavController) {
 fun WinContent(
     onClickToHome: () -> Unit,
     onClickToNextGame: () -> Unit,
-    prize: String
+    prize: String,
+    prizeType: String
 ) {
 
     ConstraintLayout(
@@ -89,7 +91,7 @@ fun WinContent(
             })
         SpacerVertical24()
         TextDescription(
-            stringResource(R.string.you_earned_200_points) + ' ' + prize,
+            stringResource(R.string.you_earned_200_points) + ' ' + prize + ' ' + prizeType,
             modifier = Modifier.constrainAs(points) {
                 top.linkTo(congrats.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
