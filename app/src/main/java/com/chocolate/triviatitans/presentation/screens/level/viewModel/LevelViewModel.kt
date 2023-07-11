@@ -12,6 +12,7 @@ import javax.inject.Inject
 class LevelViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(LevelUiState())
     val state = _state.asStateFlow()
 

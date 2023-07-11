@@ -30,7 +30,7 @@ import com.chocolate.triviatitans.ui.screens.level.compose.StartGameButton
 import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
 import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelViewModel
 import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
-
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.navigateToQuiz
 
 @Composable
 fun LevelScreen(
@@ -46,10 +46,9 @@ fun LevelScreen(
                 TypeLevel.Medium -> TypeLevel.Medium.name
                 TypeLevel.Hard -> TypeLevel.Hard.name
             }
-            navController.navigate(
-                "${Screens.QuizScreen.route}/${viewModel.categoriesArgs
-                }/${viewModel.gameTypeArgs}/$levelType"
-            )
+            val categories = viewModel.categoriesArgs.toString()
+            val gameType = viewModel.gameTypeArgs.toString().toInt()
+            navController.navigateToQuiz(categories,gameType,levelType)
         }
         ,
         onLevelSelected = viewModel::updateSelectedLevel,

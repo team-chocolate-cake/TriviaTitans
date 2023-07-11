@@ -20,6 +20,8 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mul
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.QuizScreenViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseUIState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseViewModel
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.navigateToLose
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
@@ -29,6 +31,9 @@ fun QuizScreen(navController: NavController) {
     val quizScreenState = quizScreenViewModel.state.collectAsState().value
     val wordWiseViewModel: WordWiseViewModel = hiltViewModel()
     val wordWiseState = wordWiseViewModel.state.collectAsState().value
+
+    //  TODO() navController.navigateToLose()
+    //  TODO()  navController.navigateToSpinWheelScreen()
 
     QuizContent(
         multiChoiceTextUiState = quizScreenState,

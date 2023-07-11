@@ -1,6 +1,5 @@
 package com.chocolate.triviatitans.presentation.screens.level
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -22,13 +21,3 @@ fun NavGraphBuilder.levelRoute(navController: NavController) {
 fun NavController.navigateToLevel(categories: String,gameType:Int) {
     navigate("${Screens.LevelScreen.route}/$categories/$gameType")
 }
-
-/*
-class LevelArgs(savedStateHandle: SavedStateHandle) {
-    val category: String = checkNotNull(savedStateHandle[CATEGORY_ARGS])
-    val gameType :Int= checkNotNull(savedStateHandle[GAME_TYPE])
-    companion object {
-        const val CATEGORY_ARGS = "category"
-        const val GAME_TYPE = "game_type"
-    }
-}*/

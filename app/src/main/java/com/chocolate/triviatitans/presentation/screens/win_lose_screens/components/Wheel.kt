@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.navigateToWinScreen
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 import com.commandiron.spin_wheel_compose.SpinWheel
 import com.commandiron.spin_wheel_compose.SpinWheelDefaults
@@ -68,9 +69,7 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                                 Toast.LENGTH_SHORT
                             ).show()
                             spinningState.value = false
-                            navController.navigate(
-                                "${Screens.WinScreen.route}/${selectedPie.value}"
-                            )
+                            navController.navigateToWinScreen(selectedPie.value)
                         }
                     }
                 }

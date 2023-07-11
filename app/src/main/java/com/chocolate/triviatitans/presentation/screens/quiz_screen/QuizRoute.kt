@@ -3,15 +3,24 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.chocolate.triviatitans.presentation.Screens
-import com.chocolate.triviatitans.presentation.screens.level.LevelArgs
 
-fun NavGraphBuilder.quizRoute(navController: NavHostController){
-    composable(route = Screens.QuizScreen.route){
-        QuizScreen(navController)
+fun NavGraphBuilder.quizRoute(navController: NavHostController) {
+    composable(
+        "${Screens.QuizScreen.route}/{categories}/{game_type}/{level_type}",
+        arguments = listOf(
+            navArgument("categories") { NavType.StringType },
+            navArgument("game_type") { NavType.IntType },
+            navArgument("level_type") { NavType.StringType }
+        )
+    ) {
+        QuizScreen(navController = navController)
     }
 }
-fun NavController.navigateToQuiz(gameType: LevelArgs , levelArgs: LevelArgs,) {
-    navigate("${Screens.QuizScreen.route}/$gameType/$levelArgs")
+
+fun NavController.navigateToQuiz(categories: String, gameType: Int, levelArgs: String) {
+    navigate("${Screens.QuizScreen.route}/$categories/$gameType/$levelArgs")
 }

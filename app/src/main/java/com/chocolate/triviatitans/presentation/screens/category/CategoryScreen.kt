@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.screens.category.components.BottomBar
 import com.chocolate.triviatitans.presentation.screens.category.components.Content
 import com.chocolate.triviatitans.presentation.screens.category.components.CreateToast
@@ -35,17 +34,9 @@ fun CategoryScreen(
         onCategorySelected = viewModel::onCategorySelected,
         onCategoryDeselected = viewModel::onCategoryDeselected,
         onClickNext = {
-
             val category = viewModel.selectedCardNames.joinToString(",")
             val gameType = viewModel.args
             navController.navigateToLevel(category, gameType.toString().toInt())
-
-            /* navController.navigate(
-                 "${Screens.LevelScreen.route}/${
-                     viewModel.selectedCardNames.joinToString(",")
-                 }/${viewModel.args}"
-             )*/
-
         },
         onClickBack = { navController.navigateUp() }
     )

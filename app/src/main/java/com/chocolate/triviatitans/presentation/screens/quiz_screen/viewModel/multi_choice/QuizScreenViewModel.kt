@@ -36,7 +36,6 @@ class QuizScreenViewModel @Inject constructor(
     val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
     val levelTypeArgs: String = checkNotNull(savedStateHandle["level_type"])
 
-
     private val gameType = GameType.MULTI_CHOICE_IMAGES.name
 
     init {
