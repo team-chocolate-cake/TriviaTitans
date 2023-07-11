@@ -1,6 +1,7 @@
 package com.chocolate.triviatitans.presentation.screens.word_wise_screen.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -13,7 +14,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 @Composable
 fun CorrectAnswerTextCard(
     text: Char,
-    onClick: (Char) -> Unit = {},
+    onClick: () -> Unit = {},
 ) {
     val isFilled = remember { mutableStateOf(false) }
 
@@ -23,10 +24,17 @@ fun CorrectAnswerTextCard(
         TextCard(
             text = text.toString(),
             textColor = TriviaCustomColors.current.secondary,
-            modifier = Modifier.background(
-                TriviaCustomColors.current.primary,
-                shape = RoundedCornerShape(size = 12.dp)
-            )
+            modifier = Modifier
+                .background(
+                    TriviaCustomColors.current.primary,
+                    shape = RoundedCornerShape(size = 12.dp)
+
+                )
+                .clickable {
+                    isFilled.value != isFilled.value
+                    onClick()
+                }
+
         )
     } else {
         TextCard(
