@@ -7,8 +7,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.KeyboardLatterLazyGrid
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.AnswerLettersLazyGrid
+import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.ButtonConfirm
+import com.chocolate.triviatitans.presentation.screens.word_wise_screen.components.KeyboardLatterLazyGrid
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel.WordWiseUIState
 import com.chocolate.triviatitans.presentation.screens.word_wise_screen.viewModel.WordWiseViewModel
 
@@ -20,7 +21,8 @@ fun WordWiseScreen() {
     WordWiseContent(
         state = state,
         onLetterClick = viewModel::onLetterClicked,
-        onAnswerCardClicked = viewModel::onAnswerCardClicked
+        onAnswerCardClicked = viewModel::onAnswerCardClicked,
+        onClickConfirm = {}
     )
 }
 
@@ -28,7 +30,8 @@ fun WordWiseScreen() {
 fun WordWiseContent(
     state: WordWiseUIState,
     onLetterClick: (Char) -> Unit,
-    onAnswerCardClicked: (Int) -> Unit
+    onAnswerCardClicked: (Int) -> Unit,
+    onClickConfirm: () -> Unit
 ) {
     if (state.questionUiStates.isNotEmpty()) {
         Column(Modifier.padding(horizontal = 16.dp)) {
@@ -44,6 +47,7 @@ fun WordWiseContent(
                 charsList = state.keyboardLetters,
                 onLetterClick = onLetterClick
             )
+            ButtonConfirm(onClickConfirm = onClickConfirm)
 
         }
     }
