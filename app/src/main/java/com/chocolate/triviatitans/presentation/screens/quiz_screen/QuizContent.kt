@@ -20,8 +20,6 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mul
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.QuizScreenViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseUIState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseViewModel
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.navigateToLose
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable

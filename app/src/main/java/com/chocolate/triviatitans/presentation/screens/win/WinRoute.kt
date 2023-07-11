@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens
+package com.chocolate.triviatitans.presentation.screens.win
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

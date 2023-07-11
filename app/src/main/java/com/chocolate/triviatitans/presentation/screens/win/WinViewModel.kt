@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens.view_model
+package com.chocolate.triviatitans.presentation.screens.win
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

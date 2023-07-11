@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens.components
+package com.chocolate.triviatitans.composables
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
