@@ -16,7 +16,6 @@ data class WordWiseUIState(
         val question: String = "",
         val category: String = "",
         val difficulty: String = "",
-        val correctAnswer: String = "",
-        val correctAnswerLetters: List<Char> = emptyList()
+        val correctAnswer: List<Char> = emptyList()
     )
 }

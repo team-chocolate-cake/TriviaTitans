@@ -36,7 +36,7 @@ fun WordWiseContent(
 
             AnswerLettersLazyGrid(
                 charsList = state
-                    .questionUiStates[state.questionNumber].correctAnswerLetters,
+                    .questionUiStates[state.questionNumber].correctAnswer,
                 selectedLetterList = state.selectedLetterList,
                 onAnswerCardClicked = onAnswerCardClicked
             )
