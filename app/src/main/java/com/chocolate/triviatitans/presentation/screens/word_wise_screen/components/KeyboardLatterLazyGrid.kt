@@ -33,13 +33,4 @@ fun KeyboardLatterLazyGrid(
     }
 }
 
-@Preview
-@Composable
-fun KeyboardLatterLazyGridPreview() {
-    KeyboardLatterLazyGrid(
-        charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
-        onLetterClick = {}
-    )
-}
-
 

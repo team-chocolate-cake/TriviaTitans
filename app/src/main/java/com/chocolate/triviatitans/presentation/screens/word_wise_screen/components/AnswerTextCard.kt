@@ -7,14 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
-fun CorrectAnswerTextCard(
+fun AnswerTextCard(
     text: Char,
-    onClick: () -> Unit = {},
+    onAnswerCardClicked: () -> Unit,
 ) {
     val isFilled = remember { mutableStateOf(false) }
 
@@ -32,7 +31,7 @@ fun CorrectAnswerTextCard(
                 )
                 .clickable {
                     isFilled.value != isFilled.value
-                    onClick()
+                    onAnswerCardClicked()
                 }
 
         )
@@ -42,10 +41,4 @@ fun CorrectAnswerTextCard(
             textColor = TriviaCustomColors.current.primary,
         )
     }
-}
-
-@Preview
-@Composable
-fun CorrectAnswerTextCardPreview() {
-    CorrectAnswerTextCard(text = 'A', onClick = {})
 }

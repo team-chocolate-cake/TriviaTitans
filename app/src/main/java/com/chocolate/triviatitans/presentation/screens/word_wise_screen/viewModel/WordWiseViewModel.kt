@@ -71,7 +71,7 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
             it.copy(
                 keyboardLetters = listOf(
                     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-                    'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', ' '
+                    'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', '-'
                 )
             )
         }
@@ -83,9 +83,11 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
         }
     }
 
-    fun onDeleteCharacter(index: Int) {
-        _state.update {
-            it.copy(selectedLetterList = _state.value.selectedLetterList.toMutableList())
+    fun onAnswerCardClicked(index: Int) {
+        _state.update { currentState ->
+            val updatedSelectedLetterList = currentState.selectedLetterList.toMutableList()
+            updatedSelectedLetterList.removeAt(index)
+            currentState.copy(selectedLetterList = updatedSelectedLetterList)
         }
     }
 }

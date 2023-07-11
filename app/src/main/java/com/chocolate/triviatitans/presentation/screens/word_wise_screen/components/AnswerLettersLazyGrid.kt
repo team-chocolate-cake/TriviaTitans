@@ -7,15 +7,14 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun QuestionLettersLazyGrid(
+fun AnswerLettersLazyGrid(
     charsList: List<Char>,
     selectedLetterList: List<Char>,
     modifier: Modifier = Modifier,
-    onDeleteCharacter: (Int) -> Unit, // Callback for deleting a character
+    onAnswerCardClicked: (Int) -> Unit, // Callback for deleting a character
 ) {
 
     LazyVerticalGrid(
@@ -28,9 +27,9 @@ fun QuestionLettersLazyGrid(
     ) {
         items(charsList.size) { index ->
             val value = (selectedLetterList + List(charsList.size) { ' ' })[index]
-            CorrectAnswerTextCard(
+            AnswerTextCard(
                 text = value,
-                onClick = { onDeleteCharacter(index) } // Call the onDeleteCharacter callback
+                onAnswerCardClicked = { onAnswerCardClicked(index) } // Call the onDeleteCharacter callback
             )
         }
     }
