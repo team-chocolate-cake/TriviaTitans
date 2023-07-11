@@ -83,7 +83,7 @@ fun Wheel(context: Context, navController: NavController) {
                             spinningState.value = false
                             val prizeType = prizeType(selectedPie.value, randomNumberOfGifts)
                             navController.navigate(
-                                "${Screens.WinScreen.route}/${selectedPie.value.toInt()}/${prizeType}"
+                                "${Screens.WinScreen.route}/${selectedPie.value.take(1)}/${prizeType}"
                             )
                         }
                     }

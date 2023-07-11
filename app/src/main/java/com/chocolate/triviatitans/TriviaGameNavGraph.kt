@@ -61,7 +61,7 @@ fun TriviaNavGraph() {
         }
 
         composable(
-            "${Screens.WinScreen.route}/{prize}",
+            "${Screens.WinScreen.route}/{prize}/{prize_type}",
             arguments = listOf(
                 navArgument("prize") { NavType.IntType },
                 navArgument("prize_type") { NavType.StringType }

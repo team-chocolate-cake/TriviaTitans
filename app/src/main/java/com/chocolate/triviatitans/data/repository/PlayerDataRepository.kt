@@ -4,5 +4,5 @@ import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
 import com.chocolate.triviatitans.domain.entities.PlayerDataEntity
 
 interface PlayerDataRepository {
-    suspend fun savePlayerData(localPlayerDataDto: PlayerDataEntity)
+    suspend fun savePlayerData(prizeType: String, prize: Int)
 }

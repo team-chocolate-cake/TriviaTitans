@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SavePlayerDataUseCase @Inject constructor(
     private val playerDataRepository: PlayerDataRepository
 ) {
-    suspend fun savePlayerData(playerDataEntity: PlayerDataEntity) {
-        playerDataRepository.savePlayerData(playerDataEntity)
+    suspend fun savePlayerData(prizeType: String, prize: Int) {
+        playerDataRepository.savePlayerData(prizeType, prize)
     }
 }

@@ -32,7 +32,7 @@ import com.chocolate.triviatitans.presentation.theme.Win
 @Composable
 fun WinScreen(navController: NavController) {
     val winViewModel: WinViewModel = hiltViewModel()
-    val winUiState = winViewModel.state.collectAsState().value
+    val winUiState = winViewModel.state.collectAsState()
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +68,8 @@ fun WinScreen(navController: NavController) {
             })
         SpacerVertical24()
         TextDescription(
-            stringResource(R.string.you_earned_200_points) + ' ' + winViewModel.args,
+            stringResource(R.string.you_earned_200_points) + ' ' +
+                    winViewModel.args + ' ' + winViewModel.prizeType,
             modifier = Modifier.constrainAs(points) {
                 top.linkTo(congrats.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
