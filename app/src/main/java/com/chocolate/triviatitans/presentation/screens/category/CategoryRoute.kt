@@ -12,9 +12,9 @@ import com.chocolate.triviatitans.presentation.Screens
 
 fun NavGraphBuilder.categoryRoute(navController: NavController) {
     composable(
-        "${Screens.CategoryScreen.route}/${CategoryArgs.Games_ARGS}",
+        "${Screens.CategoryScreen.route}/{currentIndex}",
         arguments = listOf(
-            navArgument(CategoryArgs.Games_ARGS) { NavType.IntType}
+            navArgument("currentIndex") { NavType.IntType}
         )) {
         CategoryScreen(navController = navController)
     }
@@ -22,8 +22,8 @@ fun NavGraphBuilder.categoryRoute(navController: NavController) {
 
 fun NavController.navigateToCategory(currentIndex: Int) {
     navigate("${Screens.CategoryScreen.route}/$currentIndex")
-
 }
+/*
 
 class CategoryArgs(savedStateHandle: SavedStateHandle) {
     val currentIndex: Int = checkNotNull(savedStateHandle[Games_ARGS])
@@ -33,4 +33,5 @@ class CategoryArgs(savedStateHandle: SavedStateHandle) {
     }
 }
 
+*/
 

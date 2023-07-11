@@ -4,7 +4,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.screens.category.CategoryArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +18,7 @@ class CategoryViewModel @Inject constructor(
     private val _state = MutableStateFlow(CategoriesUiState())
     val state = _state.asStateFlow()
 
-    val args: CategoryArgs =CategoryArgs(savedStateHandle)
+    val args = checkNotNull(savedStateHandle["currentIndex"])
 
     private val _selectedCardNames = mutableStateListOf<String>()
     val selectedCardNames: List<String> get() = _selectedCardNames

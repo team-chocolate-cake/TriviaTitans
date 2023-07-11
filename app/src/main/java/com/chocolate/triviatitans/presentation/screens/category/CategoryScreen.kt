@@ -20,6 +20,7 @@ import com.chocolate.triviatitans.presentation.screens.category.components.TopBa
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoriesUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
+import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
@@ -34,11 +35,17 @@ fun CategoryScreen(
         onCategorySelected = viewModel::onCategorySelected,
         onCategoryDeselected = viewModel::onCategoryDeselected,
         onClickNext = {
-            navController.navigate(
-                "${Screens.LevelScreen.route}/${
-                    viewModel.selectedCardNames.joinToString(",")
-                }/${viewModel.args}"
-            )
+
+            val category = viewModel.selectedCardNames.joinToString(",")
+            val gameType = viewModel.args
+            navController.navigateToLevel(category, gameType.toString().toInt())
+
+            /* navController.navigate(
+                 "${Screens.LevelScreen.route}/${
+                     viewModel.selectedCardNames.joinToString(",")
+                 }/${viewModel.args}"
+             )*/
+
         },
         onClickBack = { navController.navigateUp() }
     )

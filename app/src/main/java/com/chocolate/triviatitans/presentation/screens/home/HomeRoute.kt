@@ -12,5 +12,5 @@ fun NavGraphBuilder.homeRoute(navController: NavController){
     }
 }
  fun NavController.navigateToHome() {
-    navigate(Screens.CategoryScreen.route)
+    navigate(Screens.HomeScreen.route)
 }

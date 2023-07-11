@@ -2,7 +2,6 @@ package com.chocolate.triviatitans.presentation.screens.level.viewModel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.chocolate.triviatitans.presentation.screens.level.LevelArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,8 +15,8 @@ class LevelViewModel @Inject constructor(
     private val _state = MutableStateFlow(LevelUiState())
     val state = _state.asStateFlow()
 
-    val categoriesArgs: LevelArgs = LevelArgs(savedStateHandle)
-    val gameTypeArgs :LevelArgs = LevelArgs(savedStateHandle)
+    val categoriesArgs = checkNotNull(savedStateHandle["categories"])
+    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
 
     init {
         getScore()
