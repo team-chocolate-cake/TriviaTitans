@@ -32,12 +32,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.Screens
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
-import com.chocolate.triviatitans.presentation.screens.win.WinViewModel
+import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.screens.win.navigateToWinScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -48,9 +46,8 @@ fun HomeScreen(
 ) {
     TriviaTitansTheme {
         HomeContent(
-            onClickButton = {selectedGame->
-              // navController.navigateToCategory(selectedGame)
-                navController.navigateToWinScreen()
+            onClickButton = { selectedGame ->
+                navController.navigateToCategory(selectedGame)
             }
         )
     }

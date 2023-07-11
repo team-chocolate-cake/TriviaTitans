@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.win.navigateToWinScreen
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 import com.commandiron.spin_wheel_compose.SpinWheel
 import com.commandiron.spin_wheel_compose.SpinWheelDefaults
@@ -51,7 +52,7 @@ fun Wheel(context: Context, navController: NavController) {
             "${randomNumberOfGifts[1]} Hearts",
             "${randomNumberOfGifts[2]} Delete Two answers",
             "${randomNumberOfGifts[3]} Change The Question",
-            "Hard Luck"
+            "1 Hard Luck"
         )
     }
     val spinWheelState = rememberSpinWheelState(
@@ -75,16 +76,16 @@ fun Wheel(context: Context, navController: NavController) {
                     coroutineScope.launch {
                         spinWheelState.spin { pieIndex ->
                             selectedPie.value = iconList[pieIndex]
-                            Toast.makeText(
-                                context,
-                                "Selected Pie: ${selectedPie.value}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast
+                                .makeText(
+                                    context,
+                                    "Selected Pie: ${selectedPie.value}",
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
                             spinningState.value = false
                             val prizeType = prizeType(selectedPie.value, randomNumberOfGifts)
-                            navController.navigate(
-                                "${Screens.WinScreen.route}/${selectedPie.value.take(1)}/${prizeType}"
-                            )
+                            navController.navigateToWinScreen(selectedPie.value.take(1), prizeType)
                         }
                     }
                 }

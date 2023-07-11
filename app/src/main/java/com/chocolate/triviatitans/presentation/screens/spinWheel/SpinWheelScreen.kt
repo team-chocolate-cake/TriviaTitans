@@ -1,13 +1,9 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens
+package com.chocolate.triviatitans.presentation.screens.spinWheel
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -18,8 +14,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.presentation.screens.spinWheel.view_model.SpinWheelViewModel
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.Wheel
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.view_model.SpinWheelViewModel
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 
 @Composable

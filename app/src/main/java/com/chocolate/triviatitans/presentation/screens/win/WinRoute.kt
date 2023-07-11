@@ -9,11 +9,15 @@ import androidx.navigation.navArgument
 import com.chocolate.triviatitans.presentation.Screens
 
 fun NavGraphBuilder.winRoute(navController: NavHostController) {
-    composable(Screens.WinScreen.route) {
-        WinScreen(navController = navController)
-    }
+    composable(
+        "${Screens.WinScreen.route}/{prize}/{prize_type}",
+        arguments = listOf(
+            navArgument("prize") { NavType.IntType },
+            navArgument("prize_type") { NavType.StringType }
+        )
+    ) { WinScreen(navController = navController) }
 }
 
-fun NavController.navigateToWinScreen() {
-    navigate(Screens.WinScreen.route)
+fun NavController.navigateToWinScreen(prize: String, prizeType: String) {
+    navigate("${Screens.WinScreen.route}/${prize.take(1)}/${prizeType}")
 }

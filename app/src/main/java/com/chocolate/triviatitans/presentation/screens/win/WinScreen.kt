@@ -1,40 +1,48 @@
-package com.chocolate.triviatitans.presentation.screens.win_lose_screens
+package com.chocolate.triviatitans.presentation.screens.win
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.ButtonWinLose
 import com.chocolate.triviatitans.composables.SpacerVertical24
+import com.chocolate.triviatitans.composables.TextDescription
+import com.chocolate.triviatitans.composables.TextTitle
+import com.chocolate.triviatitans.composables.WinLoseAnimation
 import com.chocolate.triviatitans.presentation.Screens
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.ButtonWinLose
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextDescription
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextTitle
-import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.WinLoseAnimation
+import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
+import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
 import com.chocolate.triviatitans.presentation.theme.Primary
+import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
 fun WinScreen(navController: NavController) {
     val winViewModel: WinViewModel = hiltViewModel()
     val winUiState = winViewModel.state.collectAsState()
-fun WinScreen(navController: NavController) {
     TriviaTitansTheme() {
         WinContent(
             onClickToHome = { navController.navigateToHome() },
-            onClickToNextGame = { navController.navigateToLevel() }
+            onClickToNextGame = {
+                navController.popBackStack(Screens.LevelScreen.route, true)
+            },
+            prize = winViewModel.args.toString()
         )
     }
 }
@@ -43,8 +51,8 @@ fun WinScreen(navController: NavController) {
 fun WinContent(
     onClickToHome: () -> Unit,
     onClickToNextGame: () -> Unit,
+    prize: String
 ) {
-    val winViewModel: WinViewModel = hiltViewModel()
 
     ConstraintLayout(
         modifier = Modifier
@@ -89,8 +97,8 @@ fun WinContent(
             })
 
         ButtonWinLose(
-            text = stringResource(R.string.go_to_next_level),
-            onClick = { navController.navigate(Screens.QuizScreen.route) },
+            text = stringResource(R.string.go_to_next_game),
+            onClick = { onClickToNextGame() },
             buttonColor = Primary,
             borderColor = Color.Transparent,
             textColor = LightBackground,
@@ -102,7 +110,7 @@ fun WinContent(
         )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
-            onClick = { navController.navigate(Screens.HomeScreen.route) },
+            onClick = { onClickToHome() },
             buttonColor = LightBackground,
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
