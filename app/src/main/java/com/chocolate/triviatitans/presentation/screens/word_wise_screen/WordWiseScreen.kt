@@ -22,7 +22,7 @@ fun WordWiseScreen() {
         state = state,
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
-        onClickConfirm = {}
+        onClickConfirm = viewModel::onClickConfirm
     )
 }
 

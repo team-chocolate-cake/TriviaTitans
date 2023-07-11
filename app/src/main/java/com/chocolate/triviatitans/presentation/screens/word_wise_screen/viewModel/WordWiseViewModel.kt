@@ -71,7 +71,7 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
             it.copy(
                 keyboardLetters = listOf(
                     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-                    'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', '-'
+                    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-'
                 )
             )
         }
@@ -88,6 +88,26 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
             val updatedSelectedLetterList = currentState.selectedLetterList.toMutableList()
             updatedSelectedLetterList.removeAt(index)
             currentState.copy(selectedLetterList = updatedSelectedLetterList)
+        }
+    }
+
+    fun onClickConfirm() {
+        if (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswer) {
+            _state.update {
+                it.copy(
+                    questionNumber = (it.questionNumber + 1)
+                        .takeIf { questionNumber -> questionNumber < it.questionUiStates.size }
+                        ?: 0,
+                    userScore = it.userScore + 10,
+                    selectedLetterList = emptyList()
+                )
+            }
+        } else {
+//            Toast.makeText(this, "Your Answer is wrong", Toast.LENGTH_LONG)
+            Log.i(
+                "mujtaba",
+                "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswer} "
+            )
         }
     }
 }
