@@ -2,7 +2,7 @@ package com.chocolate.triviatitans.di
 
 import android.content.Context
 import androidx.room.Room
-import com.chocolate.triviatitans.data.local.PlayerData
+import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
 import com.chocolate.triviatitans.data.local.TriviaDao
 import com.chocolate.triviatitans.data.local.TriviaDatabase
 import dagger.Module
@@ -30,8 +30,8 @@ object DataBaseModule {
 
     @Provides
     @Singleton
-    fun provideDefaultPlayerData(): PlayerData {
-        return PlayerData(
+    fun provideDefaultPlayerData(): LocalPlayerDataDto {
+        return LocalPlayerDataDto(
             id = 1,
             bonus = 0,
             deleteTwoAnswers = 0,

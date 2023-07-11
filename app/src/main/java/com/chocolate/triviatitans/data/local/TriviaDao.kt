@@ -10,9 +10,9 @@ import androidx.room.Query
 @Dao
 interface TriviaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPlayerData(playerData: PlayerData)
+    suspend fun insertPlayerData(playerData: LocalPlayerDataDto)
 
     @Query("SELECT * FROM player_data LIMIT 1")
-    suspend fun getPlayerData(): PlayerData?
+    suspend fun getPlayerData(): PlayerData
 }
 

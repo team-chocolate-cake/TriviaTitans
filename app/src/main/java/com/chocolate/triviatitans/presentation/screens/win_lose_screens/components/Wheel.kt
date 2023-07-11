@@ -27,23 +27,31 @@ import com.commandiron.spin_wheel_compose.SpinWheelDefaults
 import com.commandiron.spin_wheel_compose.state.rememberSpinWheelState
 import kotlinx.coroutines.launch
 
+private fun prizeType(selectedPie: String, randomNumberOfGifts: List<Int>): String {
+    return when (selectedPie) {
+        "${randomNumberOfGifts[0]} Bonus" -> "bonus"
+        "${randomNumberOfGifts[1]} Hearts" -> "hearts"
+        "${randomNumberOfGifts[2]} Delete Two answers" -> "deleteTwoAnswers"
+        "${randomNumberOfGifts[3]} Change The Question" -> "changeQuestion"
+        else -> ""
+    }
+}
+
 @Composable
-fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavController) {
+fun Wheel(context: Context, navController: NavController) {
     val selectedPie = remember { mutableStateOf("") }
     val randomNumberOfGifts by remember {
         mutableStateOf(
             List(4) { (1..10).random() }
         )
     }
-    val iconList by remember(randomNumberOfGifts) {
-        mutableStateOf(
-            listOf(
-                "${randomNumberOfGifts[0]} Bonus",
-                "${randomNumberOfGifts[1]} Hearts",
-                "${randomNumberOfGifts[2]} Delete Two answers",
-                "${randomNumberOfGifts[3]} Change The Question",
-                "Hard Luck"
-            )
+    val iconList = remember(randomNumberOfGifts) {
+        listOf(
+            "${randomNumberOfGifts[0]} Bonus",
+            "${randomNumberOfGifts[1]} Hearts",
+            "${randomNumberOfGifts[2]} Delete Two answers",
+            "${randomNumberOfGifts[3]} Change The Question",
+            "Hard Luck"
         )
     }
     val spinWheelState = rememberSpinWheelState(
@@ -67,16 +75,15 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                     coroutineScope.launch {
                         spinWheelState.spin { pieIndex ->
                             selectedPie.value = iconList[pieIndex]
-                            Toast
-                                .makeText(
-                                    context,
-                                    "Selected Pie: ${selectedPie.value}",
-                                    Toast.LENGTH_SHORT
-                                )
-                                .show()
+                            Toast.makeText(
+                                context,
+                                "Selected Pie: ${selectedPie.value}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             spinningState.value = false
+                            val prizeType = prizeType(selectedPie.value, randomNumberOfGifts)
                             navController.navigate(
-                                "${Screens.WinScreen.route}/${selectedPie.value}"
+                                "${Screens.WinScreen.route}/${selectedPie.value.toInt()}/${prizeType}"
                             )
                         }
                     }

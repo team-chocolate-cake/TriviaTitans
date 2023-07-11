@@ -1,8 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.win_lose_screens
 
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,8 +27,6 @@ fun SpinWheelScreen(
     navController: NavController,
     viewModel: SpinWheelViewModel = hiltViewModel()
 ) {
-    val selectedPie = remember { mutableStateOf("") }
-    val state by viewModel.state.collectAsState()
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -50,14 +46,6 @@ fun SpinWheelScreen(
             color = LightOnBackground87
         )
         Wheel(
-            modifier = Modifier
-                .constrainAs(wheel) {
-                    top.linkTo(spinText.bottom, margin = 90.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .fillMaxWidth()
-                .aspectRatio(1f),
             context = LocalContext.current,
             navController = navController
         )

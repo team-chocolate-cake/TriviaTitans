@@ -60,24 +60,13 @@ fun TriviaNavGraph() {
             SpinWheelScreen(navController = navController)
         }
 
-      /*  composable(
-            "${Screens.WinScreen.route}/{prize}",
-            arguments = listOf(
-                navArgument("prize") { NavType.StringType }
-            )
-        ) {
-            WinScreen(navController = navController)
-        }*/
-
         composable(
             "${Screens.WinScreen.route}/{prize}",
             arguments = listOf(
-                navArgument("prize") { NavType.StringType }
+                navArgument("prize") { NavType.IntType },
+                navArgument("prize_type") { NavType.StringType }
             )
-        ) { backStackEntry ->
-            val prize = backStackEntry.arguments?.getString("prize") ?: ""
-            WinScreen(navController = navController, prize = prize)
-        }
+        ) { WinScreen(navController = navController) }
 
 
         composable(Screens.LoseScreen.route) {

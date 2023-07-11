@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.SpacerVertical24
@@ -20,6 +22,7 @@ import com.chocolate.triviatitans.presentation.screens.win_lose_screens.componen
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextDescription
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.TextTitle
 import com.chocolate.triviatitans.presentation.screens.win_lose_screens.components.WinLoseAnimation
+import com.chocolate.triviatitans.presentation.screens.win_lose_screens.view_model.WinViewModel
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
@@ -27,7 +30,9 @@ import com.chocolate.triviatitans.presentation.theme.Primary
 import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
-fun WinScreen(navController: NavController, prize: String) {
+fun WinScreen(navController: NavController) {
+    val winViewModel: WinViewModel = hiltViewModel()
+    val winUiState = winViewModel.state.collectAsState().value
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +68,7 @@ fun WinScreen(navController: NavController, prize: String) {
             })
         SpacerVertical24()
         TextDescription(
-            stringResource(R.string.you_earned_200_points) + ' ' + prize,
+            stringResource(R.string.you_earned_200_points) + ' ' + winViewModel.args,
             modifier = Modifier.constrainAs(points) {
                 top.linkTo(congrats.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
