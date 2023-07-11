@@ -68,7 +68,7 @@ fun Wheel(modifier: Modifier = Modifier, context: Context, navController: NavCon
                                 Toast.LENGTH_SHORT
                             ).show()
                             spinningState.value = false
-                            navController.navigateToWinScreen(selectedPie.value)
+                            navController.navigateToWinScreen()
                         }
                     }
                 }

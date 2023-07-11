@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.SpacerVertical24
@@ -20,27 +23,31 @@ import com.chocolate.triviatitans.composables.ButtonWinLose
 import com.chocolate.triviatitans.composables.TextDescription
 import com.chocolate.triviatitans.composables.TextTitle
 import com.chocolate.triviatitans.composables.WinLoseAnimation
+import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
+import com.chocolate.triviatitans.presentation.theme.Primary
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
-fun WinScreen(navController: NavController, prize: String) {
+fun WinScreen(navController: NavController) {
     TriviaTitansTheme() {
         WinContent(
-            onClickToHomeButton = { navController.navigateToHome() },
-            prize
+            onClickToHome = { navController.navigateToHome() },
+            onClickToNextGame = { navController.navigateToLevel() }
         )
     }
 }
 
 @Composable
 fun WinContent(
-    onClickToHomeButton:() -> Unit
-    , prize: String
-){
+    onClickToHome: () -> Unit,
+    onClickToNextGame: () -> Unit,
+) {
+    val winViewModel: WinViewModel = hiltViewModel()
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -77,28 +84,28 @@ fun WinContent(
             })
         SpacerVertical24()
         TextDescription(
-            stringResource(R.string.you_earned_200_points) + ' ' + prize,
+            stringResource(R.string.you_earned_200_points) + ' ' + winViewModel.args,
             modifier = Modifier.constrainAs(points) {
                 top.linkTo(congrats.bottom, margin = 24.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             })
 
-//        ButtonWinLose(
-//            text = stringResource(R.string.go_to_next_game),
-//            onClick = { navController.navigate(Screens.QuizScreen.route) },
-//            buttonColor = Primary,
-//            borderColor = Color.Transparent,
-//            textColor = LightBackground,
-//            modifier = Modifier.constrainAs(nextLevel) {
-//                bottom.linkTo(returnToHome.top)
-//                start.linkTo(parent.start, margin = 16.dp)
-//                end.linkTo(parent.end, margin = 16.dp)
-//            }
-//        )
+        ButtonWinLose(
+            text = stringResource(R.string.go_to_next_game),
+            onClick = { onClickToNextGame() },
+            buttonColor = Primary,
+            borderColor = Color.Transparent,
+            textColor = LightBackground,
+            modifier = Modifier.constrainAs(nextLevel) {
+                bottom.linkTo(returnToHome.top)
+                start.linkTo(parent.start, margin = 16.dp)
+                end.linkTo(parent.end, margin = 16.dp)
+            }
+        )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
-            onClick = { onClickToHomeButton() },
+            onClick = { onClickToHome() },
             buttonColor = LightBackground,
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
@@ -110,7 +117,7 @@ fun WinContent(
         )
 
         BackHandler(enabled = true) {
-            onClickToHomeButton()
-            }
+            onClickToNextGame()
         }
     }
+}

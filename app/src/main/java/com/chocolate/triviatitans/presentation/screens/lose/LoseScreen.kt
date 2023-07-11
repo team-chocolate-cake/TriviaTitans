@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -19,9 +20,11 @@ import com.chocolate.triviatitans.composables.ButtonWinLose
 import com.chocolate.triviatitans.composables.TextDescription
 import com.chocolate.triviatitans.composables.TextTitle
 import com.chocolate.triviatitans.composables.WinLoseAnimation
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.navigateToQuiz
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
+import com.chocolate.triviatitans.presentation.theme.Primary
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 
@@ -29,17 +32,18 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 fun LoseScreen(navController: NavController) {
     TriviaTitansTheme {
         LoseContent(
-            onClickReturnToHomeButton = {
-                navController.navigateToHome()
-            }
+            onClickReturnToHome = { navController.navigateToHome() },
+            onClickRetry={navController.navigateToQuiz()}
         )
     }
 }
 
 @Composable
 fun LoseContent(
-    onClickReturnToHomeButton: () -> Unit,
-) {
+    onClickReturnToHome: () -> Unit,
+    onClickRetry: () -> Unit,
+
+    ) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -49,6 +53,7 @@ fun LoseContent(
             lottie,
             gamOver,
             description,
+            retry,
             returnToHome
         ) = createRefs()
         WinLoseAnimation(
@@ -79,23 +84,21 @@ fun LoseContent(
                 end.linkTo(parent.end)
             })
 
-//        ButtonWinLose(
-//            text = stringResource(R.string.retry),
-//            onClick = {},
-//            buttonColor = Primary,
-//            borderColor = Color.Transparent,
-//            textColor = LightBackground,
-//            modifier = Modifier.constrainAs(retry) {
-//                bottom.linkTo(returnToHome.top)
-//                start.linkTo(parent.start, margin = 16.dp)
-//                end.linkTo(parent.end, margin = 16.dp)
-//            }
-//        )
+        ButtonWinLose(
+            text = stringResource(R.string.retry),
+            onClick = {onClickRetry()},
+            buttonColor = Primary,
+            borderColor = Color.Transparent,
+            textColor = LightBackground,
+            modifier = Modifier.constrainAs(retry) {
+                bottom.linkTo(returnToHome.top)
+                start.linkTo(parent.start, margin = 16.dp)
+                end.linkTo(parent.end, margin = 16.dp)
+            }
+        )
         ButtonWinLose(
             text = stringResource(R.string.return_to_home),
-            onClick = {
-                onClickReturnToHomeButton()
-            },
+            onClick = { onClickReturnToHome() },
             buttonColor = LightBackground,
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
@@ -106,7 +109,7 @@ fun LoseContent(
             }
         )
         BackHandler(enabled = true) {
-            onClickReturnToHomeButton()
+            onClickReturnToHome()
         }
     }
 }

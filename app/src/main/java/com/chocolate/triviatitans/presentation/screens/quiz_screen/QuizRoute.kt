@@ -21,6 +21,6 @@ fun NavGraphBuilder.quizRoute(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToQuiz(categories: String, gameType: Int, levelArgs: String) {
+fun NavController.navigateToQuiz(categories: String="", gameType: Int=0, levelArgs: String="") {
     navigate("${Screens.QuizScreen.route}/$categories/$gameType/$levelArgs")
 }

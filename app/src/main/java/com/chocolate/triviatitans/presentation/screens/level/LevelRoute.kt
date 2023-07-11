@@ -18,6 +18,6 @@ fun NavGraphBuilder.levelRoute(navController: NavController) {
         LevelScreen(navController = navController)
     }
 }
-fun NavController.navigateToLevel(categories: String,gameType:Int) {
+fun NavController.navigateToLevel(categories: String="",gameType:Int=0) {
     navigate("${Screens.LevelScreen.route}/$categories/$gameType")
 }
