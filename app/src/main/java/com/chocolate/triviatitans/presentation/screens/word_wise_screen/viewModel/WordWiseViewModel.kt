@@ -82,4 +82,10 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
             it.copy(selectedLetterList = _state.value.selectedLetterList + letter)
         }
     }
+
+    fun onDeleteCharacter(index: Int) {
+        _state.update {
+            it.copy(selectedLetterList = _state.value.selectedLetterList.toMutableList())
+        }
+    }
 }
