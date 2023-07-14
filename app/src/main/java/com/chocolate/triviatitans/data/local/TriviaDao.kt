@@ -24,6 +24,13 @@ interface TriviaDao {
     @Query("UPDATE player_data SET delete_two_answers = delete_two_answers + :newDeleteTwoAnswers")
     suspend fun updateDeleteTwoAnswers(newDeleteTwoAnswers: Int)
 
+    @Query("UPDATE player_data SET easy_score = easy_score + :newScore")
+    suspend fun updateEasyScore(newScore: Int)
+    @Query("UPDATE player_data SET medium_score = medium_score + :newScore")
+    suspend fun updateMediumScore(newScore: Int)
+    @Query("UPDATE player_data SET hard_score = hard_score + :newScore")
+    suspend fun updateHardScore(newScore: Int)
+
 }
 
 

@@ -10,5 +10,8 @@ data class LocalPlayerDataDto(
     @ColumnInfo(name = "bonus") val bonus: Int,
     @ColumnInfo(name = "delete_two_answers") val deleteTwoAnswers: Int,
     @ColumnInfo(name = "change_question") val changeQuestion: Int,
-    @ColumnInfo(name = "hearts") val hearts: Int
+    @ColumnInfo(name = "hearts") val hearts: Int,
+    @ColumnInfo(name = "easy_score") val easyScore: Int,
+    @ColumnInfo(name = "medium_score") val mediumScore: Int,
+    @ColumnInfo(name = "hard_score") val hardScore: Int,
 )
