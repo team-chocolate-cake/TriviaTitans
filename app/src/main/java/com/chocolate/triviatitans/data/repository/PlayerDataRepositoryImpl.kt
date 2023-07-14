@@ -6,23 +6,42 @@ import javax.inject.Inject
 class PlayerDataRepositoryImpl @Inject constructor(
     private val triviaDao: TriviaDao
 ) : PlayerDataRepository, BaseRepository() {
-    override suspend fun savePlayerData(prizeType: String, prize: Int) {
-        when (prizeType) {
-            "bonus" -> {
+    override suspend fun savePlayerData(dataType: PlayerDataType, prize: Int) {
+        when (dataType) {
+           PlayerDataType.Bonus -> {
                 triviaDao.updateBonus(prize)
             }
 
-            "hearts" -> {
+            PlayerDataType.Hearts -> {
                 triviaDao.updateHearts(prize)
             }
 
-            "deleteTwoAnswers" -> {
+            PlayerDataType.DeleteTwoAnswers -> {
                 triviaDao.updateDeleteTwoAnswers(prize)
             }
 
-            "changeQuestion" -> {
+            PlayerDataType.ChangeQuestion -> {
                 triviaDao.updateChangeQuestions(prize)
+            }
+            PlayerDataType.EasyScore -> {
+                triviaDao.updateEasyScore(prize)
+            }
+            PlayerDataType.MediumScore -> {
+                triviaDao.updateMediumScore(prize)
+            }
+            PlayerDataType.HardScore -> {
+                triviaDao.updateHardScore(prize)
             }
         }
     }
+}
+
+enum class PlayerDataType(name:String){
+    Bonus("bonus"),
+    Hearts("hearts"),
+    DeleteTwoAnswers("deleteTwoAnswers"),
+    ChangeQuestion("changeQuestion"),
+    EasyScore("easyScore"),
+    MediumScore("mediumScore"),
+    HardScore("hardScore"),
 }

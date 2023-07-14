@@ -13,7 +13,10 @@ class DomainPlayerDataMapper @Inject constructor() :
             bonus = input.bonus,
             deleteTwoAnswers = input.deleteTwoAnswers,
             changeQuestion = input.changeQuestion,
-            hearts = input.hearts
+            hearts = input.hearts,
+            easyScore = input.easyScore,
+            mediumScore =input.mediumScore ,
+            hardScore = input.hardScore
         )
     }
 }

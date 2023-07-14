@@ -1,9 +1,9 @@
 package com.chocolate.triviatitans.presentation.screens.win
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.data.repository.PlayerDataType
 import com.chocolate.triviatitans.domain.usecase.SavePlayerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,9 +24,28 @@ class WinViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            savePlayerDataUseCase.savePlayerData(prizeType.toString(), args.toString().toInt())
+            when (prizeType.toString()) {
+                PlayerDataType.Bonus.name -> savePlayerDataUseCase.savePlayerData(
+                    PlayerDataType.Bonus,
+                    args.toString().toInt()
+                )
+
+                PlayerDataType.Hearts.name -> savePlayerDataUseCase.savePlayerData(
+                    PlayerDataType.Hearts,
+                    args.toString().toInt()
+                )
+
+                PlayerDataType.DeleteTwoAnswers.name -> savePlayerDataUseCase.savePlayerData(
+                    PlayerDataType.DeleteTwoAnswers,
+                    args.toString().toInt()
+                )
+
+                PlayerDataType.ChangeQuestion.name -> savePlayerDataUseCase.savePlayerData(
+                    PlayerDataType.ChangeQuestion,
+                    args.toString().toInt()
+                )
+            }
         }
-        Log.d("prize", prizeType.toString() + args.toString())
     }
 }
 
