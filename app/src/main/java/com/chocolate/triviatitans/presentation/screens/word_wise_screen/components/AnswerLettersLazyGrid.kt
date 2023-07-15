@@ -3,6 +3,7 @@ package com.chocolate.triviatitans.presentation.screens.word_wise_screen.compone
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -19,10 +20,11 @@ fun AnswerLettersLazyGrid(
 ) {
 
     LazyVerticalGrid(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = 64.dp, max = 208.dp),
         columns = GridCells.Adaptive(24.dp),
         contentPadding = PaddingValues(16.dp),
-        userScrollEnabled = false,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

@@ -72,8 +72,9 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
         _state.update {
             it.copy(
                 keyboardLetters = listOf(
-                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-                    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-'
+                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                    'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z', '-'
                 )
             )
         }
@@ -106,6 +107,7 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
             }
         } else {
             Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
+            Log.i("mujtaba", "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswer} ")
         }
     }
 }
