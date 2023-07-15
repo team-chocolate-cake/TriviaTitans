@@ -3,7 +3,7 @@ package com.chocolate.triviatitans.presentation.screens.win
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chocolate.triviatitans.domain.usecase.SavePlayerDataUseCase
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WinViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val savePlayerDataUseCase: SavePlayerDataUseCase
+    private val playerDataRepository: PlayerDataRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(WinUiState())
     val state = _state.asStateFlow()
@@ -23,7 +23,7 @@ class WinViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            savePlayerDataUseCase.savePlayerData(prizeType.toString(), args.toString().toInt())
+            playerDataRepository.savePlayerData(prizeType.toString(), args.toString().toInt())
         }
     }
 }

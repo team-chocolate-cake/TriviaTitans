@@ -3,9 +3,8 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.mu
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
-import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -22,8 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuizScreenViewModel @Inject constructor(
-    private val getUserQuestionsUseCase: GetUserQuestionsUseCase,
-    private val getQuestionsUseCase: GetMultiChoiceImagesGameUseCase,
+    private val repository: TriviaTitansRepository,
     private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
     savedStateHandle: SavedStateHandle,
 ) :
@@ -53,7 +51,7 @@ class QuizScreenViewModel @Inject constructor(
     private fun getUserQuestions() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
-            call = { getUserQuestionsUseCase(10, "science", "easy") },
+            call = { repository.getTextChoiceQuestions(10, "science", "easy") },
             onSuccess = ::onSuccessUserQuestions,
             onError = {
             }
@@ -64,7 +62,7 @@ class QuizScreenViewModel @Inject constructor(
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getQuestionsUseCase(
+                repository.getImageChoiceQuestions(
                     10,
                     "music",
                     "easy"
