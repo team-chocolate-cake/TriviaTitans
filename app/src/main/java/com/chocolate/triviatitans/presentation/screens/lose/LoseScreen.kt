@@ -33,7 +33,7 @@ fun LoseScreen(navController: NavController) {
     TriviaTitansTheme {
         LoseContent(
             onClickReturnToHome = { navController.navigateToHome() },
-            onClickRetry={navController.navigateToQuiz()}
+            onClickRetry = { navController.navigateToQuiz() }
         )
     }
 }
@@ -42,8 +42,7 @@ fun LoseScreen(navController: NavController) {
 fun LoseContent(
     onClickReturnToHome: () -> Unit,
     onClickRetry: () -> Unit,
-
-    ) {
+) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -86,7 +85,7 @@ fun LoseContent(
 
         ButtonWinLose(
             text = stringResource(R.string.retry),
-            onClick = {onClickRetry()},
+            onClick = { onClickRetry() },
             buttonColor = Primary,
             borderColor = Color.Transparent,
             textColor = LightBackground,

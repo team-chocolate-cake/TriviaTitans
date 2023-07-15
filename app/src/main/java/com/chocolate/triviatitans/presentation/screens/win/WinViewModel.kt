@@ -1,6 +1,5 @@
 package com.chocolate.triviatitans.presentation.screens.win
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +25,6 @@ class WinViewModel @Inject constructor(
         viewModelScope.launch {
             savePlayerDataUseCase.savePlayerData(prizeType.toString(), args.toString().toInt())
         }
-        Log.d("prize", prizeType.toString() + args.toString())
     }
 }
 

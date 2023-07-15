@@ -54,10 +54,6 @@ fun LevelScreen(
         onLevelSelected = viewModel::updateSelectedLevel,
         state = state,
     )
-    Log.d(
-        "categories",
-        "categories -> ${viewModel.categoriesArgs}+ Game Type -> ${viewModel.gameTypeArgs}"
-    )
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
