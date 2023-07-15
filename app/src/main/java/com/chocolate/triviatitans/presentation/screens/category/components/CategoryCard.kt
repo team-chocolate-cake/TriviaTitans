@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.category.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,7 +40,8 @@ fun CategoryCard(
     onClick: (Boolean) -> Unit
 ) {
     val colors = TriviaCustomColors.current
-    var isSelected by rememberSaveable { mutableStateOf(false) }
+
+
 
     Card(
         colors = CardDefaults.cardColors(colors.card),
@@ -47,10 +50,10 @@ fun CategoryCard(
             .height(146.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                isSelected = !isSelected
-                onClick(isSelected)
+                Log.e("TAG", "GG $category.isSelected", )
+                onClick(category.isSelected)
             },
-        border = if (isSelected) BorderStroke(1.dp, colors.primary) else null,
+        border = if (category.isSelected) BorderStroke(1.dp, colors.primary) else null,
     ) {
         Column(
             modifier = Modifier
@@ -96,7 +99,8 @@ fun CategoryScreenPreview() {
             CategoryUiState(
                 title = "Category",
                 image = R.drawable.category_art,
-                progress = 0.5f
+                progress = 0.5f,
+                isSelected = false
             ), onClick = {}
         )
     }

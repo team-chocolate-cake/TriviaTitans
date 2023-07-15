@@ -34,7 +34,7 @@ fun CategoryScreen(
         onCategorySelected = viewModel::onCategorySelected,
         onCategoryDeselected = viewModel::onCategoryDeselected,
         onClickNext = {
-            val category = viewModel.selectedCardNames.joinToString(",")
+            val category = state.categoriesSelected.joinToString(",") { it.name }
             val gameType = viewModel.args
             navController.navigateToLevel(category, gameType.toString().toInt())
         },
