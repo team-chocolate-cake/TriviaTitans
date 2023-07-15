@@ -1,4 +1,6 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice
+
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 
 data class MultiChoiceTextUiState(
     val isLoading: Boolean = true,
@@ -21,10 +23,5 @@ data class MultiChoiceTextUiState(
         val correctAnswer: String = "",
         val incorrectAnswers: List<String> = emptyList(),
         val randomAnswers: List<String> = (((incorrectAnswers.toMutableList()).distinct()).take(3) + (correctAnswer)).shuffled()
-    )
-
-    data class HintButton(
-        val isActive: Boolean = true,
-        val numberOfTries: Int = 3
     )
 }

@@ -7,8 +7,8 @@ import com.chocolate.triviatitans.composables.SpacerVertical8
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.word_wise.WordWiseGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseUIState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise.WordWiseUIState
 
 @Composable
 fun AnswersSection(
@@ -25,7 +25,7 @@ fun AnswersSection(
 
     when (gameType) {
         GameType.MULTI_CHOICE.ordinal -> {
-            LazyColumn {
+           /* LazyColumn {
                 itemsIndexed(givenQuestion) { index, questionGiven ->
                     AnswerCard(
                         'A' + index,
@@ -37,16 +37,16 @@ fun AnswersSection(
                     )
                     SpacerVertical8()
                 }
-            }
+            }*/
         }
 
         GameType.MULTI_CHOICE_IMAGES.ordinal -> {
-            MultiChoiceImagesGame(
+/*            MultiChoiceImagesGame(
                 state = multiChoiceTextUiState,
                 question = question,
                 answerCardListener = answerCardListener,
                 isButtonsEnabled = isButtonsEnabled
-            )
+            )*/
         }
 
         GameType.WORD_WISE.ordinal -> {

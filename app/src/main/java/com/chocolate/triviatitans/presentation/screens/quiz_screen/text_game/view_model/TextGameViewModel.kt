@@ -1,16 +1,13 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model
 
-import androidx.lifecycle.SavedStateHandle
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
-import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
+import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceTextGameUseCase
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.MultiChoiceImagesGameUiMapper
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.QuizQuestionsMapper
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.mapper.QuestionsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,92 +18,47 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuizScreenViewModel @Inject constructor(
-    private val getUserQuestionsUseCase: GetUserQuestionsUseCase,
-    private val getQuestionsUseCase: GetMultiChoiceImagesGameUseCase,
-    private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
-    savedStateHandle: SavedStateHandle,
-) :
-    ViewModel(),
-    AnswerCardListener, HintListener {
-    private val _state = MutableStateFlow(MultiChoiceTextUiState())
+class TextGameViewModel @Inject constructor(
+    private val getMultiChoiceTextGame: GetMultiChoiceTextGameUseCase,
+) : ViewModel(), AnswerCardListener, HintListener {
+
+    private val _state = MutableStateFlow(TextGameUiState())
     val state = _state.asStateFlow()
 
-    val categoriesArgs: String = checkNotNull(savedStateHandle["categories"])
-    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
-    val levelTypeArgs: String = checkNotNull(savedStateHandle["level_type"])
-
-    private val gameType = GameType.MULTI_CHOICE_IMAGES.name
 
     init {
-        when (gameType) {
-            GameType.MULTI_CHOICE_IMAGES.name -> {
-                getUserQuestionsImagesGame()
-            }
-
-            else -> {
-                getUserQuestions()
-            }
-        }
+        getQuestions()
     }
 
-    private fun getUserQuestions() {
-        _state.update { it.copy(isLoading = true) }
-        tryToExecute(
-            call = { getUserQuestionsUseCase(10, "science", "easy") },
-            onSuccess = ::onSuccessUserQuestions,
-            onError = {
-            }
-        )
-    }
-
-    private fun getUserQuestionsImagesGame() {
+    private fun getQuestions() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getQuestionsUseCase(
+                getMultiChoiceTextGame(
                     10,
                     "music",
-                    "easy"
-                ).map { multiChoiceImagesGameUiMapper.map(it) }
+                    "easy",
+                )
             },
-            onSuccess = ::onGetAllQuestionsSuccess,
-            onError = {
-            }
+            onSuccess = ::onGetQuestionsSuccess,
+            onError = ::onGetQuestionsError
         )
     }
 
-    private fun onGetAllQuestionsSuccess(items: List<MultiChoiceTextUiState.QuestionUiState>) {
+    private fun onGetQuestionsSuccess(questions: List<TextChoiceEntity>) {
+        Log.i("ERRORX", "onSuccessUserQuestionsTextGame: $questions")
         _state.update {
             it.copy(
-                questionUiStates = items,
                 isLoading = false,
-                error = null,
+                questionUiStates = questions.map { choice -> QuestionsMapper().map(choice) }
             )
         }
     }
 
-
-    private fun onSuccessUserQuestions(userQuestions: List<TextChoiceEntity>) {
-        _state.update { it.copy(isLoading = false) }
-        val questionsUiState = userQuestions.map { QuizQuestionsMapper().map(it) }
-        _state.update { it.copy(questionUiStates = questionsUiState) }
+    private fun onGetQuestionsError(error: Throwable) {
+        Log.i("ERRORX", "onErrorUserQuestionsTextGame: $error")
     }
 
-    private fun <T> tryToExecute(
-        call: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) {
-        viewModelScope.launch(dispatcher) {
-            try {
-                call().also(onSuccess)
-            } catch (th: Throwable) {
-                onError(th)
-            }
-        }
-    }
 
     override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
         _state.update {
@@ -180,4 +132,20 @@ class QuizScreenViewModel @Inject constructor(
             )
         }
     }
+
+    private fun <T> tryToExecute(
+        call: suspend () -> T,
+        onSuccess: (T) -> Unit,
+        onError: (Throwable) -> Unit,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
+        viewModelScope.launch(dispatcher) {
+            try {
+                call().also(onSuccess)
+            } catch (th: Throwable) {
+                onError(th)
+            }
+        }
+    }
+
 }

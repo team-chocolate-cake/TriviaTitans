@@ -45,7 +45,7 @@ fun QuestionHint(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape).clickable(onClick = onClick)
-                .background(TriviaCustomColors.current.primary)
+                .background(questionHintColor.primary)
                 .then(imageModifier)
         )
         Text(

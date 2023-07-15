@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.SpacerHorizontal4
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
@@ -18,7 +19,7 @@ fun NumberOfQuestions(maxQuestionsNumber: Int, questionNumber: Int) {
             style = MaterialTheme.typography.bodyMedium,
             color =  TriviaCustomColors.current.onBackground87
         )
-        SpacerHorizontal4Dp()
+        SpacerHorizontal4()
         Image(painter = painterResource(id = R.drawable.ic_fire), contentDescription = "icon fire")
     }
 }

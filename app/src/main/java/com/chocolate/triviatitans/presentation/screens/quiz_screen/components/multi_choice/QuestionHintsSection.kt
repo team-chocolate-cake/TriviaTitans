@@ -11,16 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun QuestionHintsSection(
     hintListener: HintListener,
-    fiftyFiftyHint: MultiChoiceTextUiState.HintButton,
-    heartHint: MultiChoiceTextUiState.HintButton,
-    resetHint: MultiChoiceTextUiState.HintButton,
+    fiftyFiftyHint: HintButton,
+    heartHint: HintButton,
+    resetHint: HintButton,
     correctAnswer: String,
 ) {
     val showDialog = remember { mutableStateOf(false) }
@@ -59,7 +60,7 @@ fun QuestionHintsSection(
 @Preview(showSystemUi = true)
 @Composable
 fun QuestionHintsSectionPreview() {
-    TriviaTitansTheme() {
+    TriviaTitansTheme {
         QuestionHintsSection(
             hintListener = object : HintListener {
                 override fun onClickFiftyFifty() {
@@ -74,9 +75,9 @@ fun QuestionHintsSectionPreview() {
                     TODO("Not yet implemented")
                 }
             },
-            MultiChoiceTextUiState.HintButton(),
-            MultiChoiceTextUiState.HintButton(),
-            MultiChoiceTextUiState.HintButton(), correctAnswer = ""
+            HintButton(),
+            HintButton(),
+            HintButton(), correctAnswer = ""
         )
     }
 }

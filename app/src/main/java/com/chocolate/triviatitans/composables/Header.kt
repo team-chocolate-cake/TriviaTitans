@@ -1,25 +1,21 @@
 package com.chocolate.triviatitans.composables
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.PlayerGameAppBarInfo
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.ProgressIndicator
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.QuestionHintsSection
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun Header(
-    question: String,
     hintListener: HintListener,
-    fiftyHint: MultiChoiceTextUiState.HintButton,
-    heartHint: MultiChoiceTextUiState.HintButton,
-    resetHint: MultiChoiceTextUiState.HintButton,
+    fiftyHint: HintButton,
+    heartHint: HintButton,
+    resetHint: HintButton,
     questionNumber: Int,
     userScore: Int,
     correctAnswer: String
@@ -35,12 +31,6 @@ fun Header(
         )
         SpacerVertical16()
         ProgressIndicator(progressPercentage = .6f)
-        SpacerVertical32()
-        Text(
-            text = question,
-            style = MaterialTheme.typography.titleMedium,
-            color = TriviaCustomColors.current.onBackground87
-        )
     }
 }
 
@@ -49,7 +39,7 @@ fun Header(
 fun HeaderPreview() {
     TriviaTitansTheme() {
         Header(
-            "", hintListener = object : HintListener {
+            hintListener = object : HintListener {
                 override fun onClickFiftyFifty() {
                     TODO("Not yet implemented")
                 }
@@ -61,8 +51,8 @@ fun HeaderPreview() {
                 override fun onClickReset() {
                     TODO("Not yet implemented")
                 }
-            }, MultiChoiceTextUiState.HintButton(), MultiChoiceTextUiState.HintButton(),
-            MultiChoiceTextUiState.HintButton(), questionNumber = 3, userScore = 0, ""
+            }, HintButton(), HintButton(),
+            HintButton(), questionNumber = 3, userScore = 0, ""
         )
     }
 }

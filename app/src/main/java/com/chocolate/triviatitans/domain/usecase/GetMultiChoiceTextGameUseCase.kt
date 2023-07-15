@@ -4,10 +4,9 @@ import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import javax.inject.Inject
 
-class GetUserQuestionsUseCase @Inject constructor(
+class GetMultiChoiceTextGameUseCase @Inject constructor(
     private val repository: TriviaTitansRepository,
 ) {
-
     suspend operator fun invoke(
         limit: Int,
         categories: String,

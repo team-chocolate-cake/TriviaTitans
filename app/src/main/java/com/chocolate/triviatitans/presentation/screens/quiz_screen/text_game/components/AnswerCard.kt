@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.composables.SpacerHorizontal8
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.SpacerHorizontal8Dp
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -59,7 +61,7 @@ fun AnswerCard(
             verticalAlignment = Alignment.CenterVertically)
         {
             Text(text = answerAlphabet.toString(), color = cardColor.onBackground87)
-            SpacerHorizontal8Dp()
+            SpacerHorizontal8()
             Divider(
                 color = LightBorder,
                 modifier = Modifier
@@ -67,7 +69,7 @@ fun AnswerCard(
                     .width(1.dp)
                     .clip(RoundedCornerShape(4.dp))
             )
-            SpacerHorizontal8Dp()
+            SpacerHorizontal8()
             Text(text = answer, color = cardColor.onBackground87)
         }
     }

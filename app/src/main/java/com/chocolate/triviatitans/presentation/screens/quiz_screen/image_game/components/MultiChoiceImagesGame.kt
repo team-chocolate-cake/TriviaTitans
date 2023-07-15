@@ -1,7 +1,6 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,10 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
 
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import java.util.Timer
@@ -31,8 +34,8 @@ import kotlin.concurrent.schedule
 
 @Composable
 fun MultiChoiceImagesGame(
-    state: MultiChoiceTextUiState,
-    question: MultiChoiceTextUiState.QuestionUiState,
+    state: ImageGameUiState,
+    question: ImageGameUiState.QuestionUiState,
     answerCardListener: AnswerCardListener,
     isButtonsEnabled: Boolean
 ) {
@@ -41,7 +44,7 @@ fun MultiChoiceImagesGame(
     val errorColor: Color = TriviaCustomColors.current.error
     val correctColor: Color = TriviaCustomColors.current.correct
 
-    var selectedIndex = remember { mutableStateOf(-1) }
+    val selectedIndex = remember { mutableStateOf(-1) }
 
 
     LazyVerticalGrid(
@@ -53,8 +56,14 @@ fun MultiChoiceImagesGame(
         state = rememberLazyGridState(),
         content = {
             itemsIndexed(question.randomAnswers) { index, item ->
-                Image(
-                    painter = rememberAsyncImagePainter(item),
+                SubcomposeAsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(item)
+                        .crossfade(true)
+                        .build(),
+                    loading = {
+                        CircularProgressIndicator()
+                    },
                     contentDescription = "",
                     modifier = Modifier
                         .height(height = 200f.dp)

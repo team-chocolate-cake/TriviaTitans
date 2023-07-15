@@ -15,4 +15,3 @@ data class CategoryUiState(
     val progress: Float = 0.6f,
 )
 
-
