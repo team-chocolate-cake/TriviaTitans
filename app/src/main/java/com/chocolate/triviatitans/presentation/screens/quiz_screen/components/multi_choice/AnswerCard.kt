@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +25,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.Answ
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.LightBorder
+import com.chocolate.triviatitans.presentation.theme.customColor
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -37,7 +39,7 @@ fun AnswerCard(
     isButtonsEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val cardColor = TriviaCustomColors.current
+    val cardColor = MaterialTheme.customColor()
     val answerColor = remember { mutableStateOf(cardColor.card) }
 
     Box(Modifier.clip(RoundedCornerShape(12.dp))) {

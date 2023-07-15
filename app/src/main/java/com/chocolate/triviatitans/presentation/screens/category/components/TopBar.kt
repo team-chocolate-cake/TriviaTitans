@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +23,7 @@ fun TopBar(
     title: String,
     onBackClick: () -> Unit = {}
 ) {
-    val colors = TriviaCustomColors.current
+    val colors = MaterialTheme.customColor()
 
     TopAppBar(
         colors = TopAppBarDefaults.smallTopAppBarColors(colors.background.copy(alpha =1f)),

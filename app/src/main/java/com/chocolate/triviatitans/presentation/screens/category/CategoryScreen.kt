@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.category
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,8 +21,8 @@ import com.chocolate.triviatitans.presentation.screens.category.viewmodel.Catego
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
 import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun CategoryScreen(
@@ -52,7 +53,7 @@ fun CategoryContent(
     onClickNext: () -> Unit,
     onClickBack: () -> Unit
 ) {
-    val colors = TriviaCustomColors.current
+    val colors = MaterialTheme.customColor()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
