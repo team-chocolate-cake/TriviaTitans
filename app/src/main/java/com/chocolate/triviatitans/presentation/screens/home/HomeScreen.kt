@@ -22,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -32,20 +33,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
-import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
-import com.chocolate.triviatitans.presentation.screens.win.navigateToWinScreen
+import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsState()
     TriviaTitansTheme {
         HomeContent(
+            state = state,
+            onHomeCardIndexChanged = viewModel::changeSelectedCardIndex,
             onClickButton = { selectedGame ->
                 navController.navigateToCategory(selectedGame)
             }
@@ -55,37 +60,11 @@ fun HomeScreen(
 
 @Composable
 fun HomeContent(
+    state: HomeUiState,
+    onHomeCardIndexChanged:(Int)->Unit,
     onClickButton: (Int) -> Unit,
 ) {
-    var selectedIndex by rememberSaveable {
-        mutableStateOf(-1)
-    }
-    val configurations = listOf(
-        HomeUiState(
-            title = stringResource(id = R.string.config_title_card1),
-            description = stringResource(id = R.string.config_content_card1),
-            image = R.drawable.configuratoin_multi_choice_icon,
-            currentIndex = 0,
-            index = selectedIndex,
-            selected = { i -> selectedIndex = i }
-        ),
-        HomeUiState(
-            title = stringResource(id = R.string.config_title_card2),
-            description = stringResource(id = R.string.config_content_card2),
-            image = R.drawable.configuratoin_multi_choice_images_icon,
-            currentIndex = 1,
-            index = selectedIndex,
-            selected = { i -> selectedIndex = i }
-        ),
-        HomeUiState(
-            title = stringResource(id = R.string.config_title_card3),
-            description = stringResource(id = R.string.config_content_card3),
-            image = R.drawable.configuratoin_word_wise_icon,
-            currentIndex = 2,
-            index = selectedIndex,
-            selected = { i -> selectedIndex = i }
-        )
-    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,14 +79,14 @@ fun HomeContent(
             textAlign = TextAlign.Start
         )
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-            items(configurations) { configurationCard ->
+            items(state.homeCards) { homeCard ->
                 ConfigurationCard(
-                    typeTitle = configurationCard.title,
-                    typeDescription = configurationCard.description,
-                    typeImage = configurationCard.image,
-                    currentIndex = configurationCard.currentIndex,
-                    index = configurationCard.index,
-                    selected = configurationCard.selected
+                    typeTitle = homeCard.title,
+                    typeDescription = homeCard.description,
+                    typeImage = homeCard.image,
+                    currentIndex = homeCard.currentIndex,
+                    index = state.selectedHomeCardIndex,
+                    selected = onHomeCardIndexChanged
                 )
             }
             item {
@@ -154,10 +133,10 @@ fun HomeContent(
                 }
             }
             item {
-                if (selectedIndex != -1) {
+                if (state.selectedHomeCardIndex != -1) {
                     Button(
                         onClick = {
-                            onClickButton(selectedIndex)
+                            onClickButton(state.selectedHomeCardIndex)
                         },
                         modifier = Modifier
                             .width(250.dp)
