@@ -43,11 +43,6 @@ fun ButtonConfirm(onClickConfirm: () -> Unit) {
             ),
     ) {
         Row() {
-            Icon(
-                modifier = Modifier.padding(PaddingValues(horizontal = 16.dp, vertical = 4.dp)),
-                painter = painterResource(id = com.google.android.material.R.drawable.ic_mtrl_chip_checked_circle),
-                contentDescription = null,
-            )
             Text(
                 modifier = Modifier
                     .wrapContentSize()
