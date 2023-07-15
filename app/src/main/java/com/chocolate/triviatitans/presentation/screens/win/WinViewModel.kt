@@ -19,14 +19,13 @@ class WinViewModel @Inject constructor(
     private val _state = MutableStateFlow(WinUiState())
     val state = _state.asStateFlow()
 
-    val prizeType = checkNotNull(savedStateHandle["prize_type"])
-    val args = checkNotNull(savedStateHandle["prize"])
+    private val prizeArgs: PrizeArgs = PrizeArgs(savedStateHandle)
 
     init {
         viewModelScope.launch {
-            savePlayerDataUseCase.savePlayerData(prizeType.toString(), args.toString().toInt())
+            savePlayerDataUseCase.savePlayerData(prizeArgs.prizeType.toString(), prizeArgs.prize.toString().toInt())
         }
-        Log.d("prize", prizeType.toString() + args.toString())
+        Log.d("prize", prizeArgs.prizeType.toString() + prizeArgs.prize.toString())
     }
 }
 
