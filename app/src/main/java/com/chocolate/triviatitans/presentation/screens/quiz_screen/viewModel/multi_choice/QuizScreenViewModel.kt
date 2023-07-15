@@ -7,6 +7,7 @@ import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
 import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.QuizArgs
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.MultiChoiceImagesGameUiMapper
@@ -32,9 +33,7 @@ class QuizScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(MultiChoiceTextUiState())
     val state = _state.asStateFlow()
 
-    val categoriesArgs: String = checkNotNull(savedStateHandle["categories"])
-    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
-    val levelTypeArgs: String = checkNotNull(savedStateHandle["level_type"])
+    private val quizArgs: QuizArgs = QuizArgs(savedStateHandle)
 
     private val gameType = GameType.MULTI_CHOICE_IMAGES.name
 
