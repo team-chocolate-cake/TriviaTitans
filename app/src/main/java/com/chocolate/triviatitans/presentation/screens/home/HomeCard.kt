@@ -29,13 +29,12 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
 fun ConfigurationCard(
-    typeTitle: String,
+    gameType: GameType,
     typeDescription: String,
     typeImage: Int,
     color: Color = TriviaCustomColors.current.card,
-    currentIndex: Int,
-    index: Int,
-    selected: (Int) -> Unit
+    selectedGameType: GameType?,
+    onSelect: (GameType) -> Unit
 ) {
 
     Card(
@@ -43,9 +42,9 @@ fun ConfigurationCard(
             .fillMaxWidth()
             .padding(top = 8.dp)
             .height(120.dp)
-            .clickable { selected(currentIndex) },
+            .clickable { onSelect(gameType) },
         colors = CardDefaults.cardColors(color),
-        border = if (currentIndex == index) BorderStroke(
+        border = if (selectedGameType == gameType) BorderStroke(
             2.dp,
             TriviaCustomColors.current.primary
         ) else null
@@ -61,7 +60,7 @@ fun ConfigurationCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = typeTitle,
+                    text = gameType.title,
                     style = MaterialTheme.typography.titleMedium,
                     color = TriviaCustomColors.current.onBackground87
                 )
@@ -92,8 +91,11 @@ fun ConfigurationCard(
 @Composable
 fun PreviewConfigurationCard() {
     ConfigurationCard(
-        "test",
+        GameType.WORD_WISE,
         "test2",
-        R.drawable.configration_multi_choice_images_icon, currentIndex = 3, index = 0
+        R.drawable.configration_multi_choice_images_icon,
+       TriviaCustomColors.current.card,
+        GameType.MULTI_CHOICE
+
     ) {}
 }

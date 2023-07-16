@@ -24,9 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -37,7 +34,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
-import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
@@ -50,8 +46,8 @@ fun HomeScreen(
     TriviaTitansTheme {
         HomeContent(
             state = state,
-            onHomeCardIndexChanged = viewModel::changeSelectedCardIndex,
-            onClickButton = { selectedGame ->
+            onGameTypeChanged = viewModel::changeSelectedGameType,
+            onNextScreenClick = { selectedGame ->
                 navController.navigateToCategory(selectedGame)
             }
         )
@@ -61,8 +57,8 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     state: HomeUiState,
-    onHomeCardIndexChanged:(Int)->Unit,
-    onClickButton: (Int) -> Unit,
+    onGameTypeChanged:(GameType)->Unit,
+    onNextScreenClick: (GameType) -> Unit,
 ) {
 
     Column(
@@ -81,12 +77,11 @@ fun HomeContent(
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
             items(state.homeCards) { homeCard ->
                 ConfigurationCard(
-                    typeTitle = homeCard.title,
+                    gameType = homeCard.gameType,
                     typeDescription = homeCard.description,
                     typeImage = homeCard.image,
-                    currentIndex = homeCard.currentIndex,
-                    index = state.selectedHomeCardIndex,
-                    selected = onHomeCardIndexChanged
+                    selectedGameType = state.selectedGameType,
+                    onSelect = onGameTypeChanged
                 )
             }
             item {
@@ -133,10 +128,10 @@ fun HomeContent(
                 }
             }
             item {
-                if (state.selectedHomeCardIndex != -1) {
+                if (state.selectedGameType != null) {
                     Button(
                         onClick = {
-                            onClickButton(state.selectedHomeCardIndex)
+                            onNextScreenClick(state.selectedGameType)
                         },
                         modifier = Modifier
                             .width(250.dp)

@@ -18,7 +18,7 @@ class CategoryViewModel @Inject constructor(
     private val _state = MutableStateFlow(CategoriesUiState())
     val state = _state.asStateFlow()
 
-    val args = checkNotNull(savedStateHandle["currentIndex"])
+    val gameTypeName : String = checkNotNull(savedStateHandle["gameTypeName"])
 
     init {
         getCategories()

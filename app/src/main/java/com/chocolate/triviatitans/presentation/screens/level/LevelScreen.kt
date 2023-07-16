@@ -47,7 +47,7 @@ fun LevelScreen(
                 TypeLevel.Hard -> TypeLevel.Hard.name
             }
             val categories = viewModel.categoriesArgs.toString()
-            val gameType = viewModel.gameTypeArgs.toString().toInt()
+            val gameType = viewModel.gameTypeArgs
             navController.navigateToQuiz(categories,gameType,levelType)
         }
         ,
