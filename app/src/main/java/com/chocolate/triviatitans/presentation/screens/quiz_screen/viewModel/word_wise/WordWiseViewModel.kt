@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
+import com.chocolate.triviatitans.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class WordWiseViewModel @Inject constructor(
     private val repository: TriviaTitansRepository
     ) :
-    ViewModel() {
+    BaseViewModel() {
     private val _state = MutableStateFlow(WordWiseUIState())
     val state = _state.asStateFlow()
 
@@ -50,21 +51,6 @@ class WordWiseViewModel @Inject constructor(
 
     private fun updateState(transform: (WordWiseUIState) -> WordWiseUIState) {
         _state.update(transform)
-    }
-
-    private fun <T> tryToExecute(
-        call: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) {
-        viewModelScope.launch(dispatcher) {
-            try {
-                call().also(onSuccess)
-            } catch (throwable: Throwable) {
-                onError(throwable)
-            }
-        }
     }
 
     fun onLetterClicked(letter: Char) {

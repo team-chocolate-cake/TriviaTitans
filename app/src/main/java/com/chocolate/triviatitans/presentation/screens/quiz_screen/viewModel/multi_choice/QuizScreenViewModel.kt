@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
+import com.chocolate.triviatitans.presentation.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -25,7 +26,7 @@ class QuizScreenViewModel @Inject constructor(
     private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
     savedStateHandle: SavedStateHandle,
 ) :
-    ViewModel(),
+    BaseViewModel(),
     AnswerCardListener, HintListener {
     private val _state = MutableStateFlow(MultiChoiceTextUiState())
     val state = _state.asStateFlow()
@@ -89,21 +90,6 @@ class QuizScreenViewModel @Inject constructor(
         _state.update { it.copy(isLoading = false) }
         val questionsUiState = userQuestions.map { QuizQuestionsMapper().map(it) }
         _state.update { it.copy(questionUiStates = questionsUiState) }
-    }
-
-    private fun <T> tryToExecute(
-        call: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) {
-        viewModelScope.launch(dispatcher) {
-            try {
-                call().also(onSuccess)
-            } catch (th: Throwable) {
-                onError(th)
-            }
-        }
     }
 
     override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
