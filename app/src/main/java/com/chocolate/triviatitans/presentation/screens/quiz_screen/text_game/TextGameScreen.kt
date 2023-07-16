@@ -18,10 +18,10 @@ import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
 import com.chocolate.triviatitans.composables.SpacerVertical8
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.components.AnswerCard
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.TextGameUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.TextGameViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -43,7 +43,7 @@ fun TextGameScreen(
 
 @Composable
 fun TextGameContent(
-    state: TextGameUiState,
+    state: BaseQuizUiState,
     listener: AnswerCardListener,
     hintListener: HintListener,
 ) {

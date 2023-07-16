@@ -1,10 +1,10 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.domain.usecase.GetUserQuestionsUseCase
+import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceTextGameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase: GetUserQuestionsUseCase) :
+class WordWiseViewModel @Inject constructor(
+    private val getMultiChoiceTextGameUseCase: GetMultiChoiceTextGameUseCase
+) :
     ViewModel() {
     private val _state = MutableStateFlow(WordWiseUIState())
     val state = _state.asStateFlow()
@@ -27,7 +29,9 @@ class WordWiseViewModel @Inject constructor(private val getUserQuestionsUseCase:
     private fun getUserQuestions() {
         updateState { it.copy(isLoading = true) }
         tryToExecute(
-            call = { getUserQuestionsUseCase(10, "science", "hard") },
+            call = {
+                getMultiChoiceTextGameUseCase(10, "science", "hard")
+            },
             onSuccess = ::onSuccessUserQuestions,
             onError = ::onErrorUserQuestions
         )

@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.QuestionUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.mapper.ImageGameUiMapper
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -20,22 +22,14 @@ import javax.inject.Inject
 class ImageGameViewModel @Inject constructor(
     private val getMultiChoiceImagesGame: GetMultiChoiceImagesGameUseCase,
     private val imageGameUiMapper: ImageGameUiMapper,
-) : ViewModel(), AnswerCardListener, HintListener {
+) : BaseQuizViewModel(), AnswerCardListener, HintListener {
 
-    private val _state = MutableStateFlow(ImageGameUiState())
-    val state = _state.asStateFlow()
-
-    override fun updateButtonState(value: Boolean) {
-        _state.update {
-            it.copy(isButtonsEnabled = value)
-        }
-    }
 
     init {
-        getUserQuestionsImagesGame()
+        getQuestion()
     }
 
-    private fun getUserQuestionsImagesGame() {
+    override fun getQuestion() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
@@ -50,7 +44,7 @@ class ImageGameViewModel @Inject constructor(
         )
     }
 
-    private fun onSuccessUserQuestionsImageGame(items: List<ImageGameUiState.QuestionUiState>) {
+    private fun onSuccessUserQuestionsImageGame(items: List<QuestionUiState>) {
         _state.update {
             it.copy(
                 questionUiStates = items,
@@ -62,89 +56,6 @@ class ImageGameViewModel @Inject constructor(
 
     private fun onErrorUserQuestionsImageGame(error: Throwable) {
         Log.i("ERRORX", "onErrorUserQuestionsImageGame: $error")
-    }
-
-
-    override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
-        _state.update {
-            it.copy(
-                questionNumber = (it.questionNumber + 1)
-                    .takeIf { questionNumber -> questionNumber < it.questionUiStates.size } ?: 0,
-                questionUiStates = it.questionUiStates.map
-                { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
-                userScore = if (isCorrectAnswer) it.userScore + 10 else it.userScore
-            )
-        }
-    }
-
-    override fun onClickFiftyFifty() {
-        _state.update {
-            it.copy(
-                hintFiftyFifty = it.hintFiftyFifty.copy(
-                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive = it.hintFiftyFifty.numberOfTries >= 2
-                ),
-            )
-        }
-        _state.update { item ->
-            val currentQuestionNumber = state.value.questionNumber
-            val currentQuestionUiStates = state.value.questionUiStates
-            val updatedQuestionUiStates =
-                currentQuestionUiStates.mapIndexed { index, questionUiState ->
-                    if (index == currentQuestionNumber) {
-                        val filteredQuestions =
-                            (questionUiState.incorrectAnswers - questionUiState.correctAnswer)
-                                .shuffled()
-                                .take(1) + questionUiState.correctAnswer
-
-                        questionUiState.copy(randomAnswers = filteredQuestions)
-                    } else {
-                        questionUiState
-                    }
-                }
-            item.copy(questionUiStates = updatedQuestionUiStates)
-        }
-    }
-
-    override fun onClickHeart() {
-        _state.update {
-            it.copy(
-                hintHeart = it.hintHeart.copy(
-                    numberOfTries = (it.hintHeart.numberOfTries - 1),
-                    isActive = it.hintHeart.numberOfTries >= 2
-                )
-            )
-        }
-    }
-
-    override fun onClickReset() {
-        _state.update {
-            val isLastQuestion = it.questionNumber == it.questionUiStates.size
-            it.copy(
-                questionNumber = it.questionNumber + 1,
-                hintReset = it.hintReset.copy(
-                    numberOfTries = (it.hintReset.numberOfTries - 1),
-                    isActive =
-                    it.hintReset.numberOfTries > 1 && isLastQuestion
-
-                )
-            )
-        }
-    }
-
-    private fun <T> tryToExecute(
-        call: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) {
-        viewModelScope.launch(dispatcher) {
-            try {
-                call().also(onSuccess)
-            } catch (th: Throwable) {
-                onError(th)
-            }
-        }
     }
 
 }

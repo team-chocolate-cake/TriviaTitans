@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.word_wise.WordWiseUIState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise.WordWiseUIState
 
 
 @Composable

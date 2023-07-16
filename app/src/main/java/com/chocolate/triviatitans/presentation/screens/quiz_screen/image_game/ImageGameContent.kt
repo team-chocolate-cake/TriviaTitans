@@ -14,8 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.components.MultiChoiceImagesGame
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -38,7 +38,7 @@ fun ImageGameScreen(
 
 @Composable
 fun ImageGameContent(
-    state: ImageGameUiState,
+    state: BaseQuizUiState,
     listener: AnswerCardListener,
     hintListener: HintListener,
     isButtonsEnabled: Boolean = true

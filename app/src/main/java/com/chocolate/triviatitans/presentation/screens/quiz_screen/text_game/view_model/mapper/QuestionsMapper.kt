@@ -2,11 +2,11 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.vi
 
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.mapper.Mapper
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.TextGameUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.QuestionUiState
 
-class QuestionsMapper: Mapper<TextChoiceEntity, TextGameUiState.QuestionUiState> {
-    override fun map(input: TextChoiceEntity): TextGameUiState.QuestionUiState {
-        return TextGameUiState.QuestionUiState(
+class QuestionsMapper : Mapper<TextChoiceEntity, QuestionUiState> {
+    override fun map(input: TextChoiceEntity): QuestionUiState {
+        return QuestionUiState(
             id = input.id,
             question = input.question,
             category = input.category,

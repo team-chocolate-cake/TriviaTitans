@@ -9,14 +9,15 @@ import com.chocolate.triviatitans.presentation.Screens
 
 fun NavGraphBuilder.categoryRoute(navController: NavController) {
     composable(
-        "${Screens.CategoryScreen.route}/{currentIndex}",
+        "${Screens.CategoryScreen.route}/{game_type}",
         arguments = listOf(
-            navArgument("currentIndex") { NavType.IntType}
+            navArgument("game_type") { NavType.IntType}
         )) {
         CategoryScreen(navController = navController)
     }
 }
 
-fun NavController.navigateToCategory(currentIndex: Int) {
-    navigate("${Screens.CategoryScreen.route}/$currentIndex")
+fun NavController.navigateToCategory(gameType: Int) {
+    navigate("${Screens.CategoryScreen.route}/$gameType")
 }
+

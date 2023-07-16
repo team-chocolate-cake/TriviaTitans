@@ -2,14 +2,13 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.v
 
 import com.chocolate.triviatitans.domain.entities.ImageChoiceEntity
 import com.chocolate.triviatitans.domain.mapper.Mapper
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameUiState
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.QuestionUiState
 import javax.inject.Inject
 
 class ImageGameUiMapper @Inject constructor() :
-    Mapper<ImageChoiceEntity, ImageGameUiState.QuestionUiState> {
-    override fun map(input: ImageChoiceEntity): ImageGameUiState.QuestionUiState {
-        return ImageGameUiState.QuestionUiState(
+    Mapper<ImageChoiceEntity, QuestionUiState> {
+    override fun map(input: ImageChoiceEntity): QuestionUiState {
+        return QuestionUiState(
             id = input.id,
             category = input.category,
             correctAnswer = input.correctAnswer[0].imageUrl,

@@ -24,9 +24,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.QuestionUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
 
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import java.util.Timer
@@ -34,8 +34,8 @@ import kotlin.concurrent.schedule
 
 @Composable
 fun MultiChoiceImagesGame(
-    state: ImageGameUiState,
-    question: ImageGameUiState.QuestionUiState,
+    state: BaseQuizUiState,
+    question: QuestionUiState,
     answerCardListener: AnswerCardListener,
     isButtonsEnabled: Boolean
 ) {

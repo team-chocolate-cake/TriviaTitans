@@ -16,10 +16,10 @@ import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice.AnswersSection
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.QuizScreenViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise.WordWiseUIState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise.WordWiseViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.QuizScreenViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
