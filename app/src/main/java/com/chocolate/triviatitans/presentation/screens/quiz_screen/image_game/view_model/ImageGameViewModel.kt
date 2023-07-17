@@ -1,6 +1,7 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceImagesGameUseCase
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class ImageGameViewModel @Inject constructor(
     private val getMultiChoiceImagesGame: GetMultiChoiceImagesGameUseCase,
     private val imageGameUiMapper: ImageGameUiMapper,
+    savedStateHandle: SavedStateHandle
 ) : BaseQuizViewModel(), AnswerCardListener, HintListener {
 
 
@@ -29,14 +31,17 @@ class ImageGameViewModel @Inject constructor(
         getQuestion()
     }
 
+    val category: String = checkNotNull(savedStateHandle["categories"])
+    val levelType: String = checkNotNull(savedStateHandle["level_type"])
+
     override fun getQuestion() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
                 getMultiChoiceImagesGame(
                     10,
-                    "music",
-                    "easy",
+                    category,
+                    levelType,
                 ).map { imageGameUiMapper.map(it) }
             },
             onSuccess = ::onSuccessUserQuestionsImageGame,

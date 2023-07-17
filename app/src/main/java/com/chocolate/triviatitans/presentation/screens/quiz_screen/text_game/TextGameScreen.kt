@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
@@ -29,7 +30,8 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun TextGameScreen(
-    viewModel: TextGameViewModel = hiltViewModel()
+    viewModel: TextGameViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val state = viewModel.state.collectAsState().value
 
@@ -97,6 +99,6 @@ fun TextGameContent(
 @Composable
 fun TextGameScreenPreview() {
     TriviaTitansTheme {
-        TextGameScreen()
+//        TextGameScreen()
     }
 }

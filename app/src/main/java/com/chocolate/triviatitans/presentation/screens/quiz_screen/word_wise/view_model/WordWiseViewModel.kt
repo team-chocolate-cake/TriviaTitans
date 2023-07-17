@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

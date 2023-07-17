@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -7,20 +7,21 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.WordWiseScreen
 
-fun NavGraphBuilder.quizRoute(navController: NavHostController) {
+fun NavGraphBuilder.textGameRoute(navController: NavHostController) {
     composable(
-        "${Screens.QuizScreen.route}/{categories}/{game_type}/{level_type}",
+        "${Screens.TextGameScreen.route}/{categories}/{game_type}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
             navArgument("game_type") { NavType.IntType },
             navArgument("level_type") { NavType.StringType }
         )
     ) {
-        QuizScreen(navController = navController)
+        TextGameScreen(navController = navController)
     }
 }
 
-fun NavController.navigateToQuiz(categories: String="", gameType: Int=0, levelArgs: String="") {
-    navigate("${Screens.QuizScreen.route}/$categories/$gameType/$levelArgs")
+fun NavController.navigateToTextGame(categories: String="", gameType: Int=0, levelArgs: String="") {
+    navigate("${Screens.TextGameScreen.route}/$categories/$gameType/$levelArgs")
 }

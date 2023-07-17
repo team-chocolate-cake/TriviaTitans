@@ -2,23 +2,22 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.m
 
 import androidx.compose.runtime.Composable
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.components.word_wise.WordWiseGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.word_wise.WordWiseUIState
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.WordWiseGame
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model.WordWiseUIState
 
 @Composable
 fun AnswersSection(
     answerCardListener: AnswerCardListener,
     gameType: Int = GameType.MULTI_CHOICE_IMAGES.ordinal,
-    question: MultiChoiceTextUiState.QuestionUiState,
+//    question: MultiChoiceTextUiState.QuestionUiState,
     questionNumber: Int,
     isButtonsEnabled: Boolean,
-    multiChoiceTextUiState: MultiChoiceTextUiState,
+//    multiChoiceTextUiState: MultiChoiceTextUiState,
     wordWiseUIState: WordWiseUIState,
     onLetterClick: (Char) -> Unit,
 ) {
-    val givenQuestion = question.randomAnswers
+//    val givenQuestion = question.randomAnswers
 
     when (gameType) {
         GameType.MULTI_CHOICE.ordinal -> {

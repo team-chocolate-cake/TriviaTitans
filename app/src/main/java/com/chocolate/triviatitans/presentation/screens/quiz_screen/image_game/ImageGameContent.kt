@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
@@ -23,9 +24,12 @@ import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
 fun ImageGameScreen(
-    viewModel: ImageGameViewModel = hiltViewModel()
+    viewModel: ImageGameViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val state = viewModel.state.collectAsState().value
+
+
 
     ImageGameContent(
         state = state,

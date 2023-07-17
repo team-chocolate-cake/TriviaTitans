@@ -8,7 +8,9 @@ import com.chocolate.triviatitans.presentation.screens.category.categoryRoute
 import com.chocolate.triviatitans.presentation.screens.home.homeRoute
 import com.chocolate.triviatitans.presentation.screens.level.levelRoute
 import com.chocolate.triviatitans.presentation.screens.lose.loseRoute
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.quizRoute
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.imageGameRoute
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.textGameRoute
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.wordWiseRoute
 import com.chocolate.triviatitans.presentation.screens.spinWheel.spinWheelRoute
 import com.chocolate.triviatitans.presentation.screens.win.winRoute
 
@@ -19,7 +21,9 @@ fun TriviaNavGraph() {
         homeRoute(navController)
         categoryRoute(navController)
         levelRoute(navController)
-        quizRoute(navController)
+        imageGameRoute(navController)
+        textGameRoute(navController)
+        wordWiseRoute(navController)
         loseRoute(navController)
         spinWheelRoute(navController)
         winRoute(navController)
