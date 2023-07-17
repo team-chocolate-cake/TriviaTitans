@@ -14,7 +14,6 @@ fun NavGraphBuilder.imageGameRoute(navController: NavHostController) {
         "${Screens.ImageGameScreen.route}/{categories}/{game_type}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
-            navArgument("game_type") { NavType.IntType },
             navArgument("level_type") { NavType.StringType }
         )
     ) {
@@ -22,6 +21,6 @@ fun NavGraphBuilder.imageGameRoute(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToImageGame(categories: String="", gameType: Int=0, levelArgs: String="") {
-    navigate("${Screens.ImageGameScreen.route}/$categories/$gameType/$levelArgs")
+fun NavController.navigateToImageGame(categories: String="",levelArgs: String="") {
+    navigate("${Screens.ImageGameScreen.route}/$categories/$levelArgs")
 }

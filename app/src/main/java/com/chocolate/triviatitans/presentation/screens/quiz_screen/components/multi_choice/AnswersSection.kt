@@ -1,7 +1,7 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
 
 import androidx.compose.runtime.Composable
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
+import com.chocolate.triviatitans.presentation.screens.home.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.WordWiseGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model.WordWiseUIState

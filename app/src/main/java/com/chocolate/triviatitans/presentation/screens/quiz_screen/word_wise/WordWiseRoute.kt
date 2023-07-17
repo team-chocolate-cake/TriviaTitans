@@ -13,7 +13,6 @@ fun NavGraphBuilder.wordWiseRoute(navController: NavHostController) {
         "${Screens.WordWiseScreen.route}/{categories}/{game_type}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
-            navArgument("game_type") { NavType.IntType },
             navArgument("level_type") { NavType.StringType }
         )
     ) {
@@ -21,6 +20,6 @@ fun NavGraphBuilder.wordWiseRoute(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToWordWise(categories: String="", gameType: Int=0, levelArgs: String="") {
-    navigate("${Screens.WordWiseScreen.route}/$categories/$gameType/$levelArgs")
+fun NavController.navigateToWordWise(categories: String="",levelArgs: String="") {
+    navigate("${Screens.WordWiseScreen.route}/$categories/$levelArgs")
 }

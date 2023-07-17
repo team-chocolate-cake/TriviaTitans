@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.view_model.multi_choice.MultiChoiceTextUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable

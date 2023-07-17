@@ -1,8 +1,10 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceTextGameUseCase
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizViewModel
@@ -20,7 +22,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TextGameViewModel @Inject constructor(
-    private val getMultiChoiceTextGame: GetMultiChoiceTextGameUseCase,
+    private val repository: TriviaTitansRepository,
+    private val questionsMapper: QuestionsMapper,
+    savedStateHandle: SavedStateHandle
 ) : BaseQuizViewModel(), AnswerCardListener, HintListener {
 
 
@@ -28,16 +32,15 @@ class TextGameViewModel @Inject constructor(
         getQuestion()
     }
 
+    val category: String = checkNotNull(savedStateHandle["categories"])
+    val levelType: String = checkNotNull(savedStateHandle["level_type"])
 
     override fun getQuestion() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getMultiChoiceTextGame(
-                    10,
-                    "music",
-                    "easy",
-                )
+                repository.getTextChoiceQuestions(10,category,levelType)
+
             },
             onSuccess = ::onGetQuestionsSuccess,
             onError = ::onGetQuestionsError
@@ -48,7 +51,7 @@ class TextGameViewModel @Inject constructor(
         _state.update {
             it.copy(
                 isLoading = false,
-                questionUiStates = questions.map { choice -> QuestionsMapper().map(choice) }
+                questionUiStates = questions.map { choice -> questionsMapper.map(choice) }
             )
         }
     }

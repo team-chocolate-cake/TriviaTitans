@@ -14,7 +14,6 @@ fun NavGraphBuilder.textGameRoute(navController: NavHostController) {
         "${Screens.TextGameScreen.route}/{categories}/{game_type}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
-            navArgument("game_type") { NavType.IntType },
             navArgument("level_type") { NavType.StringType }
         )
     ) {
@@ -22,6 +21,6 @@ fun NavGraphBuilder.textGameRoute(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToTextGame(categories: String="", gameType: Int=0, levelArgs: String="") {
-    navigate("${Screens.TextGameScreen.route}/$categories/$gameType/$levelArgs")
+fun NavController.navigateToTextGame(categories: String="",levelArgs: String="") {
+    navigate("${Screens.TextGameScreen.route}/$categories/$levelArgs")
 }

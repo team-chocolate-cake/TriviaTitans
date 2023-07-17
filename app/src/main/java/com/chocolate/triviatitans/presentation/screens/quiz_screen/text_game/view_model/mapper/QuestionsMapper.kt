@@ -3,8 +3,9 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.vi
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.mapper.Mapper
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.QuestionUiState
+import javax.inject.Inject
 
-class QuestionsMapper : Mapper<TextChoiceEntity, QuestionUiState> {
+class QuestionsMapper @Inject constructor() : Mapper<TextChoiceEntity, QuestionUiState> {
     override fun map(input: TextChoiceEntity): QuestionUiState {
         return QuestionUiState(
             id = input.id,
