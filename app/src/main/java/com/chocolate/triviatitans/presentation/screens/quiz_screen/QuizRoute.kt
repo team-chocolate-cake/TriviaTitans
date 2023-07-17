@@ -13,7 +13,7 @@ fun NavGraphBuilder.quizRoute(navController: NavHostController) {
         "${Screens.QuizScreen.route}/{categories}/{game_type}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
-            navArgument("game_type") { NavType.IntType },
+            navArgument("game_type") { NavType.StringType },
             navArgument("level_type") { NavType.StringType }
         )
     ) {
@@ -21,6 +21,6 @@ fun NavGraphBuilder.quizRoute(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToQuiz(categories: String="", gameType: Int=0, levelArgs: String="") {
+fun NavController.navigateToQuiz(categories: String="", gameType: String="", levelArgs: String="") {
     navigate("${Screens.QuizScreen.route}/$categories/$gameType/$levelArgs")
 }
