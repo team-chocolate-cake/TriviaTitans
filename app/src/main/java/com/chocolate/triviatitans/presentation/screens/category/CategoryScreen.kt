@@ -34,13 +34,12 @@ fun CategoryScreen(
         onCategorySelected = viewModel::onCategorySelected,
         onCategoryDeselected = viewModel::onCategoryDeselected,
         onClickNext = {
-            val category = viewModel.selectedCardNames.joinToString(",")
-            val gameType = viewModel.args
-            navController.navigateToLevel(category, gameType.toString().toInt())
+            val category = state.categoriesSelected.joinToString(",") { it.name }
+            navController.navigateToLevel(category, viewModel.gameTypeName)
         },
         onClickBack = { navController.navigateUp() }
     )
-    CreateToast(message = viewModel.args.toString())
+    CreateToast(message = viewModel.gameTypeName)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -13,5 +13,6 @@ data class CategoryUiState(
     val title: String = "",
     val image: Int = 0,
     val progress: Float = 0.6f,
+    val isSelected:Boolean = false
 )
 

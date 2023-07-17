@@ -17,7 +17,7 @@ class LevelViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     val categoriesArgs = checkNotNull(savedStateHandle["categories"])
-    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
+    val gameTypeArgs : String = checkNotNull(savedStateHandle["game_type"])
 
     init {
         getScore()

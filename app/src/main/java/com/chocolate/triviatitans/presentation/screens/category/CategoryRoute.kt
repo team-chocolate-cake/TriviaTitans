@@ -6,13 +6,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.chocolate.triviatitans.presentation.Screens
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.GameType
+import com.chocolate.triviatitans.presentation.screens.home.GameType
 
 fun NavGraphBuilder.categoryRoute(navController: NavController) {
     composable(
         "${Screens.CategoryScreen.route}/{gameTypeName}",
         arguments = listOf(
-            navArgument("gameTypeName") { NavType.StringType }
+            navArgument("gameTypeName") { NavType.StringType}
         )) {
         CategoryScreen(navController = navController)
     }

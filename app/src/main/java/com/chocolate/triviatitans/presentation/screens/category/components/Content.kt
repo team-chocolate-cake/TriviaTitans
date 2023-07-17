@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.category.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -33,7 +34,8 @@ fun Content(
             CategoryCard(
                 category = category,
                 onClick = { isSelected ->
-                    onCategorySelected(category, isSelected)
+                    Log.e("TAG", "Content: $isSelected", )
+                    onCategorySelected(category, !isSelected)
                 }
             )
         }
