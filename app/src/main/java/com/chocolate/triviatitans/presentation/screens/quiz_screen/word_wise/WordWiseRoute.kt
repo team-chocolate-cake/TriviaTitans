@@ -10,7 +10,7 @@ import com.chocolate.triviatitans.presentation.Screens
 
 fun NavGraphBuilder.wordWiseRoute(navController: NavHostController) {
     composable(
-        "${Screens.WordWiseScreen.route}/{categories}/{game_type}/{level_type}",
+        "${Screens.WordWiseScreen.route}/{categories}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
             navArgument("level_type") { NavType.StringType }
@@ -21,5 +21,5 @@ fun NavGraphBuilder.wordWiseRoute(navController: NavHostController) {
 }
 
 fun NavController.navigateToWordWise(categories: String="",levelArgs: String="") {
-    navigate("${Screens.WordWiseScreen.route}/$categories/$levelArgs")
+    navigate("${Screens.WordWiseScreen.route}/$categories/${levelArgs.lowercase()}")
 }

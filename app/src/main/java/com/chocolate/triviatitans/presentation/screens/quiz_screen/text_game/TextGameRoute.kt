@@ -11,7 +11,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.Wor
 
 fun NavGraphBuilder.textGameRoute(navController: NavHostController) {
     composable(
-        "${Screens.TextGameScreen.route}/{categories}/{game_type}/{level_type}",
+        "${Screens.TextGameScreen.route}/{categories}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
             navArgument("level_type") { NavType.StringType }
@@ -22,5 +22,5 @@ fun NavGraphBuilder.textGameRoute(navController: NavHostController) {
 }
 
 fun NavController.navigateToTextGame(categories: String="",levelArgs: String="") {
-    navigate("${Screens.TextGameScreen.route}/$categories/$levelArgs")
+    navigate("${Screens.TextGameScreen.route}/$categories/${levelArgs.lowercase()}")
 }
