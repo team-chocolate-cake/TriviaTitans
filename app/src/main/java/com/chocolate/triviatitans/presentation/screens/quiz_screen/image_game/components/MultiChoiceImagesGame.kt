@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +30,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.Question
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.customColor
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -41,8 +43,8 @@ fun MultiChoiceImagesGame(
 ) {
     val answerColor = remember { mutableStateOf(Color(0x00F8F8F8)) }
     val isCorrectAnswer = remember { mutableStateOf(false) }
-    val errorColor: Color = TriviaCustomColors.current.error
-    val correctColor: Color = TriviaCustomColors.current.correct
+    val errorColor: Color = MaterialTheme.customColor().error
+    val correctColor: Color = MaterialTheme.customColor().correct
 
     val selectedIndex = remember { mutableStateOf(-1) }
 

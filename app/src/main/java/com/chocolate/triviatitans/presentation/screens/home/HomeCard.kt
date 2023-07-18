@@ -26,13 +26,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun ConfigurationCard(
     gameType: GameType,
     typeDescription: String,
     typeImage: Int,
-    color: Color = TriviaCustomColors.current.card,
+    color: Color = MaterialTheme.customColor().card,
     selectedGameType: GameType?,
     onSelect: (GameType) -> Unit
 ) {
@@ -46,7 +47,7 @@ fun ConfigurationCard(
         colors = CardDefaults.cardColors(color),
         border = if (selectedGameType == gameType) BorderStroke(
             2.dp,
-            TriviaCustomColors.current.primary
+            MaterialTheme.customColor().primary
         ) else null
     ) {
         Row(
@@ -62,7 +63,7 @@ fun ConfigurationCard(
                 Text(
                     text = gameType.title,
                     style = MaterialTheme.typography.titleMedium,
-                    color = TriviaCustomColors.current.onBackground87
+                    color = MaterialTheme.customColor().onBackground87
                 )
 
                 Text(
@@ -70,7 +71,7 @@ fun ConfigurationCard(
                     maxLines = 3,
                     textAlign = TextAlign.Justify,
                     style = MaterialTheme.typography.bodySmall,
-                    color = TriviaCustomColors.current.onBackground60
+                    color = MaterialTheme.customColor().onBackground60
                 )
 
             }
@@ -94,7 +95,7 @@ fun PreviewConfigurationCard() {
         GameType.WORD_WISE,
         "test2",
         R.drawable.configration_multi_choice_images_icon,
-       TriviaCustomColors.current.card,
+       MaterialTheme.customColor().card,
         GameType.MULTI_CHOICE
 
     ) {}

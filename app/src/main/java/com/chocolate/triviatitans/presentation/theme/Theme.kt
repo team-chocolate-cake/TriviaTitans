@@ -110,5 +110,6 @@ fun TriviaTitansTheme(
         )
     }
 
-
 }
+@Composable
+fun MaterialTheme.customColor() = TriviaCustomColors.current

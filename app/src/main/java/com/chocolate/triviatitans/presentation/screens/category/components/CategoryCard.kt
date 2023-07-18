@@ -33,13 +33,14 @@ import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun CategoryCard(
     category: CategoryUiState,
     onClick: (Boolean) -> Unit
 ) {
-    val colors = TriviaCustomColors.current
+    val colors = MaterialTheme.customColor()
 
 
 

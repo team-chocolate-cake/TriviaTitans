@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun QuestionHint(
@@ -33,7 +34,7 @@ fun QuestionHint(
     imageModifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
-    val questionHintColor = TriviaCustomColors.current
+    val questionHintColor = MaterialTheme.customColor()
     Box(
         modifier = modifier
             .size(64.dp),
