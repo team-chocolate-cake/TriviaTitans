@@ -1,10 +1,10 @@
 package com.chocolate.triviatitans.presentation.screens.win
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chocolate.triviatitans.domain.usecase.SavePlayerDataUseCase
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
+import com.chocolate.triviatitans.presentation.screens.PlayerDataType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WinViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val savePlayerDataUseCase: SavePlayerDataUseCase
+    private val playerDataRepository: PlayerDataRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(WinUiState())
     val state = _state.asStateFlow()
@@ -25,22 +25,22 @@ class WinViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             when (prizeType.toString()) {
-                PlayerDataType.Bonus.name -> savePlayerDataUseCase.savePlayerData(
+                PlayerDataType.Bonus.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.Bonus,
                     args.toString().toInt()
                 )
 
-                PlayerDataType.Hearts.name -> savePlayerDataUseCase.savePlayerData(
+                PlayerDataType.Hearts.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.Hearts,
                     args.toString().toInt()
                 )
 
-                PlayerDataType.DeleteTwoAnswers.name -> savePlayerDataUseCase.savePlayerData(
+                PlayerDataType.DeleteTwoAnswers.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.DeleteTwoAnswers,
                     args.toString().toInt()
                 )
 
-                PlayerDataType.ChangeQuestion.name -> savePlayerDataUseCase.savePlayerData(
+                PlayerDataType.ChangeQuestion.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.ChangeQuestion,
                     args.toString().toInt()
                 )

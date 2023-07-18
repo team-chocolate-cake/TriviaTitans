@@ -1,6 +1,7 @@
 package com.chocolate.triviatitans.data.repository
 
 import com.chocolate.triviatitans.data.local.TriviaDao
+import com.chocolate.triviatitans.presentation.screens.PlayerDataType
 import javax.inject.Inject
 
 class PlayerDataRepositoryImpl @Inject constructor(
@@ -36,12 +37,3 @@ class PlayerDataRepositoryImpl @Inject constructor(
     }
 }
 
-enum class PlayerDataType(name:String){
-    Bonus("bonus"),
-    Hearts("hearts"),
-    DeleteTwoAnswers("deleteTwoAnswers"),
-    ChangeQuestion("changeQuestion"),
-    EasyScore("easyScore"),
-    MediumScore("mediumScore"),
-    HardScore("hardScore"),
-}
