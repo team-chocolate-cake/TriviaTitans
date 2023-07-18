@@ -26,6 +26,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.Hint
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.TextGameViewModel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 
 @Composable
@@ -52,7 +53,7 @@ fun TextGameContent(
     Column(
         Modifier
             .fillMaxSize()
-            .background(color = TriviaCustomColors.current.background)
+            .background(color = MaterialTheme.customColor().background)
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
 
@@ -74,7 +75,7 @@ fun TextGameContent(
             Text(
                 text = currentQuestion.question,
                 style = MaterialTheme.typography.titleMedium,
-                color = TriviaCustomColors.current.onBackground87
+                color = MaterialTheme.customColor().onBackground87
             )
             SpacerVertical16()
             LazyColumn {

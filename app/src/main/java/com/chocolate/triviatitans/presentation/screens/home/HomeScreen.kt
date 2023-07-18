@@ -36,6 +36,7 @@ import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun HomeScreen(
@@ -64,14 +65,14 @@ fun HomeContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TriviaCustomColors.current.background)
+            .background(MaterialTheme.customColor().background)
             .padding(16.dp)
     ) {
         Text(
             text = stringResource(id = R.string.game_type),
             modifier = Modifier.padding(top = 24.dp),
             style = MaterialTheme.typography.titleMedium,
-            color = TriviaCustomColors.current.onBackground87,
+            color = MaterialTheme.customColor().onBackground87,
             textAlign = TextAlign.Start
         )
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -90,7 +91,7 @@ fun HomeContent(
                         .fillMaxWidth()
                         .padding(top = 8.dp)
                         .height(120.dp),
-                    colors = CardDefaults.cardColors(TriviaCustomColors.current.onSecondary)
+                    colors = CardDefaults.cardColors(MaterialTheme.customColor().onSecondary)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxSize(), Arrangement.SpaceBetween,
@@ -105,7 +106,7 @@ fun HomeContent(
                             Text(
                                 text = stringResource(id = R.string.config_title_card4),
                                 style = MaterialTheme.typography.titleSmall,
-                                color = TriviaCustomColors.current.onBackground38
+                                color = MaterialTheme.customColor().onBackground38
                             )
 
                             Text(
@@ -113,7 +114,7 @@ fun HomeContent(
                                 maxLines = 3,
                                 textAlign = TextAlign.Justify,
                                 style = MaterialTheme.typography.titleMedium,
-                                color = TriviaCustomColors.current.onBackground87
+                                color = MaterialTheme.customColor().onBackground87
                             )
                         }
                         Spacer(Modifier.size(24.dp))
@@ -137,7 +138,7 @@ fun HomeContent(
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 38.dp),
-                        colors = ButtonDefaults.buttonColors(TriviaCustomColors.current.primary),
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.customColor().primary),
 
                         ) {
                         Text(

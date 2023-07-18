@@ -11,6 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun PlayerGameAppBarInfo(questionNumber: Int, bounce: Int) {
@@ -24,7 +25,7 @@ fun PlayerGameAppBarInfo(questionNumber: Int, bounce: Int) {
             text = "Easy Level",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
-            color = TriviaCustomColors.current.onBackground87
+            color = MaterialTheme.customColor().onBackground87
         )
         TotalBounce(bounce = bounce)
     }

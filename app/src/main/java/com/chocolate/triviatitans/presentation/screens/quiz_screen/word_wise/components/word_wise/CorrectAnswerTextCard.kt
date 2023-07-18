@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.co
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -9,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun CorrectAnswerTextCard(
@@ -22,16 +24,16 @@ fun CorrectAnswerTextCard(
     if (isFilled.value) {
         TextCard(
             text = text.toString(),
-            textColor = TriviaCustomColors.current.secondary,
+            textColor = MaterialTheme.customColor().secondary,
             modifier = Modifier.background(
-                TriviaCustomColors.current.primary,
+                MaterialTheme.customColor().primary,
                 shape = RoundedCornerShape(size = 12.dp)
             )
         )
     } else {
         TextCard(
             text = text.toString(),
-            textColor = TriviaCustomColors.current.primary,
+            textColor = MaterialTheme.customColor().primary,
         )
     }
 }

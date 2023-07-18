@@ -21,6 +21,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.vi
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun ImageGameScreen(
@@ -51,7 +52,7 @@ fun ImageGameContent(
     Column(
         Modifier
             .fillMaxSize()
-            .background(color = TriviaCustomColors.current.background)
+            .background(color = MaterialTheme.customColor().background)
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
 
@@ -72,7 +73,7 @@ fun ImageGameContent(
             Text(
                 text = currentQuestion.question,
                 style = MaterialTheme.typography.titleMedium,
-                color = TriviaCustomColors.current.onBackground87
+                color = MaterialTheme.customColor().onBackground87
             )
             SpacerVertical16()
             MultiChoiceImagesGame(

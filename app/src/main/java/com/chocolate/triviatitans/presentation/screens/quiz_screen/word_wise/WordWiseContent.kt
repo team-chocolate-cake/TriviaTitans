@@ -47,7 +47,7 @@ fun WordWiseContent(
 //    Column(
 //        Modifier
 //            .fillMaxSize()
-//            .background(color = TriviaCustomColors.current.background)
+//            .background(color = MaterialTheme.customColor().background)
 //            .padding(horizontal = 16.dp, vertical = 16.dp)
 //    ) {
 //        if (multiChoiceTextUiState.questionUiStates.isNotEmpty()) {

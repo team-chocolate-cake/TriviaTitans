@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,6 +27,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.nav
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.navigateToWordWise
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 import com.chocolate.triviatitans.ui.screens.level.compose.AppBar
 import com.chocolate.triviatitans.ui.screens.level.compose.CardLevels
 import com.chocolate.triviatitans.ui.screens.level.compose.DescriptionLevel
@@ -76,7 +78,7 @@ fun LevelContent(
     onLevelSelected: (TypeLevel) -> Unit,
     state: LevelUiState,
 ) {
-    val colors = TriviaCustomColors.current
+    val colors = MaterialTheme.customColor()
     val stateScrollable = rememberScrollState()
     Scaffold(
         topBar = { AppBar(onClickBack = onClickBack, color = colors) },
