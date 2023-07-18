@@ -15,13 +15,11 @@ import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.components.BottomBar
 import com.chocolate.triviatitans.presentation.screens.category.components.Content
-import com.chocolate.triviatitans.presentation.screens.category.components.CreateToast
 import com.chocolate.triviatitans.presentation.screens.category.components.TopBar
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoriesUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryViewModel
 import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 
@@ -37,7 +35,7 @@ fun CategoryScreen(
         onCategoryDeselected = viewModel::onCategoryDeselected,
         onClickNext = {
             val category = state.categoriesSelected.joinToString(",") { it.name }
-            navController.navigateToLevel(category, viewModel.gameTypeName)
+            navController.navigateToLevel(category, viewModel.categoryArgs.gameTypeName)
         },
         onClickBack = { navController.navigateUp() }
     )

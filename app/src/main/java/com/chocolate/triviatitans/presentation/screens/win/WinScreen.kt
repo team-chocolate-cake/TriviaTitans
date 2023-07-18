@@ -42,8 +42,8 @@ fun WinScreen(navController: NavController ,winViewModel: WinViewModel = hiltVie
             onClickToNextGame = {
                 navController.popBackStack(Screens.LevelScreen.route, true)
             },
-            prize = winViewModel.args.toString(),
-            prizeType = winViewModel.prizeType.toString()
+            prize = winViewModel.prizeArgs.prize.toString(),
+            prizeType = winViewModel.prizeArgs.prizeType.toString()
         )
     }
 }
