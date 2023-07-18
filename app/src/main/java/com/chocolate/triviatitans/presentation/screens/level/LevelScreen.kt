@@ -25,7 +25,6 @@ import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.navigateToImageGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.navigateToTextGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.navigateToWordWise
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 import com.chocolate.triviatitans.ui.screens.level.compose.AppBar
@@ -49,8 +48,8 @@ fun LevelScreen(
                 TypeLevel.Medium -> TypeLevel.Medium.name
                 TypeLevel.Hard -> TypeLevel.Hard.name
             }
-            val categories = viewModel.categoriesArgs.toString()
-            when (viewModel.gameTypeArgs) {
+            val categories = viewModel.levelArgs.toString()
+            when (viewModel.levelArgs.gameType) {
                 GameType.MULTI_CHOICE.name -> navController.navigateToTextGame(
                     categories,
                     levelType
