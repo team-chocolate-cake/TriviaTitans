@@ -9,11 +9,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.ImageView
 
 @Composable
 fun LevelImage() {
-    Image(
-        painter = painterResource(id = R.drawable.level_image),
+    ImageView(
+        ImageResource = R.drawable.level_image,
         contentDescription = stringResource(R.string.level_image),
         modifier = Modifier
             .fillMaxWidth()

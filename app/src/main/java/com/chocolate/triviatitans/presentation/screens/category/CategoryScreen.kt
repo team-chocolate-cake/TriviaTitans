@@ -41,7 +41,6 @@ fun CategoryScreen(
         },
         onClickBack = { navController.navigateUp() }
     )
-    CreateToast(message = viewModel.gameTypeName)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

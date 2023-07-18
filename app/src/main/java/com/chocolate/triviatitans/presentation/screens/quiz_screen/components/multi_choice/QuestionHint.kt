@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.ImageView
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
@@ -40,12 +41,13 @@ fun QuestionHint(
             .size(64.dp),
         contentAlignment = Alignment.BottomEnd
     ) {
-        Image(
-            painter = painterResource(id = icon),
+        ImageView(
+            ImageResource =icon,
             contentDescription = "question help",
             modifier = Modifier
                 .fillMaxSize()
-                .clip(CircleShape).clickable(onClick = onClick)
+                .clip(CircleShape)
+                .clickable(onClick = onClick)
                 .background(questionHintColor.primary)
                 .then(imageModifier)
         )
