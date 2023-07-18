@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -55,7 +56,6 @@ fun WinContent(
     prize: String,
     prizeType: String
 ) {
-
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -78,10 +78,10 @@ fun WinContent(
             ImageResource = R.drawable.present,
             contentDescription = stringResource(R.string.present_image),
             modifier = Modifier.constrainAs(present) {
-                top.linkTo(parent.top, margin = 220.dp)
+                top.linkTo(parent.top, margin = 164.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            }
+            }.size(132.dp)
         )
         TextTitle(text = stringResource(R.string.congrats),
             modifier = Modifier.constrainAs(congrats) {
@@ -105,7 +105,7 @@ fun WinContent(
             borderColor = Color.Transparent,
             textColor = LightBackground,
             modifier = Modifier.constrainAs(nextLevel) {
-                bottom.linkTo(returnToHome.top)
+                top.linkTo(points.bottom, margin = 48.dp)
                 start.linkTo(parent.start, margin = 16.dp)
                 end.linkTo(parent.end, margin = 16.dp)
             }
@@ -117,7 +117,7 @@ fun WinContent(
             borderColor = LightOnBackground38,
             textColor = LightOnBackground60,
             modifier = Modifier.constrainAs(returnToHome) {
-                bottom.linkTo(parent.bottom, margin = 164.dp)
+                top.linkTo(nextLevel.bottom)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
