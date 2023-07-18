@@ -72,7 +72,6 @@ fun MultiChoiceImagesGame(
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxSize()
                         .clickable(enabled = isButtonsEnabled) {
-
                             selectedIndex.value = index
                             isCorrectAnswer.value = item == question.correctAnswer
                             answerColor.value =
@@ -89,7 +88,6 @@ fun MultiChoiceImagesGame(
                                 answerColor.value = Color(0x00F8F8F8)
                                 answerCardListener.updateButtonState(true)
                             }
-
                         }
                         .border(
                             BorderStroke(

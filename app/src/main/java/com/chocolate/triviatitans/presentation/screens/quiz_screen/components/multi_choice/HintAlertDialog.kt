@@ -17,8 +17,7 @@ fun HintAlertDialog(onDissmiss: () -> Unit, correctAnswer: String) {
                 Text("Ok".uppercase())
             }
         },
-
-        )
+    )
 }
 
 @Preview

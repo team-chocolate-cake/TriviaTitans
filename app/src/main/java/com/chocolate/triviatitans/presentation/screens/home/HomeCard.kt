@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.ImageView
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.customColor
 
@@ -76,12 +77,11 @@ fun ConfigurationCard(
 
             }
             Spacer(Modifier.size(24.dp))
-            Image(
+            ImageView(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(end = 12.dp),
-                painter = painterResource(id = typeImage),
-                contentDescription = null
+                ImageResource = typeImage
             )
         }
     }
@@ -95,7 +95,7 @@ fun PreviewConfigurationCard() {
         GameType.WORD_WISE,
         "test2",
         R.drawable.configration_multi_choice_images_icon,
-       MaterialTheme.customColor().card,
+        MaterialTheme.customColor().card,
         GameType.MULTI_CHOICE
 
     ) {}

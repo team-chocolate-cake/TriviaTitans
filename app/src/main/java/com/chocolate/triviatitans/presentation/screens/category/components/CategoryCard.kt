@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.composables.ImageView
 import com.chocolate.triviatitans.presentation.screens.category.viewmodel.CategoryUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
@@ -41,9 +42,6 @@ fun CategoryCard(
     onClick: (Boolean) -> Unit
 ) {
     val colors = MaterialTheme.customColor()
-
-
-
     Card(
         colors = CardDefaults.cardColors(colors.card),
         modifier = Modifier
@@ -51,7 +49,6 @@ fun CategoryCard(
             .height(146.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                Log.e("TAG", "GG $category.isSelected", )
                 onClick(category.isSelected)
             },
         border = if (category.isSelected) BorderStroke(1.dp, colors.primary) else null,
@@ -66,14 +63,13 @@ fun CategoryCard(
                 alignment = Alignment.CenterVertically
             ),
         ) {
-            Image(
+            ImageView(
+                ImageResource = category.image,
+                contentDescription = stringResource(R.string.category_image),
                 modifier = Modifier
                     .width(100.dp)
                     .height(80.dp),
-                painter = painterResource(id = category.image),
-                contentDescription = stringResource(R.string.category_image),
             )
-
             Text(
                 text = category.title,
                 style = MaterialTheme.typography.titleMedium,
