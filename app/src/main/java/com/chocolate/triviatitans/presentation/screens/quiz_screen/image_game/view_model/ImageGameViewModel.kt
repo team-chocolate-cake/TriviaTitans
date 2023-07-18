@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.v
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.ImageChoiceEntity
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizViewModel
@@ -10,7 +11,9 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.vi
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,6 +51,25 @@ class ImageGameViewModel @Inject constructor(
             )
         }
     }
+
+    fun updateTime(current:Float) {
+        var timer = current
+        viewModelScope.launch {
+            while (true) {
+                delay(30)
+                timer -= 0.003f
+                if (current <= 0f) {
+                    break
+                }
+                Log.d(
+                    "level_type",
+                    "${current}"
+                )
+            _state.update { it }
+            }
+        }
+    }
+
 
     private fun onErrorUserQuestionsImageGame(error: Throwable) {
         Log.i("ERRORX", "onErrorUserQuestionsImageGame: $error")
