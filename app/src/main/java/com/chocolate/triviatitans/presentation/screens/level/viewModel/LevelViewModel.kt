@@ -1,6 +1,8 @@
 package com.chocolate.triviatitans.presentation.screens.level.viewModel
 
 import androidx.lifecycle.SavedStateHandle
+import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.level.LevelArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LevelViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val playerDataRepository: PlayerDataRepository,
+    private val scoreMapper: ScoreMapper
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow(LevelUiState())
@@ -21,51 +25,30 @@ class LevelViewModel @Inject constructor(
     val levelArgs: LevelArgs = LevelArgs(savedStateHandle)
 
     init {
-        getScore()
+        getPlayerData()
     }
 
-    private fun getScore() {
-        when (_state.value.selectedLevel) {
-            TypeLevel.Easy -> {
-                _state.update {
-                    it.copy(
-                        score = it.score
-                    )
-                }
-            }
+    private fun getPlayerData() {
+        tryToExecute(
+            call = { playerDataRepository.getPlayerData() },
+            onSuccess = ::onGetPlayerDataSuccess,
+            onError = ::onGetPlayerDataError
+        )
+    }
 
-            TypeLevel.Medium -> {
-                _state.update {
-                    it.copy(
-                        score = it.score * 2
-                    )
-                }
-            }
+    private fun onGetPlayerDataError(throwable: Throwable) {
+        //todo handle errors
+    }
 
-            TypeLevel.Hard -> {
-                _state.update {
-                    it.copy(
-                        score = it.score * 3
-                    )
-                }
-            }
+    private fun onGetPlayerDataSuccess(playerDataDto: LocalPlayerDataDto) {
+        _state.update {
+            it.copy(
+                score = scoreMapper.map(playerDataDto)
+            )
         }
     }
 
     fun updateSelectedLevel(level: TypeLevel) {
-        when (level) {
-            TypeLevel.Easy -> {
-                _state.update { it.copy(selectedLevel = level) }
-            }
-
-            TypeLevel.Medium -> {
-                _state.update { it.copy(selectedLevel = level) }
-            }
-
-            TypeLevel.Hard -> {
-                _state.update { it.copy(selectedLevel = level) }
-            }
-        }
-        getScore()
+        _state.update { it.copy(selectedLevel = level) }
     }
 }

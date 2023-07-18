@@ -36,7 +36,10 @@ object DataBaseModule {
             bonus = 0,
             deleteTwoAnswers = 0,
             changeQuestion = 0,
-            hearts = 0
+            hearts = 0,
+            easyScore = 0,
+            mediumScore = 0,
+            hardScore = 0
         )
     }
 
