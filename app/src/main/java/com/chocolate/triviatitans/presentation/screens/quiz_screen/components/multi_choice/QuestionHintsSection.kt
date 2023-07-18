@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,8 +44,10 @@ fun QuestionHintsSection(
             numberOfTries = heartHint.numberOfTries,
             imageModifier = Modifier.padding(20.dp),
             onClick = {
-                if (heartHint.isActive) hintListener.onClickHeart()
-                showDialog.value = true
+                if (heartHint.numberOfTries > 0 ) {
+                    hintListener.onClickHeart()
+                    showDialog.value = true
+                }
             }
         )
         QuestionHint(
