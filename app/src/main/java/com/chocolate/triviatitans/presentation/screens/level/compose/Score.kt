@@ -39,8 +39,6 @@ fun Score(
                 .background(colors.onSecondary, shape = RoundedCornerShape(32.dp))
                 .padding(16.dp),
             textAlign = TextAlign.Center,
-
-            )
+        )
     }
-
 }

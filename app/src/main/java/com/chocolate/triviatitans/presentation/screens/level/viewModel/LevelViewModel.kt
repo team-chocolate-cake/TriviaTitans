@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.level.viewModel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LevelViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _state = MutableStateFlow(LevelUiState())
     val state = _state.asStateFlow()

@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.ButtonWinLose
+import com.chocolate.triviatitans.composables.ImageView
 import com.chocolate.triviatitans.composables.SpacerVertical24
 import com.chocolate.triviatitans.composables.TextDescription
 import com.chocolate.triviatitans.composables.TextTitle
@@ -73,8 +74,8 @@ fun WinContent(
                 .height(500.dp)
                 .background(LightBackground)
                 .constrainAs(lottie) { top.linkTo(parent.top) })
-        Image(
-            painter = painterResource(id = R.drawable.present),
+        ImageView(
+            ImageResource = R.drawable.present,
             contentDescription = stringResource(R.string.present_image),
             modifier = Modifier.constrainAs(present) {
                 top.linkTo(parent.top, margin = 220.dp)

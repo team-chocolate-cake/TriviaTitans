@@ -34,5 +34,4 @@ fun SubTitleText(color: CustomColorsPalette) {
                 .padding(bottom = 24.dp, start = 42.dp, end = 42.dp)
         )
     }
-
 }
