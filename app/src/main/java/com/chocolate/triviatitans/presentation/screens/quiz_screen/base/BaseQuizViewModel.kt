@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-abstract class BaseQuizViewModel : ViewModel(), AnswerCardListener, HintListener {
+abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintListener {
 
     protected val _state = MutableStateFlow(BaseQuizUiState())
     val state = _state.asStateFlow()
@@ -93,18 +94,4 @@ abstract class BaseQuizViewModel : ViewModel(), AnswerCardListener, HintListener
         }
     }
 
-     fun <T> tryToExecute(
-        call: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) {
-        viewModelScope.launch(dispatcher) {
-            try {
-                call().also(onSuccess)
-            } catch (th: Throwable) {
-                onError(th)
-            }
-        }
-    }
 }
