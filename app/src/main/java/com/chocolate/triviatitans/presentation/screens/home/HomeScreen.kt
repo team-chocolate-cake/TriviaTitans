@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -129,10 +130,10 @@ fun HomeContent(
                 }
             }
             item {
-                if (state.selectedGameType != null) {
+               AnimatedVisibility(state.selectedGameType != null) {
                     Button(
                         onClick = {
-                            onNextScreenClick(state.selectedGameType)
+                            state.selectedGameType?.let { onNextScreenClick(it) }
                         },
                         modifier = Modifier
                             .width(250.dp)
