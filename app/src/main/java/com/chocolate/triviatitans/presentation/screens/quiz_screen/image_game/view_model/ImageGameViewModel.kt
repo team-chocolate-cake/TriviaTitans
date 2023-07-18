@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.ImageChoiceEntity
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.ImageGameArgs
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.mapper.ImageGameUiMapper
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -24,14 +25,13 @@ class ImageGameViewModel @Inject constructor(
         getQuestion()
     }
 
-    val category: String = checkNotNull(savedStateHandle["categories"])
-    val levelType: String = checkNotNull(savedStateHandle["level_type"])
+    private val imageGameArgs: ImageGameArgs = ImageGameArgs(savedStateHandle)
 
     override fun getQuestion() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                repository.getImageChoiceQuestions(10, category, levelType)
+                repository.getImageChoiceQuestions(10, imageGameArgs.categories, imageGameArgs.levelType)
 
             },
             onSuccess = ::onSuccessUserQuestionsImageGame,
