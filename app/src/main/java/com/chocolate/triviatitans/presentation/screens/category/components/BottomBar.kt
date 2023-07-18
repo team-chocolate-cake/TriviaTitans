@@ -23,13 +23,14 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun BottomBar(
     count: String,
     onNextClick: () -> Unit
 ) {
-    val colors = TriviaCustomColors.current
+    val colors = MaterialTheme.customColor()
 
     Surface(
         modifier = Modifier

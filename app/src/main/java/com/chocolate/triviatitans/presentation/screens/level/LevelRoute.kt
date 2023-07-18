@@ -12,12 +12,12 @@ fun NavGraphBuilder.levelRoute(navController: NavController) {
         "${Screens.LevelScreen.route}/{categories}/{game_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType},
-            navArgument("game_type"){NavType.IntType}
+            navArgument("game_type"){NavType.StringType}
         )
     ) {
         LevelScreen(navController = navController)
     }
 }
-fun NavController.navigateToLevel(categories: String="",gameType:Int=0) {
-    navigate("${Screens.LevelScreen.route}/$categories/$gameType")
+fun NavController.navigateToLevel(categories: String="",gameTypeName:String="") {
+    navigate("${Screens.LevelScreen.route}/$categories/$gameTypeName")
 }

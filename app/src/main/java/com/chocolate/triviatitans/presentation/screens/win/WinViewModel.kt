@@ -1,9 +1,9 @@
 package com.chocolate.triviatitans.presentation.screens.win
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chocolate.triviatitans.data.repository.PlayerDataType
 import com.chocolate.triviatitans.domain.usecase.SavePlayerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

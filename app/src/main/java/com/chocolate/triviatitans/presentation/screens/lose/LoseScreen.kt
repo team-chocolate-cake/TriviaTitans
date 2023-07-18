@@ -20,7 +20,6 @@ import com.chocolate.triviatitans.composables.ButtonWinLose
 import com.chocolate.triviatitans.composables.TextDescription
 import com.chocolate.triviatitans.composables.TextTitle
 import com.chocolate.triviatitans.composables.WinLoseAnimation
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.navigateToQuiz
 import com.chocolate.triviatitans.presentation.theme.LightBackground
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground38
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground60
@@ -33,7 +32,7 @@ fun LoseScreen(navController: NavController) {
     TriviaTitansTheme {
         LoseContent(
             onClickReturnToHome = { navController.navigateToHome() },
-            onClickRetry={navController.navigateToQuiz()}
+            onClickRetry = { navController.popBackStack() }
         )
     }
 }
@@ -42,8 +41,7 @@ fun LoseScreen(navController: NavController) {
 fun LoseContent(
     onClickReturnToHome: () -> Unit,
     onClickRetry: () -> Unit,
-
-    ) {
+) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -86,7 +84,7 @@ fun LoseContent(
 
         ButtonWinLose(
             text = stringResource(R.string.retry),
-            onClick = {onClickRetry()},
+            onClick = { onClickRetry() },
             buttonColor = Primary,
             borderColor = Color.Transparent,
             textColor = LightBackground,

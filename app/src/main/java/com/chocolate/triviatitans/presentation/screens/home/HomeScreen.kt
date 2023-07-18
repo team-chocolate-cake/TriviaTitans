@@ -22,31 +22,33 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
-import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
-import com.chocolate.triviatitans.presentation.screens.win.navigateToWinScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsState()
     TriviaTitansTheme {
         HomeContent(
-            onClickButton = { selectedGame ->
+            state = state,
+            onGameTypeChanged = viewModel::changeSelectedGameType,
+            onNextScreenClick = { selectedGame ->
                 navController.navigateToCategory(selectedGame)
             }
         )
@@ -55,59 +57,32 @@ fun HomeScreen(
 
 @Composable
 fun HomeContent(
-    onClickButton: (Int) -> Unit,
+    state: HomeUiState,
+    onGameTypeChanged:(GameType)->Unit,
+    onNextScreenClick: (GameType) -> Unit,
 ) {
-    var selectedIndex by rememberSaveable {
-        mutableStateOf(-1)
-    }
-    val configurations = listOf(
-        HomeUiState(
-            title = stringResource(id = R.string.config_title_card1),
-            description = stringResource(id = R.string.config_content_card1),
-            image = R.drawable.configuratoin_multi_choice_icon,
-            currentIndex = 0,
-            index = selectedIndex,
-            selected = { i -> selectedIndex = i }
-        ),
-        HomeUiState(
-            title = stringResource(id = R.string.config_title_card2),
-            description = stringResource(id = R.string.config_content_card2),
-            image = R.drawable.configuratoin_multi_choice_images_icon,
-            currentIndex = 1,
-            index = selectedIndex,
-            selected = { i -> selectedIndex = i }
-        ),
-        HomeUiState(
-            title = stringResource(id = R.string.config_title_card3),
-            description = stringResource(id = R.string.config_content_card3),
-            image = R.drawable.configuratoin_word_wise_icon,
-            currentIndex = 2,
-            index = selectedIndex,
-            selected = { i -> selectedIndex = i }
-        )
-    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TriviaCustomColors.current.background)
+            .background(MaterialTheme.customColor().background)
             .padding(16.dp)
     ) {
         Text(
             text = stringResource(id = R.string.game_type),
             modifier = Modifier.padding(top = 24.dp),
             style = MaterialTheme.typography.titleMedium,
-            color = TriviaCustomColors.current.onBackground87,
+            color = MaterialTheme.customColor().onBackground87,
             textAlign = TextAlign.Start
         )
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-            items(configurations) { configurationCard ->
+            items(state.homeCards) { homeCard ->
                 ConfigurationCard(
-                    typeTitle = configurationCard.title,
-                    typeDescription = configurationCard.description,
-                    typeImage = configurationCard.image,
-                    currentIndex = configurationCard.currentIndex,
-                    index = configurationCard.index,
-                    selected = configurationCard.selected
+                    gameType = homeCard.gameType,
+                    typeDescription = homeCard.description,
+                    typeImage = homeCard.image,
+                    selectedGameType = state.selectedGameType,
+                    onSelect = onGameTypeChanged
                 )
             }
             item {
@@ -116,7 +91,7 @@ fun HomeContent(
                         .fillMaxWidth()
                         .padding(top = 8.dp)
                         .height(120.dp),
-                    colors = CardDefaults.cardColors(TriviaCustomColors.current.onSecondary)
+                    colors = CardDefaults.cardColors(MaterialTheme.customColor().onSecondary)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxSize(), Arrangement.SpaceBetween,
@@ -131,7 +106,7 @@ fun HomeContent(
                             Text(
                                 text = stringResource(id = R.string.config_title_card4),
                                 style = MaterialTheme.typography.titleSmall,
-                                color = TriviaCustomColors.current.onBackground38
+                                color = MaterialTheme.customColor().onBackground38
                             )
 
                             Text(
@@ -139,7 +114,7 @@ fun HomeContent(
                                 maxLines = 3,
                                 textAlign = TextAlign.Justify,
                                 style = MaterialTheme.typography.titleMedium,
-                                color = TriviaCustomColors.current.onBackground87
+                                color = MaterialTheme.customColor().onBackground87
                             )
                         }
                         Spacer(Modifier.size(24.dp))
@@ -154,16 +129,16 @@ fun HomeContent(
                 }
             }
             item {
-                if (selectedIndex != -1) {
+                if (state.selectedGameType != null) {
                     Button(
                         onClick = {
-                            onClickButton(selectedIndex)
+                            onNextScreenClick(state.selectedGameType)
                         },
                         modifier = Modifier
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 38.dp),
-                        colors = ButtonDefaults.buttonColors(TriviaCustomColors.current.primary),
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.customColor().primary),
 
                         ) {
                         Text(

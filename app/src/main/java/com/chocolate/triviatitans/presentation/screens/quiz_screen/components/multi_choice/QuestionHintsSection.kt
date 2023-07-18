@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,16 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.MultiChoiceTextUiState
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 
 @Composable
 fun QuestionHintsSection(
     hintListener: HintListener,
-    fiftyFiftyHint: MultiChoiceTextUiState.HintButton,
-    heartHint: MultiChoiceTextUiState.HintButton,
-    resetHint: MultiChoiceTextUiState.HintButton,
+    fiftyFiftyHint: HintButton,
+    heartHint: HintButton,
+    resetHint: HintButton,
     correctAnswer: String,
 ) {
     val showDialog = remember { mutableStateOf(false) }
@@ -43,8 +44,10 @@ fun QuestionHintsSection(
             numberOfTries = heartHint.numberOfTries,
             imageModifier = Modifier.padding(20.dp),
             onClick = {
-                if (heartHint.isActive) hintListener.onClickHeart()
-                showDialog.value = true
+                if (heartHint.numberOfTries > 0 ) {
+                    hintListener.onClickHeart()
+                    showDialog.value = true
+                }
             }
         )
         QuestionHint(
@@ -59,7 +62,7 @@ fun QuestionHintsSection(
 @Preview(showSystemUi = true)
 @Composable
 fun QuestionHintsSectionPreview() {
-    TriviaTitansTheme() {
+    TriviaTitansTheme {
         QuestionHintsSection(
             hintListener = object : HintListener {
                 override fun onClickFiftyFifty() {
@@ -74,9 +77,9 @@ fun QuestionHintsSectionPreview() {
                     TODO("Not yet implemented")
                 }
             },
-            MultiChoiceTextUiState.HintButton(),
-            MultiChoiceTextUiState.HintButton(),
-            MultiChoiceTextUiState.HintButton(), correctAnswer = ""
+            HintButton(),
+            HintButton(),
+            HintButton(), correctAnswer = ""
         )
     }
 }

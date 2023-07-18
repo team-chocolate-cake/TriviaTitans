@@ -26,16 +26,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun ConfigurationCard(
-    typeTitle: String,
+    gameType: GameType,
     typeDescription: String,
     typeImage: Int,
-    color: Color = TriviaCustomColors.current.card,
-    currentIndex: Int,
-    index: Int,
-    selected: (Int) -> Unit
+    color: Color = MaterialTheme.customColor().card,
+    selectedGameType: GameType?,
+    onSelect: (GameType) -> Unit
 ) {
 
     Card(
@@ -43,11 +43,11 @@ fun ConfigurationCard(
             .fillMaxWidth()
             .padding(top = 8.dp)
             .height(120.dp)
-            .clickable { selected(currentIndex) },
+            .clickable { onSelect(gameType) },
         colors = CardDefaults.cardColors(color),
-        border = if (currentIndex == index) BorderStroke(
+        border = if (selectedGameType == gameType) BorderStroke(
             2.dp,
-            TriviaCustomColors.current.primary
+            MaterialTheme.customColor().primary
         ) else null
     ) {
         Row(
@@ -61,9 +61,9 @@ fun ConfigurationCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = typeTitle,
+                    text = gameType.title,
                     style = MaterialTheme.typography.titleMedium,
-                    color = TriviaCustomColors.current.onBackground87
+                    color = MaterialTheme.customColor().onBackground87
                 )
 
                 Text(
@@ -71,7 +71,7 @@ fun ConfigurationCard(
                     maxLines = 3,
                     textAlign = TextAlign.Justify,
                     style = MaterialTheme.typography.bodySmall,
-                    color = TriviaCustomColors.current.onBackground60
+                    color = MaterialTheme.customColor().onBackground60
                 )
 
             }
@@ -92,8 +92,11 @@ fun ConfigurationCard(
 @Composable
 fun PreviewConfigurationCard() {
     ConfigurationCard(
-        "test",
+        GameType.WORD_WISE,
         "test2",
-        R.drawable.configration_multi_choice_images_icon, currentIndex = 3, index = 0
+        R.drawable.configration_multi_choice_images_icon,
+       MaterialTheme.customColor().card,
+        GameType.MULTI_CHOICE
+
     ) {}
 }

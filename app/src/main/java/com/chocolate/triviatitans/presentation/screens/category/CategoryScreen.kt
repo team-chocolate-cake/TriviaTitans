@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.category
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,6 +23,7 @@ import com.chocolate.triviatitans.presentation.screens.category.viewmodel.Catego
 import com.chocolate.triviatitans.presentation.screens.level.navigateToLevel
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun CategoryScreen(
@@ -34,13 +36,12 @@ fun CategoryScreen(
         onCategorySelected = viewModel::onCategorySelected,
         onCategoryDeselected = viewModel::onCategoryDeselected,
         onClickNext = {
-            val category = viewModel.selectedCardNames.joinToString(",")
-            val gameType = viewModel.args
-            navController.navigateToLevel(category, gameType.toString().toInt())
+            val category = state.categoriesSelected.joinToString(",") { it.name }
+            navController.navigateToLevel(category, viewModel.gameTypeName)
         },
         onClickBack = { navController.navigateUp() }
     )
-    CreateToast(message = viewModel.args.toString())
+    CreateToast(message = viewModel.gameTypeName)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,7 +53,7 @@ fun CategoryContent(
     onClickNext: () -> Unit,
     onClickBack: () -> Unit
 ) {
-    val colors = TriviaCustomColors.current
+    val colors = MaterialTheme.customColor()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

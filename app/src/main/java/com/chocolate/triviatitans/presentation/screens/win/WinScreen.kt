@@ -33,8 +33,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.Win
 
 @Composable
-fun WinScreen(navController: NavController) {
-    val winViewModel: WinViewModel = hiltViewModel()
+fun WinScreen(navController: NavController ,winViewModel: WinViewModel = hiltViewModel()) {
     val winUiState = winViewModel.state.collectAsState()
     TriviaTitansTheme() {
         WinContent(
