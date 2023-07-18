@@ -1,10 +1,9 @@
 package com.chocolate.triviatitans.presentation.screens.category.viewmodel
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
+import com.chocolate.triviatitans.presentation.screens.category.CategoryArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +18,7 @@ class CategoryViewModel @Inject constructor(
     private val _state = MutableStateFlow(CategoriesUiState())
     val state = _state.asStateFlow()
 
-    val gameTypeName : String = checkNotNull(savedStateHandle["gameTypeName"])
+    val categoryArgs : CategoryArgs = CategoryArgs(savedStateHandle)
 
     init {
         getCategories()
