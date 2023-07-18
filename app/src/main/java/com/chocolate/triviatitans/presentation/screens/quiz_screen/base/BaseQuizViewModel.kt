@@ -1,15 +1,9 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.base
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
-import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.presentation.screens.home.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.MultiChoiceImagesGameUiMapper
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.viewModel.multi_choice.mapper.QuizQuestionsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -19,92 +13,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class QuizScreenViewModel @Inject constructor(
-    private val repository: TriviaTitansRepository,
-    private val multiChoiceImagesGameUiMapper: MultiChoiceImagesGameUiMapper,
-    savedStateHandle: SavedStateHandle,
-) :
-    ViewModel(),
-    AnswerCardListener, HintListener {
-    private val _state = MutableStateFlow(MultiChoiceTextUiState())
+abstract class BaseQuizViewModel : ViewModel(), AnswerCardListener, HintListener {
+
+    protected val _state = MutableStateFlow(BaseQuizUiState())
     val state = _state.asStateFlow()
 
-    val categoriesArgs: String = checkNotNull(savedStateHandle["categories"])
-    val gameTypeArgs = checkNotNull(savedStateHandle["game_type"])
-    val levelTypeArgs: String = checkNotNull(savedStateHandle["level_type"])
-
-    private val gameType = GameType.MULTI_CHOICE_IMAGES.name
-
-    init {
-        when (gameType) {
-            GameType.MULTI_CHOICE_IMAGES.name -> {
-                getUserQuestionsImagesGame()
-            }
-
-            else -> {
-                getUserQuestions()
-            }
-        }
-    }
-
-    private fun getUserQuestions() {
-        _state.update { it.copy(isLoading = true) }
-        tryToExecute(
-            call = { repository.getTextChoiceQuestions(10, "science", "easy") },
-            onSuccess = ::onSuccessUserQuestions,
-            onError = {
-            }
-        )
-    }
-
-    private fun getUserQuestionsImagesGame() {
-        _state.update { it.copy(isLoading = true) }
-        tryToExecute(
-            call = {
-                repository.getImageChoiceQuestions(
-                    10,
-                    "music",
-                    "easy"
-                ).map { multiChoiceImagesGameUiMapper.map(it) }
-            },
-            onSuccess = ::onGetAllQuestionsSuccess,
-            onError = {
-            }
-        )
-    }
-
-    private fun onGetAllQuestionsSuccess(items: List<MultiChoiceTextUiState.QuestionUiState>) {
-        _state.update {
-            it.copy(
-                questionUiStates = items,
-                isLoading = false,
-                error = null,
-            )
-        }
-    }
-
-
-    private fun onSuccessUserQuestions(userQuestions: List<TextChoiceEntity>) {
-        _state.update { it.copy(isLoading = false) }
-        val questionsUiState = userQuestions.map { QuizQuestionsMapper().map(it) }
-        _state.update { it.copy(questionUiStates = questionsUiState) }
-    }
-
-    private fun <T> tryToExecute(
-        call: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) {
-        viewModelScope.launch(dispatcher) {
-            try {
-                call().also(onSuccess)
-            } catch (th: Throwable) {
-                onError(th)
-            }
-        }
-    }
+    abstract fun getQuestion()
 
     override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
         _state.update {
@@ -176,6 +90,21 @@ class QuizScreenViewModel @Inject constructor(
 
                 )
             )
+        }
+    }
+
+     fun <T> tryToExecute(
+        call: suspend () -> T,
+        onSuccess: (T) -> Unit,
+        onError: (Throwable) -> Unit,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
+        viewModelScope.launch(dispatcher) {
+            try {
+                call().also(onSuccess)
+            } catch (th: Throwable) {
+                onError(th)
+            }
         }
     }
 }

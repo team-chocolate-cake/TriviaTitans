@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -8,19 +8,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.chocolate.triviatitans.presentation.Screens
 
-fun NavGraphBuilder.quizRoute(navController: NavHostController) {
+fun NavGraphBuilder.wordWiseRoute(navController: NavHostController) {
     composable(
-        "${Screens.QuizScreen.route}/{categories}/{game_type}/{level_type}",
+        "${Screens.WordWiseScreen.route}/{categories}/{level_type}",
         arguments = listOf(
             navArgument("categories") { NavType.StringType },
-            navArgument("game_type") { NavType.StringType },
             navArgument("level_type") { NavType.StringType }
         )
     ) {
-        QuizScreen(navController = navController)
+        WordWiseScreen(navController = navController)
     }
 }
 
-fun NavController.navigateToQuiz(categories: String="", gameType: String="", levelArgs: String="") {
-    navigate("${Screens.QuizScreen.route}/$categories/$gameType/$levelArgs")
+fun NavController.navigateToWordWise(categories: String="",levelArgs: String="") {
+    navigate("${Screens.WordWiseScreen.route}/$categories/${levelArgs.lowercase()}")
 }

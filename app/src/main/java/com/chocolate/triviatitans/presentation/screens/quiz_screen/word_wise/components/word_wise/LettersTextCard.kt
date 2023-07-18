@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.word_wise
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,17 +11,20 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
-fun CorrectAnswerTextCard(
+fun LettersTextCard(
     text: Char,
-    onClick: (Char) -> Unit = {},
+    isSelected: Boolean = false,
+    onClick: (Char) -> Unit,
 ) {
-    val isFilled = remember { mutableStateOf(false) }
+    val isSelectedState = remember { mutableStateOf(isSelected) }
 
-    isFilled.value = (text != ' ')
-
-    if (isFilled.value) {
+    if (isSelectedState.value) {
         TextCard(
             text = text.toString(),
+            onClick = {
+                isSelectedState.value = !isSelectedState.value
+                onClick(text)
+            },
             textColor = TriviaCustomColors.current.secondary,
             modifier = Modifier.background(
                 TriviaCustomColors.current.primary,
@@ -31,13 +34,24 @@ fun CorrectAnswerTextCard(
     } else {
         TextCard(
             text = text.toString(),
+            onClick = {
+                isSelectedState.value = !isSelectedState.value
+                onClick(text)
+            },
             textColor = TriviaCustomColors.current.primary,
         )
     }
 }
 
+
+
+/*
+.background(Primary, shape = RoundedCornerShape(size = 12.dp))
+*/
+
+
 @Preview
 @Composable
-fun CorrectAnswerTextCardPreview() {
-    CorrectAnswerTextCard(text = 'A', onClick = {})
+fun LettersTextCardPreview() {
+    LettersTextCard(text = 'A', onClick = {})
 }

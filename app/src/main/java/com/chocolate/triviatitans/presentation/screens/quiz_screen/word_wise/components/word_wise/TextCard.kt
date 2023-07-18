@@ -1,4 +1,4 @@
-package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.word_wise
+package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

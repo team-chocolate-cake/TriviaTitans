@@ -2,7 +2,6 @@ package com.chocolate.triviatitans.presentation.screens.level
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,7 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.chocolate.triviatitans.presentation.Screens
+import com.chocolate.triviatitans.presentation.screens.home.GameType
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelViewModel
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.navigateToImageGame
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.navigateToTextGame
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.navigateToWordWise
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.ui.screens.level.compose.AppBar
@@ -27,10 +32,6 @@ import com.chocolate.triviatitans.ui.screens.level.compose.DescriptionLevel
 import com.chocolate.triviatitans.ui.screens.level.compose.LevelImage
 import com.chocolate.triviatitans.ui.screens.level.compose.Score
 import com.chocolate.triviatitans.ui.screens.level.compose.StartGameButton
-import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
-import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelViewModel
-import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.navigateToQuiz
 
 @Composable
 fun LevelScreen(
@@ -47,10 +48,20 @@ fun LevelScreen(
                 TypeLevel.Hard -> TypeLevel.Hard.name
             }
             val categories = viewModel.categoriesArgs.toString()
-            val gameType = viewModel.gameTypeArgs
-            navController.navigateToQuiz(categories,gameType,levelType)
-        }
-        ,
+            when (viewModel.gameTypeArgs) {
+                GameType.MULTI_CHOICE.name -> navController.navigateToTextGame(
+                    categories,
+                    levelType
+                )
+
+                GameType.MULTI_CHOICE_IMAGES.name -> navController.navigateToImageGame(
+                    categories,
+                    levelType
+                )
+
+                GameType.WORD_WISE.name -> navController.navigateToWordWise(categories, levelType)
+            }
+        },
         onLevelSelected = viewModel::updateSelectedLevel,
         state = state,
     )
