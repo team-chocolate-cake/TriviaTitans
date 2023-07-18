@@ -2,22 +2,15 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.vi
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceTextGameUseCase
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.TextGameArgs
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.mapper.QuestionsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,14 +25,18 @@ class TextGameViewModel @Inject constructor(
         getQuestion()
     }
 
-    val category: String = checkNotNull(savedStateHandle["categories"])
-    val levelType: String = checkNotNull(savedStateHandle["level_type"])
+    private val textGameArgs: TextGameArgs = TextGameArgs(savedStateHandle)
+
 
     override fun getQuestion() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                repository.getTextChoiceQuestions(10,category,levelType)
+                repository.getTextChoiceQuestions(
+                    10,
+                    textGameArgs.categories,
+                    textGameArgs.levelType
+                )
 
             },
             onSuccess = ::onGetQuestionsSuccess,
