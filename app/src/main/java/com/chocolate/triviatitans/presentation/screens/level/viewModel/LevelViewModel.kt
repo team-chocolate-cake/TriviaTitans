@@ -1,6 +1,5 @@
 package com.chocolate.triviatitans.presentation.screens.level.viewModel
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
 import com.chocolate.triviatitans.data.repository.PlayerDataRepository
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class LevelViewModel @Inject constructor(

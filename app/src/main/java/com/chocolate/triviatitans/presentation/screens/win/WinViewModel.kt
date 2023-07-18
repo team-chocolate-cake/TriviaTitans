@@ -24,25 +24,25 @@ class WinViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            when (prizeType.toString()) {
+            when (prizeArgs.prizeType.toString()) {
                 PlayerDataType.Bonus.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.Bonus,
-                    args.toString().toInt()
+                    prizeArgs.prize.toString().toInt()
                 )
 
                 PlayerDataType.Hearts.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.Hearts,
-                    args.toString().toInt()
+                    prizeArgs.prize.toString().toInt()
                 )
 
                 PlayerDataType.DeleteTwoAnswers.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.DeleteTwoAnswers,
-                    args.toString().toInt()
+                    prizeArgs.prize.toString().toInt()
                 )
 
                 PlayerDataType.ChangeQuestion.name -> playerDataRepository.savePlayerData(
                     PlayerDataType.ChangeQuestion,
-                    args.toString().toInt()
+                    prizeArgs.prize.toString().toInt()
                 )
             }
         }
