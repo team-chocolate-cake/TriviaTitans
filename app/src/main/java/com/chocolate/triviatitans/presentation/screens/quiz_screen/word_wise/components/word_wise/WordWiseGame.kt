@@ -13,16 +13,16 @@ fun WordWiseGame(
     wordWiseUIState: WordWiseUIState,
     onLetterClick: (Char) -> Unit,
 ) {
-    Column(Modifier.padding(horizontal = 16.dp)) {
-        QuestionLettersLazyGird(
-            charsList = wordWiseUIState
-                .questionUiStates[wordWiseUIState.questionNumber].correctAnswerLetters,
-            selectedLetterList = wordWiseUIState.selectedLetterList,
-        )
-        LatterLazyGrid(
-            charsList = wordWiseUIState
-                .questionUiStates[wordWiseUIState.questionNumber].correctAnswerLetters,
-            onLetterClick = onLetterClick
-        )
-    }
+//    Column(Modifier.padding(horizontal = 16.dp)) {
+//        AnswerLettersLazyGrid(
+//            charsList = wordWiseUIState
+//                .questionUiStates[wordWiseUIState.questionNumber].correctAnswerLetters,
+//            selectedLetterList = wordWiseUIState.selectedLetterList,
+//        )
+//        KeyboardLatterLazyGrid(
+//            charsList = wordWiseUIState
+//                .questionUiStates[wordWiseUIState.questionNumber].correctAnswerLetters,
+//            onLetterClick = onLetterClick
+//        )
+//    }
 }

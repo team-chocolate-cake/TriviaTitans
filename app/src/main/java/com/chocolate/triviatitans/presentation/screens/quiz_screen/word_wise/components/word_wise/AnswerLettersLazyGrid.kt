@@ -3,6 +3,7 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.co
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -11,35 +12,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LatterLazyGrid(
+fun AnswerLettersLazyGrid(
     charsList: List<Char>,
-    onLetterClick: (Char) -> Unit,
-    modifier: Modifier = Modifier,
+    selectedLetterList: List<Char>,
+    onAnswerCardClicked: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
 
     LazyVerticalGrid(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = 64.dp, max = 208.dp),
         columns = GridCells.Adaptive(24.dp),
         contentPadding = PaddingValues(16.dp),
-        userScrollEnabled = false,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            LettersTextCard(
-                text = charsList[index]
-            ) { onLetterClick(it) }
+            AnswerTextCard(
+                text = (selectedLetterList + List(charsList.size) { ' ' })[index],
+                onAnswerCardClicked = { onAnswerCardClicked(index) }
+            )
         }
     }
 }
 
 @Preview
 @Composable
-fun LatterLazyGridPreview() {
-    LatterLazyGrid(
-        charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
-        onLetterClick = {}
-    )
+fun AnswerLettersLazyGridPreview() {
+    AnswerLettersLazyGrid(
+        charsList = listOf('a', 'a', 'd'),
+        selectedLetterList = listOf('a', 'a', 'd'),
+        onAnswerCardClicked = {})
 }
-
 

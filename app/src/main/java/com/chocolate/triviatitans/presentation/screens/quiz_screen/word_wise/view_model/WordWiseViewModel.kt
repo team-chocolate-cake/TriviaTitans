@@ -1,7 +1,9 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
@@ -32,6 +34,7 @@ class WordWiseViewModel @Inject constructor(
 
     init {
         getUserQuestions()
+        getKeyboardLetters()
     }
 
     private fun getUserQuestions() {
@@ -63,9 +66,46 @@ class WordWiseViewModel @Inject constructor(
     }
 
 
+    private fun getKeyboardLetters() {
+        _state.update {
+            it.copy(
+                keyboardLetters = listOf(
+                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                    'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                    'Y', 'Z', '-'
+                )
+            )
+        }
+    }
+
     fun onLetterClicked(letter: Char) {
         _state.update {
             it.copy(selectedLetterList = _state.value.selectedLetterList + letter)
+        }
+    }
+
+    fun onAnswerCardClicked(index: Int) {
+        _state.update { currentState ->
+            val updatedSelectedLetterList = currentState.selectedLetterList.toMutableList()
+            updatedSelectedLetterList.removeAt(index)
+            currentState.copy(selectedLetterList = updatedSelectedLetterList)
+        }
+    }
+
+    fun onClickConfirm(context: Context) {
+        if (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswer) {
+            _state.update {
+                it.copy(
+                    questionNumber = (it.questionNumber + 1)
+                        .takeIf { questionNumber -> questionNumber < it.questionUiStates.size }
+                        ?: 0,
+                    userScore = it.userScore + 10,
+                    selectedLetterList = emptyList()
+                )
+            }
+        } else {
+            Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
+            Log.i("mujtaba", "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswer} ")
         }
     }
 }
