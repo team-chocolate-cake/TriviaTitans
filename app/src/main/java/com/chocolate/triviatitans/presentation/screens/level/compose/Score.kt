@@ -17,12 +17,20 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.presentation.theme.CustomColorsPalette
 import com.chocolate.triviatitans.presentation.theme.LightOnSecondary
 import com.chocolate.triviatitans.presentation.screens.level.viewModel.LevelUiState
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.ScoreByLevel
+import com.chocolate.triviatitans.presentation.screens.level.viewModel.TypeLevel
 
 @Composable
 fun Score(
-    state: LevelUiState,
+    scores: ScoreByLevel,
+    selectedLevel:TypeLevel,
     colors: CustomColorsPalette,
 ) {
+    val score = when(selectedLevel){
+        TypeLevel.Easy -> scores.easy
+        TypeLevel.Medium -> scores.medium
+        TypeLevel.Hard -> scores.hard
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,7 +38,7 @@ fun Score(
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Score: " + state.score.toString(),
+            text = "Score: $score" ,
             color = colors.onBackground87,
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier

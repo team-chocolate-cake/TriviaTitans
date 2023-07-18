@@ -91,7 +91,7 @@ fun LevelContent(
                 .verticalScroll(state = stateScrollable)
         ) {
             LevelImage()
-            Score(state, colors)
+            Score(state.score,state.selectedLevel, colors)
             DescriptionLevel(color = colors)
             CardLevels(color = colors, onLevelSelected = onLevelSelected, state = state)
             Spacer(modifier = Modifier.weight(1f))
