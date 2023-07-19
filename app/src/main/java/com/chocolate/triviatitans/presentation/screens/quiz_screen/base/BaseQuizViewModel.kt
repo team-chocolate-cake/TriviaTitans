@@ -26,7 +26,16 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
             it.copy(
                 questionNumber = (it.questionNumber + 1)
                     .takeIf { questionNumber -> questionNumber < it.questionUiStates.size } ?: 0,
-                currentQuestion = true ,
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    isActive = it.hintFiftyFifty.numberOfTries>=1
+                ),
+                hintHeart = it.hintHeart.copy(
+                    isActive = it.hintHeart.numberOfTries>=1
+                ),
+                hintReset = it.hintReset.copy(
+                    isActive = it.hintReset.numberOfTries >= 1 && it.questionNumber != it.questionUiStates.size
+                ),
+                currentQuestion = true,
                 questionUiStates = it.questionUiStates.map
                 { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
                 userScore = if (isCorrectAnswer) it.userScore + 10 else it.userScore
@@ -43,14 +52,14 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     override fun onClickFiftyFifty() {
 
         _state.update {
-             val isNextQuestion =  it.currentQuestion
+            val isNextQuestion = it.currentQuestion
 
             it.copy(
+                currentQuestion = false,
                 hintFiftyFifty = it.hintFiftyFifty.copy(
                     numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive =  it.hintFiftyFifty.numberOfTries >= 2 &&  isNextQuestion ,
+                    isActive = false,
                 ),
-                currentQuestion = false,
             )
         }
         _state.update { item ->
@@ -78,7 +87,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
             it.copy(
                 hintHeart = it.hintHeart.copy(
                     numberOfTries = (it.hintHeart.numberOfTries - 1),
-                    isActive = it.hintHeart.numberOfTries >= 2
+                    isActive = false
                 )
             )
         }
@@ -86,12 +95,11 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
 
     override fun onClickReset() {
         _state.update {
-            val isLastQuestion = it.questionNumber == it.questionUiStates.size
             it.copy(
                 questionNumber = it.questionNumber + 1,
                 hintReset = it.hintReset.copy(
                     numberOfTries = (it.hintReset.numberOfTries - 1),
-                    isActive = it.hintReset.numberOfTries > 1
+                    isActive = false
 
                 )
             )

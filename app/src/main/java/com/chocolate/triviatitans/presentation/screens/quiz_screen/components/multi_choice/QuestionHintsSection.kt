@@ -47,7 +47,7 @@ fun QuestionHintsSection(
             numberOfTries = heartHint.numberOfTries,
             imageModifier = Modifier.padding(20.dp),
             onClick = {
-                if (heartHint.numberOfTries > 0 ) {
+                if (heartHint.isActive ) {
                     hintListener.onClickHeart()
                     showDialog.value = true
                 }
