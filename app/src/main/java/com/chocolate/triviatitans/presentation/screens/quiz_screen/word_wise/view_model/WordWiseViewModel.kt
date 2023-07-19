@@ -136,11 +136,11 @@ class WordWiseViewModel @Inject constructor(
         _state.update {
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
-                    numberOfTries = 3,
-                    isActive = true
+                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
+                    isActive = it.hintFiftyFifty.numberOfTries >= 2
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
-                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size
+                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
                 )
             )
         }
