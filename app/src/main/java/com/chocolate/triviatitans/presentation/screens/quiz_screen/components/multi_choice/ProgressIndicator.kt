@@ -19,23 +19,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProgressIndicator(progressPercentage:Float,modifier: Modifier=Modifier) {
+fun ProgressIndicator(progressPercentage: Float, modifier: Modifier = Modifier) {
     val timer by animateFloatAsState(targetValue = progressPercentage)
 
     val progressAnimDuration = 1500
 
-    val color by animateColorAsState(if(timer<0.7f) Color(0xFFF21B1B)  else  Color(0xFF09C411)
-        , tween(durationMillis = progressAnimDuration, easing = FastOutSlowInEasing)
+    val color by animateColorAsState(
+        when (timer) {
+            in 0.8f..1f -> Color(0xFF09C411)
+            in 0.4f..0.7f -> Color(0xFFF2BE22)
+            else -> Color(0xFFF21B1B)
+        },
+        tween(durationMillis = progressAnimDuration, easing = FastOutSlowInEasing)
     )
-    Box(Modifier.clip(RoundedCornerShape(4.dp))){
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(8.dp)
-            .background(Color.White))
-        Spacer(modifier = Modifier
-            .fillMaxWidth(timer)
-            .height(8.dp)
-            .background(color))
+    Box(Modifier.clip(RoundedCornerShape(4.dp))) {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .background(Color.White)
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth(timer)
+                .height(8.dp)
+                .background(color)
+        )
     }
 }
 
