@@ -97,7 +97,7 @@ class WordWiseViewModel @Inject constructor(
     fun onClickConfirm(context: Context) {
         when {
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters
-                    && _state.value.questionNumber + 1   == _state.value.questionUiStates.size) -> {
+                    && _state.value.questionNumber + 1 == _state.value.questionUiStates.size) -> {
 
                 _state.update {
                     it.copy(didUserWin = true)
@@ -125,9 +125,7 @@ class WordWiseViewModel @Inject constructor(
                     )
                 }
             }
-            (_state.value.timer<=0f)->{
-                _state.update { it.copy(didUserLose = true) }
-            }
+
 
             else -> {
                 Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
@@ -188,6 +186,9 @@ class WordWiseViewModel @Inject constructor(
                 delay(50)
                 progressTimer.value -= 0.002f
                 _state.update { it.copy(timer = progressTimer.value) }
+            }
+            if (_state.value.timer <= 0f) {
+                _state.update { it.copy(didUserLose = true) }
             }
         }
     }
