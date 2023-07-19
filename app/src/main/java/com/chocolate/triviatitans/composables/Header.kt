@@ -18,7 +18,8 @@ fun Header(
     resetHint: HintButton,
     questionNumber: Int,
     userScore: Int,
-    correctAnswer: String
+    correctAnswer: String,
+    typeGame:String = "defaultGame"
 ) {
     Column {
         PlayerGameAppBarInfo(questionNumber, userScore)
@@ -27,7 +28,8 @@ fun Header(
             hintListener = hintListener, fiftyHint,
             heartHint,
             resetHint,
-            correctAnswer
+            correctAnswer,
+            isImageGame = if (typeGame == "defaultGame") false else true
         )
         SpacerVertical16()
         ProgressIndicator(progressPercentage = .6f)
@@ -52,7 +54,11 @@ fun HeaderPreview() {
                     TODO("Not yet implemented")
                 }
             }, HintButton(), HintButton(),
-            HintButton(), questionNumber = 3, userScore = 0, ""
+            HintButton(),
+            questionNumber = 3,
+            userScore = 0,
+            "",
+            typeGame = "defaultGame"
         )
     }
 }

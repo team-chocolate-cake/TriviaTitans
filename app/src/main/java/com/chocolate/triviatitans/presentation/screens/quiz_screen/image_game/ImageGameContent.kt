@@ -67,7 +67,8 @@ fun ImageGameContent(
                 resetHint = state.hintReset,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
-                correctAnswer = currentQuestion.correctAnswer
+                correctAnswer = currentQuestion.correctAnswer,
+                typeGame = "imageGame",
             )
             SpacerVertical32()
             Text(

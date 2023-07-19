@@ -23,10 +23,13 @@ fun QuestionHintsSection(
     heartHint: HintButton,
     resetHint: HintButton,
     correctAnswer: String,
+    isImageGame: Boolean,
 ) {
     val showDialog = remember { mutableStateOf(false) }
     if (showDialog.value) {
-        HintAlertDialog(onDissmiss = { showDialog.value = false }, correctAnswer = correctAnswer)
+        HintAlertDialog(
+            onDissmiss = { showDialog.value = false }, correctAnswer = correctAnswer  , isImageGame = isImageGame
+        )
     }
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -79,7 +82,9 @@ fun QuestionHintsSectionPreview() {
             },
             HintButton(),
             HintButton(),
-            HintButton(), correctAnswer = ""
+            HintButton(),
+            correctAnswer = "",
+            isImageGame = false,
         )
     }
 }
