@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,11 +21,10 @@ import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
 import com.chocolate.triviatitans.composables.SpacerVertical8
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizUiState
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.components.AnswerCard
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.components.AnswerCard
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.TextGameViewModel
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 
@@ -40,6 +40,7 @@ fun TextGameScreen(
         state = state,
         listener = viewModel,
         hintListener = viewModel,
+        viewModel = viewModel,
     )
 
 }
@@ -49,6 +50,7 @@ fun TextGameContent(
     state: BaseQuizUiState,
     listener: AnswerCardListener,
     hintListener: HintListener,
+    viewModel : TextGameViewModel
 ) {
     Column(
         Modifier
@@ -62,6 +64,14 @@ fun TextGameContent(
                 .questionUiStates[state.questionNumber]
             val question = currentQuestion.randomAnswers
 
+            LaunchedEffect(true){
+                viewModel.updateTimer()
+
+            }
+            LaunchedEffect(state.questionNumber){
+                viewModel.progressTimer.value=1f
+            }
+
             Header(
                 hintListener = hintListener,
                 fiftyHint = state.hintFiftyFifty,
@@ -69,7 +79,8 @@ fun TextGameContent(
                 resetHint = state.hintReset,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
-                correctAnswer = currentQuestion.correctAnswer
+                correctAnswer = currentQuestion.correctAnswer,
+                timerProgress = state.timer
             )
             SpacerVertical32()
             Text(
