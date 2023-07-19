@@ -15,6 +15,7 @@ data class BaseQuizUiState(
     val hintHeart: HintButton = HintButton(),
     val hintReset: HintButton = HintButton(),
     val isFiftyActive : Boolean = true,
+    val currentQuestion: Boolean = true,
 ) {
 
 }

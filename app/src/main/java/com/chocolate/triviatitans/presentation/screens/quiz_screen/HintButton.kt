@@ -3,5 +3,5 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen
 data class HintButton(
     val isActive: Boolean = true,
     val numberOfTries: Int = 3,
-    val currentQuestion: Int = 0,
+    val currentQuestion: Boolean = true,
 )

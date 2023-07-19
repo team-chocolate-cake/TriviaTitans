@@ -26,6 +26,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
             it.copy(
                 questionNumber = (it.questionNumber + 1)
                     .takeIf { questionNumber -> questionNumber < it.questionUiStates.size } ?: 0,
+                currentQuestion = true ,
                 questionUiStates = it.questionUiStates.map
                 { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
                 userScore = if (isCorrectAnswer) it.userScore + 10 else it.userScore
@@ -40,21 +41,18 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     }
 
     override fun onClickFiftyFifty() {
-        var isNextQuestion :Boolean = false
+
         _state.update {
-            val currentQuestion = it.questionNumber
-            val nextQuestion = it.questionNumber + 1
-             isNextQuestion = it.hintFiftyFifty.currentQuestion == it.questionNumber
+             val isNextQuestion =  it.currentQuestion
 
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
                     numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive =  it.hintFiftyFifty.numberOfTries >= 2 &&  it.hintFiftyFifty.currentQuestion == it.questionNumber ,
-                    currentQuestion = currentQuestion-1
+                    isActive =  it.hintFiftyFifty.numberOfTries >= 2 &&  isNextQuestion ,
                 ),
+                currentQuestion = false,
             )
         }
-        isNextQuestion = true
         _state.update { item ->
             val currentQuestionNumber = state.value.questionNumber
             val currentQuestionUiStates = state.value.questionUiStates
