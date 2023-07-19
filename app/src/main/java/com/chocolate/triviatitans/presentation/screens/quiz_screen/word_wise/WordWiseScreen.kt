@@ -1,14 +1,18 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -20,6 +24,7 @@ import com.chocolate.triviatitans.composables.SpacerVertical32
 import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.AnswerLettersLazyGrid
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.BackPressSample
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.ButtonConfirm
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.KeyboardLatterLazyGrid
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model.WordWiseUIState
@@ -36,7 +41,7 @@ fun WordWiseScreen(navController: NavController) {
     val context = LocalContext.current
 
     when {
-        state.didUserLose-> navController.navigateToLose()
+        state.didUserLose -> navController.navigateToLose()
         state.didUserWin -> navController.navigateToSpinWheelScreen()
     }
 
@@ -47,7 +52,7 @@ fun WordWiseScreen(navController: NavController) {
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
         onClickConfirm = { viewModel.onClickConfirm(context) },
         hintListener = viewModel,
-        viewModel=viewModel,
+        viewModel = viewModel,
     )
 }
 
@@ -58,9 +63,10 @@ fun WordWiseContent(
     onAnswerCardClicked: (Int) -> Unit,
     onClickConfirm: () -> Unit,
     hintListener: HintListener,
-    viewModel:WordWiseViewModel
+    viewModel: WordWiseViewModel
 ) {
     if (state.questionUiStates.isNotEmpty()) {
+        BackPressSample()
 
         LaunchedEffect(true) {
             viewModel.updateTimer()
@@ -101,6 +107,14 @@ fun WordWiseContent(
             Spacer(modifier = Modifier.fillMaxHeight(0.6f))
             ButtonConfirm(onClickConfirm = onClickConfirm)
 
+        }
+    } else if (state.isLoading) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator()
         }
     }
 }

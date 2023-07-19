@@ -32,6 +32,7 @@ class WordWiseViewModel @Inject constructor(
 
 
     init {
+        _state.update { it.copy(isLoading = true) }
         getUserQuestions()
         getKeyboardLetters()
     }
@@ -66,6 +67,7 @@ class WordWiseViewModel @Inject constructor(
 
 
     private fun getKeyboardLetters() {
+        _state.update { it.copy(isLoading = true) }
         _state.update {
             it.copy(
                 keyboardLetters = listOf(
@@ -95,6 +97,7 @@ class WordWiseViewModel @Inject constructor(
     }
 
     fun onClickConfirm(context: Context) {
+
         when {
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters
                     && _state.value.questionNumber + 1 == _state.value.questionUiStates.size) -> {
@@ -177,7 +180,6 @@ class WordWiseViewModel @Inject constructor(
         }
     }
 
-    // to calculate timer per second{ (delayTime/1000) / the decreasing number }ol
     fun updateTimer() {
         viewModelScope.launch {
             // (50/1000)/0.002 =25 it takes 25 seconds
