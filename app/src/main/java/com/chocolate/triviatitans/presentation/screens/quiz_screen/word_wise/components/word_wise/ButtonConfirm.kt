@@ -35,7 +35,6 @@ fun ButtonConfirm(onClickConfirm: () -> Unit) {
             .background(
                 color = Primary,
                 shape = RoundedCornerShape(size = 12.dp)
-
             ),
     ) {
         Row() {

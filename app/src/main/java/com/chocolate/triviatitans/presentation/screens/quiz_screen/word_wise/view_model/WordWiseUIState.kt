@@ -1,5 +1,7 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model
 
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
+
 data class WordWiseUIState(
     val isLoading: Boolean = true,
     val questionUiStates: List<QuestionUiState> = emptyList(),
@@ -9,13 +11,17 @@ data class WordWiseUIState(
     val questionNumber: Int = 0,
     val levelType: String = "Easy",
     val selectedLetterList: List<Char> = emptyList(),
-    val keyboardLetters: List<Char> = emptyList()
+    val keyboardLetters: List<Char> = emptyList(),
+    val hintFiftyFifty: HintButton = HintButton(),
+    val hintHeart: HintButton = HintButton(),
+    val hintReset: HintButton = HintButton()
 ) {
     data class QuestionUiState(
         val id: String = "",
         val question: String = "",
         val category: String = "",
         val difficulty: String = "",
-        val correctAnswer: List<Char> = emptyList()
+        val correctAnswer: String,
+        val correctAnswerLetters: List<Char> = emptyList()
     )
 }

@@ -11,6 +11,8 @@ class WordWiseMapper : Mapper<TextChoiceEntity, WordWiseUIState.QuestionUiState>
             category = input.category,
             difficulty = input.difficulty,
             correctAnswer = input.correctAnswer.uppercase()
+                .replace(" ", "-"),
+            correctAnswerLetters = input.correctAnswer.uppercase()
                 .replace(" ", "-")
                 .toList()
         )
