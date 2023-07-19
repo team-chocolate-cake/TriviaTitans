@@ -2,6 +2,7 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.co
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,16 +37,18 @@ import androidx.compose.ui.window.Dialog
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.theme.LightError
 import com.chocolate.triviatitans.presentation.theme.OnPrimary
+import com.chocolate.triviatitans.presentation.theme.Primary
 
 @Composable
 fun ExitDialogBox(
-    negativeButtonColor: Color = OnPrimary,
+    negativeButtonColor: Color = Primary,
     positiveButtonColor: Color = LightError,
     spaceBetweenElements: Dp = 18.dp,
+    OnBackToLevel: () -> Unit
 ) {
 
     var dialogOpen by remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
 
     if (dialogOpen) {
@@ -73,7 +77,7 @@ fun ExitDialogBox(
                         Spacer(modifier = Modifier.height(height = 36.dp))
 
                         Text(
-                            text = "Delete?",
+                            text = "Exit?",
                             fontFamily = FontFamily(Font(R.font.firasans_medium, FontWeight.Bold)),
                             fontSize = 24.sp
                         )
@@ -102,6 +106,7 @@ fun ExitDialogBox(
                                 dialogOpen = false
                             }
                             DialogButton(buttonColor = positiveButtonColor, buttonText = "Yes") {
+                                Modifier.clickable { OnBackToLevel() }
                                 dialogOpen = false
                             }
                         }
@@ -110,7 +115,7 @@ fun ExitDialogBox(
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.arrow_back),
-                        contentDescription = "Delete Icon",
+                        contentDescription = "",
                         tint = positiveButtonColor,
                         modifier = Modifier
                             .background(color = Color.White, shape = CircleShape)
@@ -123,7 +128,9 @@ fun ExitDialogBox(
         }
     }
 
-
+    Button(onClick = { dialogOpen = true }) {
+        Text(text = "OPEN DIALOG")
+    }
 }
 
 
@@ -134,5 +141,6 @@ fun DialogPre() {
         OnPrimary,
         LightError,
         18.dp,
+        OnBackToLevel = {}
     )
 }

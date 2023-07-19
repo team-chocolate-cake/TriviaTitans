@@ -43,6 +43,7 @@ fun WordWiseScreen(navController: NavController) {
     when {
         state.didUserLose -> navController.navigateToLose()
         state.didUserWin -> navController.navigateToSpinWheelScreen()
+
     }
 
 
@@ -51,6 +52,7 @@ fun WordWiseScreen(navController: NavController) {
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
         onClickConfirm = { viewModel.onClickConfirm(context) },
+        onBackToLevel = { navController.popBackStack() },
         hintListener = viewModel,
         viewModel = viewModel,
     )
@@ -62,11 +64,12 @@ fun WordWiseContent(
     onLetterClick: (Char) -> Unit,
     onAnswerCardClicked: (Int) -> Unit,
     onClickConfirm: () -> Unit,
+    onBackToLevel: () -> Unit,
     hintListener: HintListener,
     viewModel: WordWiseViewModel
 ) {
     if (state.questionUiStates.isNotEmpty()) {
-        BackPressSample()
+        BackPressSample(onBackToLevel)
 
         LaunchedEffect(true) {
             viewModel.updateTimer()
