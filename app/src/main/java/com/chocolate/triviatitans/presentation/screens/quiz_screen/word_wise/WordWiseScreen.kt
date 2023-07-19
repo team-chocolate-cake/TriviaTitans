@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -45,7 +46,8 @@ fun WordWiseScreen(navController: NavController) {
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
         onClickConfirm = { viewModel.onClickConfirm(context) },
-        hintListener = viewModel
+        hintListener = viewModel,
+        viewModel=viewModel,
     )
 }
 
@@ -55,9 +57,18 @@ fun WordWiseContent(
     onLetterClick: (Char) -> Unit,
     onAnswerCardClicked: (Int) -> Unit,
     onClickConfirm: () -> Unit,
-    hintListener: HintListener
+    hintListener: HintListener,
+    viewModel:WordWiseViewModel
 ) {
     if (state.questionUiStates.isNotEmpty()) {
+
+        LaunchedEffect(true) {
+            viewModel.updateTimer()
+
+        }
+        LaunchedEffect(state.questionNumber) {
+            viewModel.progressTimer.value = 1f
+        }
         Column(Modifier.padding(horizontal = 16.dp)) {
             Header(
                 hintListener = hintListener,
@@ -66,7 +77,8 @@ fun WordWiseContent(
                 resetHint = state.hintReset,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
-                correctAnswer = state.questionUiStates[state.questionNumber].correctAnswer
+                correctAnswer = state.questionUiStates[state.questionNumber].correctAnswer,
+                timerProgress = state.timer
             )
             SpacerVertical32()
             Text(

@@ -4,15 +4,18 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
 import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceTextGameUseCase
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.WordWiseGameArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +27,8 @@ class WordWiseViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private val textGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
+
+    var progressTimer = MutableStateFlow(1f)
 
 
     init {
@@ -120,9 +125,11 @@ class WordWiseViewModel @Inject constructor(
                     )
                 }
             }
+            (_state.value.timer<=0f)->{
+                _state.update { it.copy(didUserLose = true) }
+            }
 
             else -> {
-                _state.update { it.copy(didUserLose = true) }
                 Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
                 Log.i(
                     "mujtaba",
@@ -170,6 +177,18 @@ class WordWiseViewModel @Inject constructor(
                     it.hintReset.numberOfTries >= 2 && isLastQuestion
                 )
             )
+        }
+    }
+
+    // to calculate timer per second{ (delayTime/1000) / the decreasing number }ol
+    fun updateTimer() {
+        viewModelScope.launch {
+            // (50/1000)/0.002 =25 it takes 25 seconds
+            while (progressTimer.value > 0) {
+                delay(50)
+                progressTimer.value -= 0.002f
+                _state.update { it.copy(timer = progressTimer.value) }
+            }
         }
     }
 }
