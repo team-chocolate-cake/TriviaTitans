@@ -21,13 +21,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun BottomBar(
-    count: String,
+    count: Int,
     onNextClick: () -> Unit
 ) {
     val colors = MaterialTheme.customColor()
@@ -52,7 +51,7 @@ fun BottomBar(
                     color = colors.onBackground60
                 )
                 Text(
-                    text = count,
+                    text = count.toString(),
                     style = MaterialTheme.typography.titleMedium,
                     color = colors.primary
                 )
@@ -60,7 +59,8 @@ fun BottomBar(
             Button(
                 onClick = onNextClick,
                 contentPadding = PaddingValues(horizontal = 60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = colors.primary)
+                colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
+                enabled = count > 0
             ) {
                 Text(
                     text = stringResource(R.string.next),
@@ -77,7 +77,7 @@ fun BottomBar(
 fun BottomBarPreview() {
     TriviaTitansTheme {
         BottomBar(
-            count = "10",
+            count = 10,
             onNextClick = {}
         )
     }
