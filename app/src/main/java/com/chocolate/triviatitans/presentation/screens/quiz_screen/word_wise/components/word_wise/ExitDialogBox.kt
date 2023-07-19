@@ -105,8 +105,7 @@ fun ExitDialogBox(
                             DialogButton(buttonColor = negativeButtonColor, buttonText = "No") {
                                 dialogOpen = false
                             }
-                            DialogButton(buttonColor = positiveButtonColor, buttonText = "Yes") {
-                                Modifier.clickable { OnBackToLevel() }
+                            DialogButton(buttonColor = positiveButtonColor, buttonText = "Yes", modifier =  Modifier.clickable { OnBackToLevel() }) {
                                 dialogOpen = false
                             }
                         }
