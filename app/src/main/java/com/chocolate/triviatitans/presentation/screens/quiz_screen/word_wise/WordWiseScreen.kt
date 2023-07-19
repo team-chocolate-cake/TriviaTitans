@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
+import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
 import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.AnswerLettersLazyGrid
@@ -52,7 +53,7 @@ fun WordWiseScreen(navController: NavController) {
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
         onClickConfirm = { viewModel.onClickConfirm(context) },
-        onBackToLevel = { navController.popBackStack() },
+        onBackToLevel = { navController.navigateToHome() },
         hintListener = viewModel,
         viewModel = viewModel,
     )

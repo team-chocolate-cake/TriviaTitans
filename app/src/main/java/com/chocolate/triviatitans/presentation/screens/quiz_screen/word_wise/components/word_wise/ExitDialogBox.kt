@@ -128,9 +128,6 @@ fun ExitDialogBox(
         }
     }
 
-    Button(onClick = { dialogOpen = true }) {
-        Text(text = "OPEN DIALOG")
-    }
 }
 
 
