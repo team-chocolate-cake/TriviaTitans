@@ -49,6 +49,8 @@ class ImageGameViewModel @Inject constructor(
         }
     }
 
+
+
     private fun onErrorUserQuestionsImageGame(error: Throwable) {
         Log.i("ERRORX", "onErrorUserQuestionsImageGame: $error")
     }

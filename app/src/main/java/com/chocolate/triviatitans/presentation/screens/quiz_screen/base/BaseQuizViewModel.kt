@@ -1,23 +1,21 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.base
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintListener {
 
     protected val _state = MutableStateFlow(BaseQuizUiState())
     val state = _state.asStateFlow()
+
+    var progressTimer = MutableStateFlow(1f)
 
     abstract fun getQuestion()
 
@@ -91,6 +89,18 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
 
                 )
             )
+        }
+    }
+
+    // to calculate timer per second{ (delayTime/1000) / the decreasing number }ol
+    fun updateTimer() {
+        viewModelScope.launch {
+            // (50/1000)/0.002 =25 it takes 25 seconds
+            while (progressTimer.value > 0) {
+                delay(50)
+                progressTimer.value -= 0.002f
+                _state.update { it.copy(timer = progressTimer.value) }
+            }
         }
     }
 

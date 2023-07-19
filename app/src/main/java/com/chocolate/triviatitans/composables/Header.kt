@@ -18,7 +18,8 @@ fun Header(
     resetHint: HintButton,
     questionNumber: Int,
     userScore: Int,
-    correctAnswer: String
+    correctAnswer: String,
+    timerProgress:Float
 ) {
     Column {
         PlayerGameAppBarInfo(questionNumber, userScore)
@@ -30,7 +31,7 @@ fun Header(
             correctAnswer
         )
         SpacerVertical16()
-        ProgressIndicator(progressPercentage = .6f)
+        ProgressIndicator(progressPercentage = timerProgress)
     }
 }
 
@@ -52,7 +53,7 @@ fun HeaderPreview() {
                     TODO("Not yet implemented")
                 }
             }, HintButton(), HintButton(),
-            HintButton(), questionNumber = 3, userScore = 0, ""
+            HintButton(), questionNumber = 3, userScore = 0, "",1f
         )
     }
 }

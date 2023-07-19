@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,7 +21,6 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.co
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
@@ -36,7 +36,8 @@ fun ImageGameScreen(
         state = state,
         listener = viewModel,
         hintListener = viewModel,
-        isButtonsEnabled = state.isButtonsEnabled
+        isButtonsEnabled = state.isButtonsEnabled,
+        viewModel = viewModel
     )
 
 }
@@ -46,7 +47,8 @@ fun ImageGameContent(
     state: BaseQuizUiState,
     listener: AnswerCardListener,
     hintListener: HintListener,
-    isButtonsEnabled: Boolean = true
+    isButtonsEnabled: Boolean = true,
+    viewModel: ImageGameViewModel
 ) {
 
     Column(
@@ -60,6 +62,14 @@ fun ImageGameContent(
             val currentQuestion = state
                 .questionUiStates[state.questionNumber]
 
+            LaunchedEffect(true) {
+                viewModel.updateTimer()
+
+            }
+            LaunchedEffect(state.questionNumber) {
+                viewModel.progressTimer.value = 1f
+            }
+
             Header(
                 hintListener = hintListener,
                 fiftyHint = state.hintFiftyFifty,
@@ -67,7 +77,8 @@ fun ImageGameContent(
                 resetHint = state.hintReset,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
-                correctAnswer = currentQuestion.correctAnswer
+                correctAnswer = currentQuestion.correctAnswer,
+                timerProgress = state.timer
             )
             SpacerVertical32()
             Text(
