@@ -74,8 +74,10 @@ class WordWiseViewModel @Inject constructor(
     }
 
     fun onLetterClicked(letter: Char) {
-        _state.update {
-            it.copy(selectedLetterList = _state.value.selectedLetterList + letter)
+        if (_state.value.selectedLetterList.size < _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters.size) {
+            _state.update {
+                it.copy(selectedLetterList = _state.value.selectedLetterList + letter)
+            }
         }
     }
 
