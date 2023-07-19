@@ -15,7 +15,7 @@ data class WordWiseUIState(
     val hintReset: HintButton = HintButton(),
     val didUserWin: Boolean = false,
     val didUserLose: Boolean = false,
-    val timer:Float=1f
+    val timer: Float = 1f
 ) {
     data class QuestionUiState(
         val id: String = "",

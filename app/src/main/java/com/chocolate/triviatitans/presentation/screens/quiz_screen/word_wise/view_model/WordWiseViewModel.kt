@@ -114,13 +114,14 @@ class WordWiseViewModel @Inject constructor(
                         userScore = it.userScore + 10,
                         selectedLetterList = emptyList(),
                         hintReset = it.hintReset.copy(
-                            isActive = true
+                            isActive = (it.hintReset.numberOfTries >= 1) &&
+                                    (it.questionNumber != it.questionUiStates.size)
                         ),
                         hintFiftyFifty = it.hintFiftyFifty.copy(
-                            isActive = true
+                            isActive = it.hintFiftyFifty.numberOfTries >= 1
                         ),
                         hintHeart = it.hintHeart.copy(
-                            isActive = true
+                            isActive = it.hintHeart.numberOfTries >= 1
                         )
                     )
                 }
@@ -142,10 +143,10 @@ class WordWiseViewModel @Inject constructor(
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
                     numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive = it.hintFiftyFifty.numberOfTries >= 2
+                    isActive = false
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
-                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
+                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size
                 )
             )
         }
@@ -157,7 +158,7 @@ class WordWiseViewModel @Inject constructor(
             it.copy(
                 hintHeart = it.hintHeart.copy(
                     numberOfTries = (it.hintHeart.numberOfTries - 1),
-                    isActive = it.hintHeart.numberOfTries >= 2
+                    isActive = false
                 )
             )
         }
@@ -165,14 +166,12 @@ class WordWiseViewModel @Inject constructor(
 
     override fun onClickReset() {
         _state.update {
-            val isLastQuestion = it.questionNumber == it.questionUiStates.size
             it.copy(
                 selectedLetterList = emptyList(),
                 questionNumber = it.questionNumber + 1,
                 hintReset = it.hintReset.copy(
                     numberOfTries = (it.hintReset.numberOfTries - 1),
-                    isActive =
-                    it.hintReset.numberOfTries >= 2 && isLastQuestion
+                    isActive = false
                 )
             )
         }
