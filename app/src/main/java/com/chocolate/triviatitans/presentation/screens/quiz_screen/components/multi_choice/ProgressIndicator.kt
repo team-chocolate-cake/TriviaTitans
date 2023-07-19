@@ -26,7 +26,7 @@ fun ProgressIndicator(progressPercentage: Float, modifier: Modifier = Modifier) 
 
     val color by animateColorAsState(
         when (timer) {
-            in 0.8f..1f -> Color(0xFF09C411)
+            in 0.7f..1f -> Color(0xFF09C411)
             in 0.4f..0.7f -> Color(0xFFF2BE22)
             else -> Color(0xFFF21B1B)
         },
