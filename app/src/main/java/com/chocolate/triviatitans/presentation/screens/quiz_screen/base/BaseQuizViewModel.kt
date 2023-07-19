@@ -87,7 +87,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
                 hintReset = it.hintReset.copy(
                     numberOfTries = (it.hintReset.numberOfTries - 1),
                     isActive =
-                    it.hintReset.numberOfTries > 1 && isLastQuestion
+                    it.hintReset.numberOfTries > 1
 
                 )
             )
