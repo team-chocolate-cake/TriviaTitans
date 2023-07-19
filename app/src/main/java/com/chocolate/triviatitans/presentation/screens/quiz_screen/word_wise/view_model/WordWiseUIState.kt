@@ -9,12 +9,14 @@ data class WordWiseUIState(
     val isEmpty: Boolean = false,
     val userScore: Int = 0,
     val questionNumber: Int = 0,
-    val levelType: String = "Easy",
+    val levelType: String = "",
     val selectedLetterList: List<Char> = emptyList(),
     val keyboardLetters: List<Char> = emptyList(),
     val hintFiftyFifty: HintButton = HintButton(),
     val hintHeart: HintButton = HintButton(),
-    val hintReset: HintButton = HintButton()
+    val hintReset: HintButton = HintButton(),
+    val didUserWin: Boolean = false,
+    val didUserLose: Boolean = false,
 ) {
     data class QuestionUiState(
         val id: String = "",

@@ -90,31 +90,45 @@ class WordWiseViewModel @Inject constructor(
     }
 
     fun onClickConfirm(context: Context) {
-        if (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters) {
-            _state.update {
-                it.copy(
-                    questionNumber = (it.questionNumber + 1)
-                        .takeIf { questionNumber -> questionNumber < it.questionUiStates.size }
-                        ?: 0,
-                    userScore = it.userScore + 10,
-                    selectedLetterList = emptyList(),
-                    hintReset = it.hintReset.copy(
-                        isActive = true
-                    ),
-                    hintFiftyFifty = it.hintFiftyFifty.copy(
-                        isActive = true
-                    ),
-                    hintHeart = it.hintHeart.copy(
-                        isActive = true
+        when {
+            (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters
+                    && _state.value.questionNumber + 1   == _state.value.questionUiStates.size) -> {
+
+                _state.update {
+                    it.copy(didUserWin = true)
+                }
+                Log.i("mujtaba", "onClickConfirm:${state.value.didUserWin} ")
+            }
+
+            (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters) -> {
+                _state.update {
+                    it.copy(
+                        questionNumber = (it.questionNumber + 1)
+                            .takeIf { questionNumber -> questionNumber < it.questionUiStates.size }
+                            ?: 0,
+                        userScore = it.userScore + 10,
+                        selectedLetterList = emptyList(),
+                        hintReset = it.hintReset.copy(
+                            isActive = true
+                        ),
+                        hintFiftyFifty = it.hintFiftyFifty.copy(
+                            isActive = true
+                        ),
+                        hintHeart = it.hintHeart.copy(
+                            isActive = true
+                        )
                     )
+                }
+            }
+
+            else -> {
+                _state.update { it.copy(didUserLose = true) }
+                Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
+                Log.i(
+                    "mujtaba",
+                    "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters} "
                 )
             }
-        } else {
-            Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
-            Log.i(
-                "mujtaba",
-                "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters} "
-            )
         }
     }
 
@@ -122,11 +136,11 @@ class WordWiseViewModel @Inject constructor(
         _state.update {
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
-                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive = it.hintFiftyFifty.numberOfTries >= 1
+                    numberOfTries = 3,
+                    isActive = true
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
-                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
+                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size
                 )
             )
         }
@@ -138,7 +152,7 @@ class WordWiseViewModel @Inject constructor(
             it.copy(
                 hintHeart = it.hintHeart.copy(
                     numberOfTries = (it.hintHeart.numberOfTries - 1),
-                    isActive = it.hintHeart.numberOfTries >= 1
+                    isActive = it.hintHeart.numberOfTries >= 2
                 )
             )
         }
@@ -153,7 +167,7 @@ class WordWiseViewModel @Inject constructor(
                 hintReset = it.hintReset.copy(
                     numberOfTries = (it.hintReset.numberOfTries - 1),
                     isActive =
-                    it.hintReset.numberOfTries >= 1 && isLastQuestion
+                    it.hintReset.numberOfTries >= 2 && isLastQuestion
                 )
             )
         }
