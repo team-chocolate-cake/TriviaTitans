@@ -40,16 +40,21 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     }
 
     override fun onClickFiftyFifty() {
+        var isNextQuestion :Boolean = false
         _state.update {
             val currentQuestion = it.questionNumber
-            val isNextQuestion = currentQuestion !=  it.questionNumber
+            val nextQuestion = it.questionNumber + 1
+             isNextQuestion = it.hintFiftyFifty.currentQuestion == it.questionNumber
+
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
                     numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive = it.hintFiftyFifty.numberOfTries >= 2 && isNextQuestion
+                    isActive =  it.hintFiftyFifty.numberOfTries >= 2 &&  it.hintFiftyFifty.currentQuestion == it.questionNumber ,
+                    currentQuestion = currentQuestion-1
                 ),
             )
         }
+        isNextQuestion = true
         _state.update { item ->
             val currentQuestionNumber = state.value.questionNumber
             val currentQuestionUiStates = state.value.questionUiStates
