@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
 fun ProgressIndicator(progressPercentage: Float, modifier: Modifier = Modifier) {
@@ -26,9 +28,9 @@ fun ProgressIndicator(progressPercentage: Float, modifier: Modifier = Modifier) 
 
     val color by animateColorAsState(
         when (timer) {
-            in 0.7f..1f -> Color(0xFF09C411)
-            in 0.4f..0.7f -> Color(0xFFF2BE22)
-            else -> Color(0xFFF21B1B)
+            in 0.7f..1f -> Color(MaterialTheme.customColor().correct.value)
+            in 0.4f..0.7f -> Color(MaterialTheme.customColor().gameOver.value)
+            else -> Color(MaterialTheme.customColor().error.value)
         },
         tween(durationMillis = progressAnimDuration, easing = FastOutSlowInEasing)
     )
