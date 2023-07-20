@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.base
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
 import com.chocolate.triviatitans.data.repository.PlayerDataRepository
