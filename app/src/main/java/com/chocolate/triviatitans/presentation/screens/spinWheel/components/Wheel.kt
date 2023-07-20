@@ -38,7 +38,7 @@ private fun prizeType(selectedPie: String, randomNumberOfGifts: List<Int>): Stri
 }
 
 @Composable
-fun Wheel(context: Context, navController: NavController) {
+fun Wheel(context: Context, navController: NavController, modifier: Modifier = Modifier) {
     val selectedPie = remember { mutableStateOf("") }
     val randomNumberOfGifts by remember {
         mutableStateOf(
@@ -67,7 +67,7 @@ fun Wheel(context: Context, navController: NavController) {
     val spinningState = remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .clickable {
                 if (!spinningState.value) {
@@ -112,7 +112,7 @@ fun Wheel(context: Context, navController: NavController) {
             )
         ) { pieIndex ->
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(8.dp)
             ) {

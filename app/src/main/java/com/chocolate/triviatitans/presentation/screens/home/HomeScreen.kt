@@ -34,6 +34,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
+import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
+import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
