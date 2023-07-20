@@ -22,4 +22,3 @@ class DomainImageChoiceMapper @Inject constructor(
         )
     }
 }
-
