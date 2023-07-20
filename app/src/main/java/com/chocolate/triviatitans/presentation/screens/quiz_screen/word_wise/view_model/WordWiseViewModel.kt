@@ -193,7 +193,7 @@ class WordWiseViewModel @Inject constructor(
         viewModelScope.launch {
             // (50/1000)/0.002 =25 it takes 25 seconds
             while (progressTimer.value > 0) {
-                delay(50)
+                delay(60)
                 progressTimer.value -= 0.002f
                 _state.update { it.copy(timer = progressTimer.value) }
             }
