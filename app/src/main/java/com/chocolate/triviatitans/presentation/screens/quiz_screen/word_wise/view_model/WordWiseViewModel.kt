@@ -114,7 +114,6 @@ class WordWiseViewModel @Inject constructor(
                 _state.update {
                     it.copy(didUserWin = true)
                 }
-                Log.i("mujtaba", "onClickConfirm:${state.value.didUserWin} ")
             }
 
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters) -> {
@@ -127,7 +126,7 @@ class WordWiseViewModel @Inject constructor(
                         selectedLetterList = emptyList(),
                         hintSkip = it.hintSkip.copy(
                             isActive = (it.hintSkip.numberOfTries >= 1) &&
-                                    (it.questionNumber != it.questionUiStates.size)
+                                    (it.questionNumber == it.questionUiStates.size)
                         ),
                         hintFiftyFifty = it.hintFiftyFifty.copy(
                             isActive = it.hintFiftyFifty.numberOfTries >= 1
@@ -142,10 +141,6 @@ class WordWiseViewModel @Inject constructor(
 
             else -> {
                 Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
-                Log.i(
-                    "mujtaba",
-                    "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters} "
-                )
             }
         }
     }
@@ -154,11 +149,11 @@ class WordWiseViewModel @Inject constructor(
         _state.update {
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
-                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
+                    numberOfTries = (it.hintFiftyFifty.numberOfTries ),
                     isActive = false
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
-                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
+                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size
                 )
             )
         }
