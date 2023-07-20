@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.data.repository
 
+import android.util.Log
 import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
 import com.chocolate.triviatitans.data.local.TriviaDao
 import com.chocolate.triviatitans.presentation.screens.PlayerDataType
@@ -10,7 +11,7 @@ class PlayerDataRepositoryImpl @Inject constructor(
 ) : PlayerDataRepository, BaseRepository() {
     override suspend fun savePlayerData(dataType: PlayerDataType, prize: Int) {
         when (dataType) {
-           PlayerDataType.Bonus -> {
+            PlayerDataType.Bonus -> {
                 triviaDao.updateBonus(prize)
             }
 
@@ -25,12 +26,15 @@ class PlayerDataRepositoryImpl @Inject constructor(
             PlayerDataType.ChangeQuestion -> {
                 triviaDao.updateChangeQuestions(prize)
             }
+
             PlayerDataType.EasyScore -> {
                 triviaDao.updateEasyScore(prize)
             }
+
             PlayerDataType.MediumScore -> {
                 triviaDao.updateMediumScore(prize)
             }
+
             PlayerDataType.HardScore -> {
                 triviaDao.updateHardScore(prize)
             }
