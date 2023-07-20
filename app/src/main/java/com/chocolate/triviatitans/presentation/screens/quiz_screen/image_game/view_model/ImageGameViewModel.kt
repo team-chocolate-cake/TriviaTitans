@@ -31,7 +31,11 @@ class ImageGameViewModel @Inject constructor(
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                repository.getImageChoiceQuestions(10, imageGameArgs.categories, imageGameArgs.levelType)
+                repository.getImageChoiceQuestions(
+                    10,
+                    imageGameArgs.categories,
+                    imageGameArgs.levelType
+                )
 
             },
             onSuccess = ::onSuccessUserQuestionsImageGame,
@@ -48,7 +52,6 @@ class ImageGameViewModel @Inject constructor(
             )
         }
     }
-
 
 
     private fun onErrorUserQuestionsImageGame(error: Throwable) {
