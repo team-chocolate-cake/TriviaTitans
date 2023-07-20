@@ -1,7 +1,12 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.base
 
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
+import com.chocolate.triviatitans.domain.mapper.player_data.DomainPlayerDataMapper
+import com.chocolate.triviatitans.presentation.screens.PlayerDataType
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import kotlinx.coroutines.delay
@@ -9,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintListener {
 
@@ -17,7 +23,69 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
 
     var progressTimer = MutableStateFlow(1f)
 
+    abstract val playerDataRepository: PlayerDataRepository
+
+    abstract val domainPlayerDataMapper: DomainPlayerDataMapper
     abstract fun getQuestion()
+
+    fun updatePlayerHintsData(){
+        tryToExecute(
+            call = {
+                playerDataRepository.savePlayerData(
+                    PlayerDataType.ChangeQuestion,
+                    _state.value.hintReset.numberOfTries
+                )
+                playerDataRepository.savePlayerData(
+                    PlayerDataType.DeleteTwoAnswers,
+                    _state.value.hintFiftyFifty.numberOfTries
+                )
+                playerDataRepository.savePlayerData(
+                    PlayerDataType.Hearts,
+                    _state.value.hintHeart.numberOfTries
+                )
+            },
+            onSuccess = ::OnUpdatePlayerHintData,
+            onError = ::OnError
+        )
+    }
+
+    private fun OnUpdatePlayerHintData(unit: Unit) {}
+
+    fun getPlayerData(){
+        tryToExecute(
+            call = { playerDataRepository.getPlayerData() },
+            onSuccess = ::OnSuccessPlayerData,
+            onError = ::OnError,
+
+        )
+    }
+
+    private fun OnError(throwable: Throwable) {
+        _state.update {
+            it.copy(
+                error = throwable.message
+            )
+        }
+    }
+
+    private fun OnSuccessPlayerData(localPlayerDataDto: LocalPlayerDataDto) {
+        val playerData = domainPlayerDataMapper.map(localPlayerDataDto)
+        _state.update {
+            it.copy(
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    numberOfTries = playerData.deleteTwoAnswers
+                ),
+                hintHeart = it.hintHeart.copy(
+                    numberOfTries = playerData.hearts
+                ),
+                hintReset = it.hintReset.copy(
+                    numberOfTries = playerData.changeQuestion
+                ),
+            )
+        }
+    }
+
+
 
     override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
         _state.update {
@@ -48,10 +116,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     }
 
     override fun onClickFiftyFifty() {
-
         _state.update {
-            val isNextQuestion = it.currentQuestion
-
             it.copy(
                 currentQuestion = false,
                 hintFiftyFifty = it.hintFiftyFifty.copy(

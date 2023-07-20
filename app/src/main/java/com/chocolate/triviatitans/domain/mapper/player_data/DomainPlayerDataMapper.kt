@@ -6,9 +6,9 @@ import com.chocolate.triviatitans.domain.mapper.Mapper
 import javax.inject.Inject
 
 class DomainPlayerDataMapper @Inject constructor() :
-    Mapper<PlayerDataEntity, LocalPlayerDataDto> {
-    override fun map(input: PlayerDataEntity): LocalPlayerDataDto {
-        return LocalPlayerDataDto(
+    Mapper<LocalPlayerDataDto, PlayerDataEntity> {
+    override fun map(input: LocalPlayerDataDto): PlayerDataEntity {
+        return PlayerDataEntity(
             id = input.id,
             bonus = input.bonus,
             deleteTwoAnswers = input.deleteTwoAnswers,
