@@ -8,7 +8,6 @@ class WordWiseMapper : Mapper<TextChoiceEntity, WordWiseUIState.QuestionUiState>
         return WordWiseUIState.QuestionUiState(
             id = input.id,
             question = input.question,
-            category = input.category,
             difficulty = input.difficulty,
             correctAnswer = input.correctAnswer.uppercase()
                 .replace(" ", "-"),

@@ -33,7 +33,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
             call = {
                 playerDataRepository.savePlayerData(
                     PlayerDataType.ChangeQuestion,
-                    _state.value.hintReset.numberOfTries
+                    _state.value.hintSkip.numberOfTries
                 )
                 playerDataRepository.savePlayerData(
                     PlayerDataType.DeleteTwoAnswers,
@@ -78,7 +78,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
                 hintHeart = it.hintHeart.copy(
                     numberOfTries = playerData.hearts
                 ),
-                hintReset = it.hintReset.copy(
+                hintSkip = it.hintSkip.copy(
                     numberOfTries = playerData.changeQuestion
                 ),
             )
@@ -98,8 +98,8 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
                 hintHeart = it.hintHeart.copy(
                     isActive = it.hintHeart.numberOfTries>=1
                 ),
-                hintReset = it.hintReset.copy(
-                    isActive = it.hintReset.numberOfTries >= 1 && it.questionNumber != it.questionUiStates.size
+                hintSkip = it.hintSkip.copy(
+                    isActive = it.hintSkip.numberOfTries >= 1 && it.questionNumber != it.questionUiStates.size
                 ),
                 currentQuestion = true,
                 questionUiStates = it.questionUiStates.map
@@ -156,12 +156,12 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
         }
     }
 
-    override fun onClickReset() {
+    override fun onClickSkip() {
         _state.update {
             it.copy(
                 questionNumber = it.questionNumber + 1,
-                hintReset = it.hintReset.copy(
-                    numberOfTries = (it.hintReset.numberOfTries - 1),
+                hintSkip = it.hintSkip.copy(
+                    numberOfTries = (it.hintSkip.numberOfTries - 1),
                     isActive = false
                 ),
                 hintHeart = it.hintHeart.copy(

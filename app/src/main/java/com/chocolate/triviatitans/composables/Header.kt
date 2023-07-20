@@ -15,20 +15,21 @@ fun Header(
     hintListener: HintListener,
     fiftyHint: HintButton,
     heartHint: HintButton,
-    resetHint: HintButton,
+    skipHint: HintButton,
     questionNumber: Int,
     userScore: Int,
     correctAnswer: String,
     timerProgress:Float,
+    levelType:String,
     typeGame:String = "defaultGame"
 ) {
     Column {
-        PlayerGameAppBarInfo(questionNumber, userScore)
+        PlayerGameAppBarInfo(questionNumber, userScore,levelType)
         SpacerVertical16()
         QuestionHintsSection(
             hintListener = hintListener, fiftyHint,
             heartHint,
-            resetHint,
+            skipHint,
             correctAnswer,
             isImageGame = if (typeGame == "defaultGame") false else true
         )
@@ -51,16 +52,12 @@ fun HeaderPreview() {
                     TODO("Not yet implemented")
                 }
 
-                override fun onClickReset() {
+                override fun onClickSkip() {
                     TODO("Not yet implemented")
                 }
             }, HintButton(), HintButton(),
-            HintButton(),
-            questionNumber = 3,
-            userScore = 0,
-            "",
-            1f,
-            typeGame = "defaultGame"
+            HintButton(), questionNumber = 3, userScore = 0, "",1f,
+            "Easy Type"
         )
     }
 }

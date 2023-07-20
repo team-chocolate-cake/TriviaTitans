@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,9 +27,12 @@ class WordWiseViewModel @Inject constructor(
     private val _state = MutableStateFlow(WordWiseUIState())
     val state = _state.asStateFlow()
 
-    private val textGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
+    private val wordWiseGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
 
     var progressTimer = MutableStateFlow(1f)
+
+    val levelType =
+        wordWiseGameArgs.levelType.replaceFirstChar { it.titlecase(Locale.getDefault()) } + " Level"
 
 
     init {
@@ -40,7 +44,7 @@ class WordWiseViewModel @Inject constructor(
         updateState { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getMultiChoiceTextGameUseCase(10, textGameArgs.categories, textGameArgs.levelType)
+                getMultiChoiceTextGameUseCase(10, wordWiseGameArgs.categories, wordWiseGameArgs.levelType)
             },
             onSuccess = ::onSuccessUserQuestions,
             onError = ::onErrorUserQuestions
@@ -58,6 +62,12 @@ class WordWiseViewModel @Inject constructor(
 
     private fun onErrorUserQuestions(throwable: Throwable) {
         Log.i("questions", "getUserQuestions: $throwable")
+        updateState {
+            it.copy(
+                isLoading = false,
+                error = "${throwable.message}",
+            )
+        }
     }
 
     private fun updateState(transform: (WordWiseUIState) -> WordWiseUIState) {
@@ -66,6 +76,7 @@ class WordWiseViewModel @Inject constructor(
 
 
     private fun getKeyboardLetters() {
+        _state.update { it.copy(isLoading = true) }
         _state.update {
             it.copy(
                 keyboardLetters = listOf(
@@ -95,14 +106,14 @@ class WordWiseViewModel @Inject constructor(
     }
 
     fun onClickConfirm(context: Context) {
+
         when {
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters
-                    && _state.value.questionNumber + 1   == _state.value.questionUiStates.size) -> {
+                    && _state.value.questionNumber + 1 == _state.value.questionUiStates.size) -> {
 
                 _state.update {
                     it.copy(didUserWin = true)
                 }
-                Log.i("mujtaba", "onClickConfirm:${state.value.didUserWin} ")
             }
 
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters) -> {
@@ -113,28 +124,23 @@ class WordWiseViewModel @Inject constructor(
                             ?: 0,
                         userScore = it.userScore + 10,
                         selectedLetterList = emptyList(),
-                        hintReset = it.hintReset.copy(
-                            isActive = true
+                        hintSkip = it.hintSkip.copy(
+                            isActive = (it.hintSkip.numberOfTries >= 1) &&
+                                    (it.questionNumber == it.questionUiStates.size)
                         ),
                         hintFiftyFifty = it.hintFiftyFifty.copy(
-                            isActive = true
+                            isActive = it.hintFiftyFifty.numberOfTries >= 1
                         ),
                         hintHeart = it.hintHeart.copy(
-                            isActive = true
+                            isActive = it.hintHeart.numberOfTries >= 1
                         )
                     )
                 }
             }
-            (_state.value.timer<=0f)->{
-                _state.update { it.copy(didUserLose = true) }
-            }
+
 
             else -> {
                 Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
-                Log.i(
-                    "mujtaba",
-                    "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters} "
-                )
             }
         }
     }
@@ -144,7 +150,7 @@ class WordWiseViewModel @Inject constructor(
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
                     numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive = it.hintFiftyFifty.numberOfTries >= 2
+                    isActive = false
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
                     it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
@@ -159,35 +165,43 @@ class WordWiseViewModel @Inject constructor(
             it.copy(
                 hintHeart = it.hintHeart.copy(
                     numberOfTries = (it.hintHeart.numberOfTries - 1),
-                    isActive = it.hintHeart.numberOfTries >= 2
+                    isActive = false
                 )
             )
         }
     }
 
-    override fun onClickReset() {
+    override fun onClickSkip() {
         _state.update {
-            val isLastQuestion = it.questionNumber == it.questionUiStates.size
             it.copy(
                 selectedLetterList = emptyList(),
                 questionNumber = it.questionNumber + 1,
-                hintReset = it.hintReset.copy(
-                    numberOfTries = (it.hintReset.numberOfTries - 1),
-                    isActive =
-                    it.hintReset.numberOfTries >= 2 && isLastQuestion
+                hintSkip = it.hintSkip.copy(
+                    numberOfTries = (it.hintSkip.numberOfTries - 1),
+                    isActive = false
+                ),
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
+                    isActive = false
+                ),
+                hintHeart = it.hintHeart.copy(
+                    numberOfTries = (it.hintHeart.numberOfTries - 1),
+                    isActive = false
                 )
             )
         }
     }
 
-    // to calculate timer per second{ (delayTime/1000) / the decreasing number }ol
     fun updateTimer() {
         viewModelScope.launch {
             // (50/1000)/0.002 =25 it takes 25 seconds
             while (progressTimer.value > 0) {
-                delay(50)
+                delay(60)
                 progressTimer.value -= 0.002f
                 _state.update { it.copy(timer = progressTimer.value) }
+            }
+            if (_state.value.timer <= 0f) {
+                _state.update { it.copy(didUserWin = false) }
             }
         }
     }

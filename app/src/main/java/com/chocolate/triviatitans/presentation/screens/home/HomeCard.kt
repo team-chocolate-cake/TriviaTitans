@@ -1,8 +1,8 @@
 package com.chocolate.triviatitans.presentation.screens.home
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,15 +18,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.ImageView
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
@@ -44,7 +43,10 @@ fun ConfigurationCard(
             .fillMaxWidth()
             .padding(top = 8.dp)
             .height(120.dp)
-            .clickable { onSelect(gameType) },
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ) { onSelect(gameType) },
         colors = CardDefaults.cardColors(color),
         border = if (selectedGameType == gameType) BorderStroke(
             2.dp,
