@@ -30,13 +30,16 @@ fun BackPressSample(OnBackToLevel: () -> Unit) {
 
     LaunchedEffect(key1 = backPressState) {
         if (backPressState == BackPress.InitialTouch) {
-            delay(2000)
+            delay(3000)
             backPressState = BackPress.Idle
+            showToast = false
         }
     }
 
     BackHandler(backPressState == BackPress.Idle) {
         backPressState = BackPress.InitialTouch
-        showToast = true
+        if (!showToast) {
+            showToast = true
+        }
     }
 }
