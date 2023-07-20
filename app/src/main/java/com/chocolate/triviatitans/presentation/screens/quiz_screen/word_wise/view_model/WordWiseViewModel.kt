@@ -179,6 +179,14 @@ class WordWiseViewModel @Inject constructor(
                 hintSkip = it.hintSkip.copy(
                     numberOfTries = (it.hintSkip.numberOfTries - 1),
                     isActive = false
+                ),
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
+                    isActive = false
+                ),
+                hintHeart = it.hintHeart.copy(
+                    numberOfTries = (it.hintHeart.numberOfTries - 1),
+                    isActive = false
                 )
             )
         }
