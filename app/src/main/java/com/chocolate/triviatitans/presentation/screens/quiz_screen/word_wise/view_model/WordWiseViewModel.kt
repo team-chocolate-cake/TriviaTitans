@@ -27,12 +27,12 @@ class WordWiseViewModel @Inject constructor(
     private val _state = MutableStateFlow(WordWiseUIState())
     val state = _state.asStateFlow()
 
-    private val textGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
+    private val wordWiseGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
 
     var progressTimer = MutableStateFlow(1f)
 
     val levelType =
-        textGameArgs.levelType.replaceFirstChar { it.titlecase(Locale.getDefault()) } + " Level"
+        wordWiseGameArgs.levelType.replaceFirstChar { it.titlecase(Locale.getDefault()) } + " Level"
 
 
     init {
@@ -44,7 +44,7 @@ class WordWiseViewModel @Inject constructor(
         updateState { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getMultiChoiceTextGameUseCase(10, textGameArgs.categories, textGameArgs.levelType)
+                getMultiChoiceTextGameUseCase(10, wordWiseGameArgs.categories, wordWiseGameArgs.levelType)
             },
             onSuccess = ::onSuccessUserQuestions,
             onError = ::onErrorUserQuestions
@@ -149,11 +149,11 @@ class WordWiseViewModel @Inject constructor(
         _state.update {
             it.copy(
                 hintFiftyFifty = it.hintFiftyFifty.copy(
-                    numberOfTries = (it.hintFiftyFifty.numberOfTries ),
+                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
                     isActive = false
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
-                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size
+                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
                 )
             )
         }
@@ -193,7 +193,7 @@ class WordWiseViewModel @Inject constructor(
                 _state.update { it.copy(timer = progressTimer.value) }
             }
             if (_state.value.timer <= 0f) {
-                _state.update { it.copy(didUserLose = true) }
+                _state.update { it.copy(didUserWin = false) }
             }
         }
     }
