@@ -11,11 +11,10 @@ data class BaseQuizUiState(
     val questionNumber: Int = 0,
     val levelType: String = "Easy",
     val isButtonsEnabled: Boolean = true,
+    val hintSkip: HintButton = HintButton(),
     val hintFiftyFifty: HintButton = HintButton(),
     val hintHeart: HintButton = HintButton(),
-    val isFiftyActive : Boolean = true,
-    val currentQuestion: Boolean = false,
-    val hintSkip: HintButton = HintButton(),
+    val didPlayerWin: Boolean? = null,
     val timer:Float=1f
 )
 

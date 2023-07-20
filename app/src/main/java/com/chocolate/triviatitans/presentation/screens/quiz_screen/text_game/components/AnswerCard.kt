@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.chocolate.triviatitans.composables.SpacerHorizontal8
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.theme.LightBorder
-import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 import java.util.Timer
@@ -35,9 +34,8 @@ fun AnswerCard(
     answerAlphabet: Char,
     answer: String,
     answerCardListener: AnswerCardListener,
-    questionNumber: Int,
-    correctAnswer: String,
     isButtonsEnabled: Boolean,
+    isCorrectAnswer: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val cardColor = MaterialTheme.customColor()
@@ -46,12 +44,11 @@ fun AnswerCard(
     Box(Modifier.clip(RoundedCornerShape(12.dp))) {
         Row(modifier = modifier
             .clickable(enabled = isButtonsEnabled) {
-                val isCorrectAnswer = answer == correctAnswer
                 answerColor.value =
-                    if (answer == correctAnswer) cardColor.correct else cardColor.error
+                    if (isCorrectAnswer) cardColor.correct else cardColor.error
                 answerCardListener.updateButtonState(false)
                 Timer().schedule(500) {
-                    answerCardListener.onClickCard(answer, questionNumber, isCorrectAnswer)
+                    answerCardListener.onClickCard(isCorrectAnswer)
                     answerColor.value = cardColor.card
                     answerCardListener.updateButtonState(true)
                 }
@@ -82,8 +79,6 @@ fun CardPreview() {
     TriviaTitansTheme() {
         AnswerCard('A', "Soccer", object : AnswerCardListener {
             override fun onClickCard(
-                question: String,
-                questionNumber: Int,
                 isCorrectAnswer: Boolean
             ) {
                 TODO("Not yet implemented")
@@ -94,6 +89,6 @@ fun CardPreview() {
             }
 
 
-        }, questionNumber = 0, "", true)
+        },  isButtonsEnabled = true, isCorrectAnswer = true)
     }
 }

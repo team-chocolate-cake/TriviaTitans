@@ -26,8 +26,8 @@ class ImageGameViewModel @Inject constructor(
 
 
     init {
+        getPlayerData()
         getQuestion()
-
     }
 
     private val imageGameArgs: ImageGameArgs = ImageGameArgs(savedStateHandle)
@@ -61,6 +61,12 @@ class ImageGameViewModel @Inject constructor(
 
     private fun onErrorUserQuestionsImageGame(error: Throwable) {
         Log.i("ERRORX", "onErrorUserQuestionsImageGame: $error")
+        _state.update {
+            it.copy(
+                isLoading = false,
+                error = "${error.message}",
+            )
+        }
     }
 
 }
