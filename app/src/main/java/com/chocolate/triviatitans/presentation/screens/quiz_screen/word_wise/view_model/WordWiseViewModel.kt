@@ -5,8 +5,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
-import com.chocolate.triviatitans.domain.usecase.GetMultiChoiceTextGameUseCase
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.WordWiseGameArgs
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WordWiseViewModel @Inject constructor(
-    private val getMultiChoiceTextGameUseCase: GetMultiChoiceTextGameUseCase,
+    private val triviaTitansRepository: TriviaTitansRepository,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel(), HintListener {
     private val _state = MutableStateFlow(WordWiseUIState())
@@ -44,7 +44,11 @@ class WordWiseViewModel @Inject constructor(
         updateState { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getMultiChoiceTextGameUseCase(10, wordWiseGameArgs.categories, wordWiseGameArgs.levelType)
+                triviaTitansRepository.getTextChoiceQuestions(
+                    10,
+                    wordWiseGameArgs.categories,
+                    wordWiseGameArgs.levelType
+                )
             },
             onSuccess = ::onSuccessUserQuestions,
             onError = ::onErrorUserQuestions
@@ -181,12 +185,10 @@ class WordWiseViewModel @Inject constructor(
                     isActive = false
                 ),
                 hintFiftyFifty = it.hintFiftyFifty.copy(
-                    numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
-                    isActive = false
+                    isActive = it.hintFiftyFifty.numberOfTries >= 1
                 ),
                 hintHeart = it.hintHeart.copy(
-                    numberOfTries = (it.hintHeart.numberOfTries - 1),
-                    isActive = false
+                    isActive = it.hintHeart.numberOfTries >= 1
                 )
             )
         }
