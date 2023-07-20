@@ -20,7 +20,8 @@ fun Header(
     userScore: Int,
     correctAnswer: String,
     timerProgress:Float,
-    levelType:String
+    levelType:String,
+    typeGame:String = "defaultGame"
 ) {
     Column {
         PlayerGameAppBarInfo(questionNumber, userScore,levelType)
@@ -29,7 +30,8 @@ fun Header(
             hintListener = hintListener, fiftyHint,
             heartHint,
             skipHint,
-            correctAnswer
+            correctAnswer,
+            isImageGame = if (typeGame == "defaultGame") false else true
         )
         SpacerVertical16()
         ProgressIndicator(progressPercentage = timerProgress)

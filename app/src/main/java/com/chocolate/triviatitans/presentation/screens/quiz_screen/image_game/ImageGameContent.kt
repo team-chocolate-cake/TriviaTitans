@@ -21,6 +21,7 @@ import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.co
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
+import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
@@ -78,8 +79,9 @@ fun ImageGameContent(
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
                 correctAnswer = currentQuestion.correctAnswer,
+                typeGame = "imageGame",
                 timerProgress = state.timer,
-                "Easy level"
+                levelType = "Easy level"
             )
             SpacerVertical32()
             Text(

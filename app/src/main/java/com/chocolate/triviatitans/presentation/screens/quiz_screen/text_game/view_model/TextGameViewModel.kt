@@ -2,8 +2,10 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.vi
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
+import com.chocolate.triviatitans.domain.mapper.player_data.DomainPlayerDataMapper
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -17,11 +19,14 @@ import javax.inject.Inject
 class TextGameViewModel @Inject constructor(
     private val repository: TriviaTitansRepository,
     private val questionsMapper: QuestionsMapper,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    override val playerDataRepository: PlayerDataRepository,
+    override val domainPlayerDataMapper: DomainPlayerDataMapper
 ) : BaseQuizViewModel(), AnswerCardListener, HintListener {
 
 
     init {
+        getPlayerData()
         getQuestion()
     }
 
