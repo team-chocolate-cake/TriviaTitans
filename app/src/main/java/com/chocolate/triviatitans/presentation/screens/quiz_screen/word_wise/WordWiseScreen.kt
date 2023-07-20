@@ -25,8 +25,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.Header
-import com.chocolate.triviatitans.composables.SpacerVertical16
-import com.chocolate.triviatitans.composables.SpacerVertical32
 import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
 import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
@@ -47,12 +45,13 @@ fun WordWiseScreen(navController: NavController) {
     val state = viewModel.state.collectAsState().value
     val context = LocalContext.current
 
-    when {
-        state.didUserLose -> navController.navigateToLose()
-        state.didUserWin -> navController.navigateToSpinWheelScreen()
-
+    LaunchedEffect(key1 = state.didUserWin) {
+        when (state.didUserWin) {
+            true -> navController.navigateToSpinWheelScreen()
+            false -> navController.navigateToLose()
+            else -> {}
+        }
     }
-
 
     WordWiseContent(
         state = state,
@@ -90,34 +89,36 @@ fun WordWiseContent(
                 hintListener = hintListener,
                 fiftyHint = state.hintFiftyFifty,
                 heartHint = state.hintHeart,
-                resetHint = state.hintReset,
+                skipHint = state.hintSkip,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
                 correctAnswer = state.questionUiStates[state.questionNumber].correctAnswer,
                 timerProgress = state.timer,
                 levelType = viewModel.levelType
             )
-            SpacerVertical32()
             Text(
+                modifier = Modifier.padding(top = 32.dp),
                 text = state.questionUiStates[state.questionNumber].question,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.customColor().onBackground87
             )
-            SpacerVertical16()
 
             AnswerLettersLazyGrid(
                 charsList = state
                     .questionUiStates[state.questionNumber].correctAnswerLetters,
                 selectedLetterList = state.selectedLetterList,
-                onAnswerCardClicked = onAnswerCardClicked
+                onAnswerCardClicked = onAnswerCardClicked,
+                modifier = Modifier.padding(top = 16.dp)
             )
             KeyboardLatterLazyGrid(
                 charsList = state.keyboardLetters,
                 onLetterClick = onLetterClick
             )
             Spacer(modifier = Modifier.fillMaxHeight(0.6f))
-            ButtonConfirm(onClickConfirm = onClickConfirm)
-
+            ButtonConfirm(
+                onClickConfirm = onClickConfirm,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
         }
     } else if (state.isLoading) {
         Column(
@@ -127,11 +128,12 @@ fun WordWiseContent(
         ) {
             CircularProgressIndicator()
         }
-    }
-    else{
-        Column( modifier = Modifier.fillMaxSize(),
+    } else {
+        Column(
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             val composition by rememberLottieComposition(
                 spec = LottieCompositionSpec.RawRes(resId = R.raw.animation_lkakuvv9)
             )

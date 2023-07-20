@@ -12,9 +12,8 @@ data class WordWiseUIState(
     val keyboardLetters: List<Char> = emptyList(),
     val hintFiftyFifty: HintButton = HintButton(),
     val hintHeart: HintButton = HintButton(),
-    val hintReset: HintButton = HintButton(),
-    val didUserWin: Boolean = false,
-    val didUserLose: Boolean = false,
+    val hintSkip: HintButton = HintButton(),
+    val didUserWin: Boolean? = null,
     val timer: Float = 1f
 ) {
     data class QuestionUiState(

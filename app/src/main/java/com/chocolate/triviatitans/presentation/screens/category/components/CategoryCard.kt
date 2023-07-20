@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,7 +49,10 @@ fun CategoryCard(
             .width(160.dp)
             .height(146.dp)
             .clip(RoundedCornerShape(12.dp))
-            .clickable {
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ){
                 onClick(category.isSelected)
             },
         border = if (category.isSelected) BorderStroke(1.dp, colors.primary) else null,

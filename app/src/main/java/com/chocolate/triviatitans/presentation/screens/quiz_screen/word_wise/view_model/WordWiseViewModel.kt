@@ -27,12 +27,12 @@ class WordWiseViewModel @Inject constructor(
     private val _state = MutableStateFlow(WordWiseUIState())
     val state = _state.asStateFlow()
 
-    private val textGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
+    private val wordWiseGameArgs: WordWiseGameArgs = WordWiseGameArgs(savedStateHandle)
 
     var progressTimer = MutableStateFlow(1f)
 
     val levelType =
-        textGameArgs.levelType.replaceFirstChar { it.titlecase(Locale.getDefault()) } + " Level"
+        wordWiseGameArgs.levelType.replaceFirstChar { it.titlecase(Locale.getDefault()) } + " Level"
 
 
     init {
@@ -44,7 +44,7 @@ class WordWiseViewModel @Inject constructor(
         updateState { it.copy(isLoading = true) }
         tryToExecute(
             call = {
-                getMultiChoiceTextGameUseCase(10, textGameArgs.categories, textGameArgs.levelType)
+                getMultiChoiceTextGameUseCase(10, wordWiseGameArgs.categories, wordWiseGameArgs.levelType)
             },
             onSuccess = ::onSuccessUserQuestions,
             onError = ::onErrorUserQuestions
@@ -114,7 +114,6 @@ class WordWiseViewModel @Inject constructor(
                 _state.update {
                     it.copy(didUserWin = true)
                 }
-                Log.i("mujtaba", "onClickConfirm:${state.value.didUserWin} ")
             }
 
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters) -> {
@@ -125,9 +124,9 @@ class WordWiseViewModel @Inject constructor(
                             ?: 0,
                         userScore = it.userScore + 10,
                         selectedLetterList = emptyList(),
-                        hintReset = it.hintReset.copy(
-                            isActive = (it.hintReset.numberOfTries >= 1) &&
-                                    (it.questionNumber != it.questionUiStates.size)
+                        hintSkip = it.hintSkip.copy(
+                            isActive = (it.hintSkip.numberOfTries >= 1) &&
+                                    (it.questionNumber == it.questionUiStates.size)
                         ),
                         hintFiftyFifty = it.hintFiftyFifty.copy(
                             isActive = it.hintFiftyFifty.numberOfTries >= 1
@@ -142,10 +141,6 @@ class WordWiseViewModel @Inject constructor(
 
             else -> {
                 Toast.makeText(context, "Your Answer is Wrong", Toast.LENGTH_SHORT).show()
-                Log.i(
-                    "mujtaba",
-                    "onClickConfirm: ${_state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters} "
-                )
             }
         }
     }
@@ -176,13 +171,13 @@ class WordWiseViewModel @Inject constructor(
         }
     }
 
-    override fun onClickReset() {
+    override fun onClickSkip() {
         _state.update {
             it.copy(
                 selectedLetterList = emptyList(),
                 questionNumber = it.questionNumber + 1,
-                hintReset = it.hintReset.copy(
-                    numberOfTries = (it.hintReset.numberOfTries - 1),
+                hintSkip = it.hintSkip.copy(
+                    numberOfTries = (it.hintSkip.numberOfTries - 1),
                     isActive = false
                 )
             )
@@ -193,12 +188,12 @@ class WordWiseViewModel @Inject constructor(
         viewModelScope.launch {
             // (50/1000)/0.002 =25 it takes 25 seconds
             while (progressTimer.value > 0) {
-                delay(50)
+                delay(60)
                 progressTimer.value -= 0.002f
                 _state.update { it.copy(timer = progressTimer.value) }
             }
             if (_state.value.timer <= 0f) {
-                _state.update { it.copy(didUserLose = true) }
+                _state.update { it.copy(didUserWin = false) }
             }
         }
     }

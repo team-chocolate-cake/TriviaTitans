@@ -20,7 +20,7 @@ fun QuestionHintsSection(
     hintListener: HintListener,
     fiftyFiftyHint: HintButton,
     heartHint: HintButton,
-    resetHint: HintButton,
+    skipHint: HintButton,
     correctAnswer: String,
 ) {
     val showDialog = remember { mutableStateOf(false) }
@@ -50,10 +50,10 @@ fun QuestionHintsSection(
             }
         )
         QuestionHint(
-            icon = R.drawable.ic_restart,
-            numberOfTries = resetHint.numberOfTries,
+            icon = R.drawable.ic_skip,
+            numberOfTries = skipHint.numberOfTries,
             imageModifier = Modifier.padding(20.dp),
-            onClick = { if (resetHint.isActive) hintListener.onClickReset() }
+            onClick = { if (skipHint.isActive) hintListener.onClickSkip() }
         )
     }
 }
@@ -72,7 +72,7 @@ fun QuestionHintsSectionPreview() {
                     TODO("Not yet implemented")
                 }
 
-                override fun onClickReset() {
+                override fun onClickSkip() {
                     TODO("Not yet implemented")
                 }
             },

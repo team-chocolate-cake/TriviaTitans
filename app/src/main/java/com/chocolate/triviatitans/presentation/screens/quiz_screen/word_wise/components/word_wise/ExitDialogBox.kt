@@ -3,6 +3,7 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.co
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -105,7 +105,12 @@ fun ExitDialogBox(
                             DialogButton(buttonColor = negativeButtonColor, buttonText = "No") {
                                 dialogOpen = false
                             }
-                            DialogButton(buttonColor = positiveButtonColor, buttonText = "Yes", modifier =  Modifier.clickable { OnBackToLevel() }) {
+                            DialogButton(buttonColor = positiveButtonColor,
+                                buttonText = "Yes",
+                                modifier = Modifier.clickable(
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() }
+                                ) { OnBackToLevel() }) {
                                 dialogOpen = false
                             }
                         }

@@ -11,24 +11,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
-import com.chocolate.triviatitans.presentation.screens.spinWheel.view_model.SpinWheelViewModel
 import com.chocolate.triviatitans.presentation.screens.spinWheel.components.Wheel
 import com.chocolate.triviatitans.presentation.theme.LightOnBackground87
 
 @Composable
 fun SpinWheelScreen(
-    navController: NavController,
-    viewModel: SpinWheelViewModel = hiltViewModel()
+    navController: NavController
 ) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        val (spinText, wheel) = createRefs()
+        val (spinText) = createRefs()
         Text(
             text = stringResource(R.string.spin_the_wheel_to_get_your_reward),
             modifier = Modifier
