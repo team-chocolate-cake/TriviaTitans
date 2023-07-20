@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.multi_choice
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,10 +23,13 @@ fun QuestionHintsSection(
     heartHint: HintButton,
     skipHint: HintButton,
     correctAnswer: String,
+    isImageGame: Boolean,
 ) {
     val showDialog = remember { mutableStateOf(false) }
     if (showDialog.value) {
-        HintAlertDialog(onDissmiss = { showDialog.value = false }, correctAnswer = correctAnswer)
+        HintAlertDialog(
+            onDissmiss = { showDialog.value = false }, correctAnswer = correctAnswer  , isImageGame = isImageGame
+        )
     }
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -78,7 +82,9 @@ fun QuestionHintsSectionPreview() {
             },
             HintButton(),
             HintButton(),
-            HintButton(), correctAnswer = ""
+            HintButton(),
+            correctAnswer = "",
+            isImageGame = false,
         )
     }
 }
