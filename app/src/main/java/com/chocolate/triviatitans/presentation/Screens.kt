@@ -10,5 +10,6 @@ sealed class Screens(val route: String){
     object SpinWheelScreen: Screens("SpinWheelScreen")
     object WinScreen: Screens("WinScreen")
     object LoseScreen: Screens("LoseScreen")
+    object SplashScreen: Screens("SplashScreen")
 
 }
