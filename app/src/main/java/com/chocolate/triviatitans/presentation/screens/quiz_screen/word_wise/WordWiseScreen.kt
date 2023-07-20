@@ -59,7 +59,7 @@ fun WordWiseScreen(navController: NavController) {
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
         onClickConfirm = { viewModel.onClickConfirm(context) },
-        onBackToLevel = { navController.navigateToHome() },
+        onBackToLevel = { navController.popBackStack() },
         hintListener = viewModel,
         viewModel = viewModel,
     )

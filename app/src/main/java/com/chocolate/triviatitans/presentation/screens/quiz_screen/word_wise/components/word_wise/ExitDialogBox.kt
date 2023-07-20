@@ -134,7 +134,7 @@ fun ExitDialogBox(
 @Composable
 fun DialogPre() {
     ExitDialogBox(
-        OnPrimary,
+        Primary,
         LightError,
         18.dp,
         OnBackToLevel = {}

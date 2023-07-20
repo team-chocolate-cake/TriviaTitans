@@ -8,23 +8,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
+import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model.BackPress
 import com.chocolate.triviatitans.presentation.theme.LightError
 import com.chocolate.triviatitans.presentation.theme.OnPrimary
+import com.chocolate.triviatitans.presentation.theme.Primary
 import kotlinx.coroutines.delay
 
 @Composable
 fun BackPressSample(OnBackToLevel: () -> Unit) {
-    var showToast by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
 
     var backPressState by remember { mutableStateOf<BackPress>(BackPress.Idle) }
 
-    if (showToast) {
+    if (showDialog) {
         ExitDialogBox(
-            OnPrimary,
+            Primary,
             LightError,
             18.dp
         ) { OnBackToLevel() }
-        showToast = true
+        showDialog = true
     }
 
 
@@ -32,14 +34,14 @@ fun BackPressSample(OnBackToLevel: () -> Unit) {
         if (backPressState == BackPress.InitialTouch) {
             delay(3000)
             backPressState = BackPress.Idle
-            showToast = false
+            showDialog = false
         }
     }
 
     BackHandler(backPressState == BackPress.Idle) {
         backPressState = BackPress.InitialTouch
-        if (!showToast) {
-            showToast = true
+        if (!showDialog) {
+            showDialog = true
         }
     }
 }
