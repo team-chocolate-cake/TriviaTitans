@@ -20,11 +20,13 @@ import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
 import com.chocolate.triviatitans.composables.SpacerVertical8
+import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.components.AnswerCard
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.text_game.view_model.TextGameViewModel
+import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 
@@ -36,6 +38,13 @@ fun TextGameScreen(
 ) {
     val state = viewModel.state.collectAsState().value
 
+    LaunchedEffect(key1 = state.didPlayerWin) {
+        when (state.didPlayerWin) {
+            true -> navController.navigateToSpinWheelScreen()
+            false -> navController.navigateToLose()
+            else -> {}
+        }
+    }
     TextGameContent(
         state = state,
         listener = viewModel,
@@ -81,7 +90,7 @@ fun TextGameContent(
                 userScore = state.userScore,
                 correctAnswer = currentQuestion.correctAnswer,
                 timerProgress = state.timer,
-                "Easy level"
+                state.levelType
             )
             SpacerVertical32()
             Text(
@@ -96,9 +105,8 @@ fun TextGameContent(
                         answerAlphabet = 'A' + index,
                         answer = answer,
                         answerCardListener = listener,
-                        questionNumber = state.questionNumber,
-                        correctAnswer = currentQuestion.correctAnswer,
                         isButtonsEnabled = state.isButtonsEnabled,
+                        isCorrectAnswer = answer == state.questionUiStates[state.questionNumber].correctAnswer,
                     )
                     SpacerVertical8()
                 }

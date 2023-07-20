@@ -1,13 +1,11 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.base
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
 import com.chocolate.triviatitans.data.repository.PlayerDataRepository
 import com.chocolate.triviatitans.domain.mapper.player_data.DomainPlayerDataMapper
 import com.chocolate.triviatitans.presentation.screens.PlayerDataType
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.HintButton
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import kotlinx.coroutines.delay
@@ -15,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintListener {
 
@@ -29,7 +26,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     abstract val domainPlayerDataMapper: DomainPlayerDataMapper
     abstract fun getQuestion()
 
-    fun updatePlayerHintsData(){
+    private fun updatePlayerHintsData() {
         tryToExecute(
             call = {
                 playerDataRepository.savePlayerData(
@@ -45,23 +42,23 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
                     _state.value.hintHeart.numberOfTries
                 )
             },
-            onSuccess = ::OnUpdatePlayerHintData,
-            onError = ::OnError
+            onSuccess = ::onUpdatePlayerHintData,
+            onError = ::onErrorPlayerData
         )
     }
 
-    private fun OnUpdatePlayerHintData(unit: Unit) {}
+    private fun onUpdatePlayerHintData(unit: Unit) {}
 
-    fun getPlayerData(){
+    fun getPlayerData() {
         tryToExecute(
             call = { playerDataRepository.getPlayerData() },
-            onSuccess = ::OnSuccessPlayerData,
-            onError = ::OnError,
+            onSuccess = ::onSuccessPlayerData,
+            onError = ::onErrorPlayerData,
 
-        )
+            )
     }
 
-    private fun OnError(throwable: Throwable) {
+    private fun onErrorPlayerData(throwable: Throwable) {
         _state.update {
             it.copy(
                 error = throwable.message
@@ -69,7 +66,7 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
         }
     }
 
-    private fun OnSuccessPlayerData(localPlayerDataDto: LocalPlayerDataDto) {
+    private fun onSuccessPlayerData(localPlayerDataDto: LocalPlayerDataDto) {
         val playerData = domainPlayerDataMapper.map(localPlayerDataDto)
         _state.update {
             it.copy(
@@ -87,26 +84,42 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     }
 
 
+    override fun onClickCard(isCorrectAnswer: Boolean) {
+        when {
+            (isCorrectAnswer && _state.value.questionNumber + 1 == _state.value.questionUiStates.size) -> {
+                updatePlayerHintsData()
+                _state.update {
+                    it.copy(didPlayerWin = true)
+                }
+            }
 
-    override fun onClickCard(question: String, questionNumber: Int, isCorrectAnswer: Boolean) {
-        _state.update {
-            it.copy(
-                questionNumber = (it.questionNumber + 1)
-                    .takeIf { questionNumber -> questionNumber < it.questionUiStates.size } ?: 0,
-                hintFiftyFifty = it.hintFiftyFifty.copy(
-                    isActive = it.hintFiftyFifty.numberOfTries>=1
-                ),
-                hintHeart = it.hintHeart.copy(
-                    isActive = it.hintHeart.numberOfTries>=1
-                ),
-                hintSkip = it.hintSkip.copy(
-                    isActive = it.hintSkip.numberOfTries >= 1 && it.questionNumber != it.questionUiStates.size
-                ),
-                currentQuestion = true,
-                questionUiStates = it.questionUiStates.map
-                { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
-                userScore = if (isCorrectAnswer) it.userScore + 10 else it.userScore
-            )
+            isCorrectAnswer -> _state.update {
+                it.copy(
+                    questionNumber = (it.questionNumber + 1)
+                        .takeIf { questionNumber -> questionNumber < it.questionUiStates.size }
+                        ?: 0,
+                    hintFiftyFifty = it.hintFiftyFifty.copy(
+                        isActive = it.hintFiftyFifty.numberOfTries >= 1
+                    ),
+                    hintHeart = it.hintHeart.copy(
+                        isActive = it.hintHeart.numberOfTries >= 1
+                    ),
+                    hintSkip = it.hintSkip.copy(
+                        isActive = it.hintSkip.numberOfTries >= 1 && it.questionNumber == it.questionUiStates.size
+                    ),
+                    questionUiStates = it.questionUiStates.map
+                    { question -> question.copy(randomAnswers = question.randomAnswers.shuffled()) },
+                    userScore =  it.userScore + 10
+
+                )
+            }
+
+            else -> {
+                updatePlayerHintsData()
+                _state.update {
+                    it.copy(didPlayerWin = false)
+                }
+            }
         }
     }
 
@@ -119,7 +132,6 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     override fun onClickFiftyFifty() {
         _state.update {
             it.copy(
-                currentQuestion = false,
                 hintFiftyFifty = it.hintFiftyFifty.copy(
                     numberOfTries = (it.hintFiftyFifty.numberOfTries - 1),
                     isActive = false,
@@ -166,10 +178,10 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
                     isActive = false
                 ),
                 hintHeart = it.hintHeart.copy(
-                    isActive = it.hintHeart.numberOfTries>=1
+                    isActive = it.hintHeart.numberOfTries >= 1
                 ),
                 hintFiftyFifty = it.hintFiftyFifty.copy(
-                    isActive = it.hintFiftyFifty.numberOfTries>=1
+                    isActive = it.hintFiftyFifty.numberOfTries >= 1
                 )
             )
         }
@@ -178,11 +190,15 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
     // to calculate timer per second{ (delayTime/1000) / the decreasing number }ol
     fun updateTimer() {
         viewModelScope.launch {
-            // (50/1000)/0.002 =25 it takes 25 seconds
+            // (60/1000)/0.002 =30 it takes 30 seconds
             while (progressTimer.value > 0) {
-                delay(50)
+                delay(60)
                 progressTimer.value -= 0.002f
                 _state.update { it.copy(timer = progressTimer.value) }
+            }
+            if (_state.value.timer <= 0f) {
+                updatePlayerHintsData()
+                _state.update { it.copy(didPlayerWin = false) }
             }
         }
     }

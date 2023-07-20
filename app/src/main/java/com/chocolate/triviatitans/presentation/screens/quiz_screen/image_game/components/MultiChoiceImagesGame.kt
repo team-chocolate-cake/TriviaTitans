@@ -39,7 +39,7 @@ fun MultiChoiceImagesGame(
     state: BaseQuizUiState,
     question: QuestionUiState,
     answerCardListener: AnswerCardListener,
-    isButtonsEnabled: Boolean
+    isButtonsEnabled: Boolean,
 ) {
     val answerColor = remember { mutableStateOf(Color(0x00F8F8F8)) }
     val isCorrectAnswer = remember { mutableStateOf(false) }
@@ -81,8 +81,6 @@ fun MultiChoiceImagesGame(
 
                             Timer().schedule(500) {
                                 answerCardListener.onClickCard(
-                                    item,
-                                    state.questionNumber,
                                     isCorrectAnswer.value
                                 )
                                 answerColor.value = Color(0x00F8F8F8)

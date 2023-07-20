@@ -50,15 +50,9 @@ fun LevelScreen(
             }
             val categories = viewModel.levelArgs.toString()
             when (viewModel.levelArgs.gameType) {
-                GameType.MULTI_CHOICE.name -> navController.navigateToTextGame(
-                    categories,
-                    levelType
-                )
+                GameType.MULTI_CHOICE.name -> navController.navigateToTextGame(categories, levelType)
 
-                GameType.MULTI_CHOICE_IMAGES.name -> navController.navigateToImageGame(
-                    categories,
-                    levelType
-                )
+                GameType.MULTI_CHOICE_IMAGES.name -> navController.navigateToImageGame(categories, levelType)
 
                 GameType.WORD_WISE.name -> navController.navigateToWordWise(categories, levelType)
             }

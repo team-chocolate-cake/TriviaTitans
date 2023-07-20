@@ -13,7 +13,7 @@ data class WordWiseUIState(
     val hintFiftyFifty: HintButton = HintButton(),
     val hintHeart: HintButton = HintButton(),
     val hintSkip: HintButton = HintButton(),
-    val didUserWin: Boolean? = null,
+    val didPlayerWin: Boolean? = null,
     val timer: Float = 1f
 ) {
     data class QuestionUiState(

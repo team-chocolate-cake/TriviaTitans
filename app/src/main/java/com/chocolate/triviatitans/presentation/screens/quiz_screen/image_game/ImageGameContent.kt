@@ -16,11 +16,13 @@ import androidx.navigation.NavController
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
+import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.base.BaseQuizUiState
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.components.MultiChoiceImagesGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.image_game.view_model.ImageGameViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
+import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.customColor
 
@@ -31,8 +33,13 @@ fun ImageGameScreen(
 ) {
     val state = viewModel.state.collectAsState().value
 
-
-
+    LaunchedEffect(key1 = state.didPlayerWin) {
+        when (state.didPlayerWin) {
+            true -> navController.navigateToSpinWheelScreen()
+            false -> navController.navigateToLose()
+            else -> {}
+        }
+    }
     ImageGameContent(
         state = state,
         listener = viewModel,
@@ -81,7 +88,7 @@ fun ImageGameContent(
                 correctAnswer = currentQuestion.correctAnswer,
                 typeGame = "imageGame",
                 timerProgress = state.timer,
-                levelType = "Easy level"
+                levelType = state.levelType
             )
             SpacerVertical32()
             Text(

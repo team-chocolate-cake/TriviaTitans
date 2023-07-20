@@ -26,8 +26,8 @@ class ImageGameViewModel @Inject constructor(
 
 
     init {
+        getPlayerData()
         getQuestion()
-
     }
 
     private val imageGameArgs: ImageGameArgs = ImageGameArgs(savedStateHandle)

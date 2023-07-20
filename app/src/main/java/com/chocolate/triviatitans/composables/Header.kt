@@ -31,7 +31,7 @@ fun Header(
             heartHint,
             skipHint,
             correctAnswer,
-            isImageGame = if (typeGame == "defaultGame") false else true
+            isImageGame = typeGame != "defaultGame"
         )
         SpacerVertical16()
         ProgressIndicator(progressPercentage = timerProgress)

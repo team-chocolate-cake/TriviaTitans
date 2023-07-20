@@ -25,7 +25,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.Header
-import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
 import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.AnswerLettersLazyGrid
@@ -45,8 +44,8 @@ fun WordWiseScreen(navController: NavController) {
     val state = viewModel.state.collectAsState().value
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = state.didUserWin) {
-        when (state.didUserWin) {
+    LaunchedEffect(key1 = state.didPlayerWin) {
+        when (state.didPlayerWin) {
             true -> navController.navigateToSpinWheelScreen()
             false -> navController.navigateToLose()
             else -> {}

@@ -5,8 +5,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.chocolate.triviatitans.data.local.LocalPlayerDataDto
+import com.chocolate.triviatitans.data.repository.PlayerDataRepository
 import com.chocolate.triviatitans.data.repository.TriviaTitansRepository
 import com.chocolate.triviatitans.domain.entities.TextChoiceEntity
+import com.chocolate.triviatitans.domain.mapper.player_data.DomainPlayerDataMapper
+import com.chocolate.triviatitans.presentation.screens.PlayerDataType
 import com.chocolate.triviatitans.presentation.screens.base.BaseViewModel
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.WordWiseGameArgs
@@ -22,6 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WordWiseViewModel @Inject constructor(
     private val triviaTitansRepository: TriviaTitansRepository,
+    private val domainPlayerDataMapper: DomainPlayerDataMapper,
+    private val playerDataRepository: PlayerDataRepository,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel(), HintListener {
     private val _state = MutableStateFlow(WordWiseUIState())
@@ -36,6 +42,7 @@ class WordWiseViewModel @Inject constructor(
 
 
     init {
+        getPlayerData()
         getUserQuestions()
         getKeyboardLetters()
     }
@@ -93,6 +100,63 @@ class WordWiseViewModel @Inject constructor(
         }
     }
 
+    private fun updatePlayerHintsData() {
+        tryToExecute(
+            call = {
+                playerDataRepository.savePlayerData(
+                    PlayerDataType.ChangeQuestion,
+                    _state.value.hintSkip.numberOfTries
+                )
+                playerDataRepository.savePlayerData(
+                    PlayerDataType.DeleteTwoAnswers,
+                    _state.value.hintFiftyFifty.numberOfTries
+                )
+                playerDataRepository.savePlayerData(
+                    PlayerDataType.Hearts,
+                    _state.value.hintHeart.numberOfTries
+                )
+            },
+            onSuccess = ::onUpdatePlayerHintData,
+            onError = ::onErrorPlayerData
+        )
+    }
+
+    private fun onUpdatePlayerHintData(unit: Unit) {}
+
+    private fun getPlayerData() {
+        tryToExecute(
+            call = { playerDataRepository.getPlayerData() },
+            onSuccess = ::onSuccessPlayerData,
+            onError = ::onErrorPlayerData,
+
+            )
+    }
+
+    private fun onErrorPlayerData(throwable: Throwable) {
+        _state.update {
+            it.copy(
+                error = throwable.message
+            )
+        }
+    }
+
+    private fun onSuccessPlayerData(localPlayerDataDto: LocalPlayerDataDto) {
+        val playerData = domainPlayerDataMapper.map(localPlayerDataDto)
+        _state.update {
+            it.copy(
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    numberOfTries = playerData.deleteTwoAnswers
+                ),
+                hintHeart = it.hintHeart.copy(
+                    numberOfTries = playerData.hearts
+                ),
+                hintSkip = it.hintSkip.copy(
+                    numberOfTries = playerData.changeQuestion
+                ),
+            )
+        }
+    }
+
     fun onLetterClicked(letter: Char) {
         if (_state.value.selectedLetterList.size < _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters.size) {
             _state.update {
@@ -114,9 +178,9 @@ class WordWiseViewModel @Inject constructor(
         when {
             (_state.value.selectedLetterList == _state.value.questionUiStates[_state.value.questionNumber].correctAnswerLetters
                     && _state.value.questionNumber + 1 == _state.value.questionUiStates.size) -> {
-
+                updatePlayerHintsData()
                 _state.update {
-                    it.copy(didUserWin = true)
+                    it.copy(didPlayerWin = true)
                 }
             }
 
@@ -196,14 +260,15 @@ class WordWiseViewModel @Inject constructor(
 
     fun updateTimer() {
         viewModelScope.launch {
-            // (50/1000)/0.002 =25 it takes 25 seconds
+            // (60/1000)/0.002 =30 it takes 30 seconds
             while (progressTimer.value > 0) {
                 delay(60)
                 progressTimer.value -= 0.002f
                 _state.update { it.copy(timer = progressTimer.value) }
             }
             if (_state.value.timer <= 0f) {
-                _state.update { it.copy(didUserWin = false) }
+                updatePlayerHintsData()
+                _state.update { it.copy(didPlayerWin = false) }
             }
         }
     }
