@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,9 +31,11 @@ class WordWiseViewModel @Inject constructor(
 
     var progressTimer = MutableStateFlow(1f)
 
+    val levelType =
+        textGameArgs.levelType.replaceFirstChar { it.titlecase(Locale.getDefault()) } + " Level"
+
 
     init {
-        _state.update { it.copy(isLoading = true) }
         getUserQuestions()
         getKeyboardLetters()
     }
@@ -59,6 +62,12 @@ class WordWiseViewModel @Inject constructor(
 
     private fun onErrorUserQuestions(throwable: Throwable) {
         Log.i("questions", "getUserQuestions: $throwable")
+        updateState {
+            it.copy(
+                isLoading = false,
+                error = "${throwable.message}",
+            )
+        }
     }
 
     private fun updateState(transform: (WordWiseUIState) -> WordWiseUIState) {
