@@ -10,7 +10,10 @@ import androidx.room.Update
 @Dao
 interface TriviaDao {
     @Query("SELECT * FROM player_data")
-    suspend fun getPlayerData(): LocalPlayerDataDto
+    suspend fun getPlayerData(): LocalPlayerDataDto?
+
+    @Insert
+    suspend fun insertPlayerData(localPlayerDataDto: LocalPlayerDataDto)
 
     @Query("UPDATE player_data SET bonus = bonus + :newBonus")
     suspend fun updateBonus(newBonus: Int)
