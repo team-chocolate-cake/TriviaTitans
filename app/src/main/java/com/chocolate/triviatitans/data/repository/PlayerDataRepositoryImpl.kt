@@ -42,7 +42,14 @@ class PlayerDataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPlayerData(): LocalPlayerDataDto {
-        return triviaDao.getPlayerData()
+        return triviaDao.getPlayerData().let {
+            if (it==null) {
+                val localPlayerDataDto = LocalPlayerDataDto()
+                triviaDao.insertPlayerData(localPlayerDataDto)
+                localPlayerDataDto
+            }
+            else it
+        }
     }
 }
 
