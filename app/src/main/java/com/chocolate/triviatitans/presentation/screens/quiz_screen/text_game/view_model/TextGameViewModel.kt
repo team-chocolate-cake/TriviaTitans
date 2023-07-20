@@ -59,7 +59,13 @@ class TextGameViewModel @Inject constructor(
     }
 
     private fun onGetQuestionsError(error: Throwable) {
-        Log.i("ERRORX", "onErrorUserQuestionsTextGame: $error")
+        Log.i("ERRORX", "onErrorUserQuestionsImageGame: $error")
+        _state.update {
+            it.copy(
+                isLoading = false,
+                error = "${error.message}",
+            )
+        }
     }
 
 

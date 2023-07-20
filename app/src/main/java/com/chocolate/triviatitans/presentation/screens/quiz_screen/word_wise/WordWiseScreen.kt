@@ -78,7 +78,6 @@ fun WordWiseContent(
 
         LaunchedEffect(true) {
             viewModel.updateTimer()
-
         }
         LaunchedEffect(state.questionNumber) {
             viewModel.progressTimer.value = 1f
