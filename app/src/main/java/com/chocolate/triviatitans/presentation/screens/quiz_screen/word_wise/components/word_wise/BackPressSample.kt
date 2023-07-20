@@ -13,7 +13,7 @@ import com.chocolate.triviatitans.presentation.theme.OnPrimary
 import kotlinx.coroutines.delay
 
 @Composable
-fun BackPressSample() {
+fun BackPressSample(OnBackToLevel: () -> Unit) {
     var showToast by remember { mutableStateOf(false) }
 
     var backPressState by remember { mutableStateOf<BackPress>(BackPress.Idle) }
@@ -22,21 +22,24 @@ fun BackPressSample() {
         ExitDialogBox(
             OnPrimary,
             LightError,
-            18.dp,
-        )
+            18.dp
+        ) { OnBackToLevel() }
         showToast = true
     }
 
 
     LaunchedEffect(key1 = backPressState) {
         if (backPressState == BackPress.InitialTouch) {
-            delay(2000)
+            delay(3000)
             backPressState = BackPress.Idle
+            showToast = false
         }
     }
 
     BackHandler(backPressState == BackPress.Idle) {
         backPressState = BackPress.InitialTouch
-        showToast = true
+        if (!showToast) {
+            showToast = true
+        }
     }
 }

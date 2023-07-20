@@ -22,7 +22,9 @@ fun DialogButton(
     cornerRadiusPercent: Int = 26,
     buttonColor: Color,
     buttonText: String,
+    modifier:Modifier=Modifier,
     onDismiss: () -> Unit,
+
 
 ) {
     Box(
@@ -37,7 +39,7 @@ fun DialogButton(
             .padding(horizontal = 16.dp, vertical = 6.dp)
     ) {
         Text(
-            modifier = Modifier,
+            modifier = modifier,
             text = buttonText,
             color = Color.White,
             fontSize = 18.sp,

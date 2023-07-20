@@ -14,7 +14,7 @@ import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
 
 @Composable
-fun PlayerGameAppBarInfo(questionNumber: Int, bounce: Int) {
+fun PlayerGameAppBarInfo(questionNumber: Int, bounce: Int,levelType:String) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
@@ -22,7 +22,7 @@ fun PlayerGameAppBarInfo(questionNumber: Int, bounce: Int) {
     ) {
         NumberOfQuestions(maxQuestionsNumber = 10, questionNumber = questionNumber)
         Text(
-            text = "Easy Level",
+            text = levelType,
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             color = MaterialTheme.customColor().onBackground87
@@ -35,6 +35,6 @@ fun PlayerGameAppBarInfo(questionNumber: Int, bounce: Int) {
 @Composable
 fun PlayerDashBoardPreview() {
     TriviaTitansTheme() {
-        PlayerGameAppBarInfo(3, 0)
+        PlayerGameAppBarInfo(3, 0,"Easy level")
     }
 }

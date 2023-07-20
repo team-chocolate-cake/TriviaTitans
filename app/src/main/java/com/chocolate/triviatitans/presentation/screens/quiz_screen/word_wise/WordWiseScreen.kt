@@ -6,21 +6,28 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.composables.Header
 import com.chocolate.triviatitans.composables.SpacerVertical16
 import com.chocolate.triviatitans.composables.SpacerVertical32
+import com.chocolate.triviatitans.presentation.screens.home.navigateToHome
 import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.HintListener
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.AnswerLettersLazyGrid
@@ -43,6 +50,7 @@ fun WordWiseScreen(navController: NavController) {
     when {
         state.didUserLose -> navController.navigateToLose()
         state.didUserWin -> navController.navigateToSpinWheelScreen()
+
     }
 
 
@@ -51,6 +59,7 @@ fun WordWiseScreen(navController: NavController) {
         onLetterClick = viewModel::onLetterClicked,
         onAnswerCardClicked = viewModel::onAnswerCardClicked,
         onClickConfirm = { viewModel.onClickConfirm(context) },
+        onBackToLevel = { navController.navigateToHome() },
         hintListener = viewModel,
         viewModel = viewModel,
     )
@@ -62,11 +71,12 @@ fun WordWiseContent(
     onLetterClick: (Char) -> Unit,
     onAnswerCardClicked: (Int) -> Unit,
     onClickConfirm: () -> Unit,
+    onBackToLevel: () -> Unit,
     hintListener: HintListener,
     viewModel: WordWiseViewModel
 ) {
     if (state.questionUiStates.isNotEmpty()) {
-        BackPressSample()
+        BackPressSample(onBackToLevel)
 
         LaunchedEffect(true) {
             viewModel.updateTimer()
@@ -84,7 +94,8 @@ fun WordWiseContent(
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
                 correctAnswer = state.questionUiStates[state.questionNumber].correctAnswer,
-                timerProgress = state.timer
+                timerProgress = state.timer,
+                levelType = viewModel.levelType
             )
             SpacerVertical32()
             Text(
@@ -116,5 +127,21 @@ fun WordWiseContent(
         ) {
             CircularProgressIndicator()
         }
+    }
+    else{
+        Column( modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            val composition by rememberLottieComposition(
+                spec = LottieCompositionSpec.RawRes(resId = R.raw.animation_lkakuvv9)
+            )
+
+            LottieAnimation(
+                modifier = Modifier.size(size = 140.dp),
+                composition = composition,
+            )
+
+        }
+
     }
 }
