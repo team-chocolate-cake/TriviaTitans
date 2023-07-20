@@ -97,27 +97,26 @@ fun WordWiseContent(
                 timerProgress = state.timer,
                 levelType = viewModel.levelType
             )
-            SpacerVertical32()
             Text(
+                modifier = Modifier.padding(top = 32.dp),
                 text = state.questionUiStates[state.questionNumber].question,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.customColor().onBackground87
             )
-            SpacerVertical16()
 
             AnswerLettersLazyGrid(
                 charsList = state
                     .questionUiStates[state.questionNumber].correctAnswerLetters,
                 selectedLetterList = state.selectedLetterList,
-                onAnswerCardClicked = onAnswerCardClicked
+                onAnswerCardClicked = onAnswerCardClicked,
+                modifier = Modifier.padding(top = 16.dp)
             )
             KeyboardLatterLazyGrid(
                 charsList = state.keyboardLetters,
                 onLetterClick = onLetterClick
             )
             Spacer(modifier = Modifier.fillMaxHeight(0.6f))
-            ButtonConfirm(onClickConfirm = onClickConfirm)
-
+            ButtonConfirm(onClickConfirm = onClickConfirm, modifier = Modifier.padding(bottom = 16.dp))
         }
     } else if (state.isLoading) {
         Column(

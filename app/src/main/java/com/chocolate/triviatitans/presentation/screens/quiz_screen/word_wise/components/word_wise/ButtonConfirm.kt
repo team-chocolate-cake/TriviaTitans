@@ -24,11 +24,9 @@ import com.chocolate.triviatitans.presentation.theme.Primary
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 
 @Composable
-fun ButtonConfirm(onClickConfirm: () -> Unit) {
+fun ButtonConfirm(onClickConfirm: () -> Unit, modifier: Modifier =Modifier) {
     Button(
-        onClick = { onClickConfirm() },
-        colors = ButtonDefaults.buttonColors(Primary),
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 32.dp)
             .fillMaxWidth()
             .height(57.dp)
@@ -36,6 +34,8 @@ fun ButtonConfirm(onClickConfirm: () -> Unit) {
                 color = Primary,
                 shape = RoundedCornerShape(size = 12.dp)
             ),
+        colors = ButtonDefaults.buttonColors(Primary),
+        onClick = { onClickConfirm() },
     ) {
         Row() {
             Text(
