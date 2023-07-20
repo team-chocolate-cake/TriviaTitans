@@ -80,7 +80,8 @@ fun TextGameContent(
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
                 correctAnswer = currentQuestion.correctAnswer,
-                timerProgress = state.timer
+                timerProgress = state.timer,
+                "Easy level"
             )
             SpacerVertical32()
             Text(

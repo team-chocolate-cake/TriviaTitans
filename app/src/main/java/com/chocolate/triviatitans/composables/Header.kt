@@ -19,10 +19,11 @@ fun Header(
     questionNumber: Int,
     userScore: Int,
     correctAnswer: String,
-    timerProgress:Float
+    timerProgress:Float,
+    levelType:String
 ) {
     Column {
-        PlayerGameAppBarInfo(questionNumber, userScore)
+        PlayerGameAppBarInfo(questionNumber, userScore,levelType)
         SpacerVertical16()
         QuestionHintsSection(
             hintListener = hintListener, fiftyHint,
@@ -53,7 +54,8 @@ fun HeaderPreview() {
                     TODO("Not yet implemented")
                 }
             }, HintButton(), HintButton(),
-            HintButton(), questionNumber = 3, userScore = 0, "",1f
+            HintButton(), questionNumber = 3, userScore = 0, "",1f,
+            "Easy Type"
         )
     }
 }
