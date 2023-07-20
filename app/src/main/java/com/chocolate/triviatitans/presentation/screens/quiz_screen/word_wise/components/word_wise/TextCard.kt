@@ -1,7 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,14 +17,10 @@ import com.chocolate.triviatitans.presentation.theme.Primary
 fun TextCard(
     text: String,
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit = {},
     textColor: Color,
 ) {
     Box(
         modifier = modifier
-            .clickable {
-                onClick(text)
-            }
             .border(
                 width = 1.dp,
                 color = Primary,
@@ -45,5 +40,5 @@ fun TextCard(
 @Preview
 @Composable
 fun TextCardPreview() {
-    TextCard(text = "A", onClick = {}, textColor = Color.White)
+    TextCard(text = "A", textColor = Color.White)
 }

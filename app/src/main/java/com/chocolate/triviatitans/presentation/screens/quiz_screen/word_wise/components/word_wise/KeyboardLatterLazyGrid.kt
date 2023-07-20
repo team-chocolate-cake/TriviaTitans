@@ -11,9 +11,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun QuestionLettersLazyGird(
+fun KeyboardLatterLazyGrid(
     charsList: List<Char>,
-    selectedLetterList: List<Char>,
+    onLetterClick: (Char) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -26,20 +26,17 @@ fun QuestionLettersLazyGird(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(charsList.size) { index ->
-            val value = (selectedLetterList + List(charsList.size) { ' ' })[index]
-            CorrectAnswerTextCard(
-                text = value,
-            )
+            KeyboardLettersTextCard(
+                text = charsList[index]
+            ) { onLetterClick(it) }
         }
     }
 }
 
 @Preview
 @Composable
-fun QuestionLettersLazyGirdPreview() {
-    QuestionLettersLazyGird(
-        charsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'),
-        selectedLetterList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')
-    )
+fun KeyboardLatterLazyGridPreview() {
+    KeyboardLatterLazyGrid(charsList = listOf('a','a','d'), onLetterClick = {})
 }
+
 

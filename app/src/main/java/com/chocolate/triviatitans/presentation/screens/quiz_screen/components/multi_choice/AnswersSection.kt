@@ -3,7 +3,6 @@ package com.chocolate.triviatitans.presentation.screens.quiz_screen.components.m
 import androidx.compose.runtime.Composable
 import com.chocolate.triviatitans.presentation.screens.home.GameType
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.listener.AnswerCardListener
-import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.components.word_wise.WordWiseGame
 import com.chocolate.triviatitans.presentation.screens.quiz_screen.word_wise.view_model.WordWiseUIState
 
 @Composable
@@ -21,32 +20,32 @@ fun AnswersSection(
 
     when (gameType) {
         GameType.MULTI_CHOICE.ordinal -> {
-           /* LazyColumn {
-                itemsIndexed(givenQuestion) { index, questionGiven ->
-                    AnswerCard(
-                        'A' + index,
-                        questionGiven,
-                        answerCardListener,
-                        questionNumber,
-                        question.correctAnswer,
-                        isButtonsEnabled
-                    )
-                    SpacerVertical8()
-                }
-            }*/
+            /* LazyColumn {
+                 itemsIndexed(givenQuestion) { index, questionGiven ->
+                     AnswerCard(
+                         'A' + index,
+                         questionGiven,
+                         answerCardListener,
+                         questionNumber,
+                         question.correctAnswer,
+                         isButtonsEnabled
+                     )
+                     SpacerVertical8()
+                 }
+             }*/
         }
 
         GameType.MULTI_CHOICE_IMAGES.ordinal -> {
-/*            MultiChoiceImagesGame(
-                state = multiChoiceTextUiState,
-                question = question,
-                answerCardListener = answerCardListener,
-                isButtonsEnabled = isButtonsEnabled
-            )*/
+            /*            MultiChoiceImagesGame(
+                            state = multiChoiceTextUiState,
+                            question = question,
+                            answerCardListener = answerCardListener,
+                            isButtonsEnabled = isButtonsEnabled
+                        )*/
         }
 
         GameType.WORD_WISE.ordinal -> {
-            WordWiseGame(wordWiseUIState = wordWiseUIState, onLetterClick = onLetterClick)
+//            WordWiseGame(wordWiseUIState = wordWiseUIState, onLetterClick = onLetterClick)
         }
     }
 }
