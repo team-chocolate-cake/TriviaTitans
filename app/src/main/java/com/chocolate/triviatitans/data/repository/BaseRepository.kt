@@ -11,7 +11,6 @@ abstract class BaseRepository {
             if (result.code() == UNAUTHORIZED_CODE) {
                 throw UnauthorizedThrowable()
             }
-
             result.body() ?: throw ParsingThrowable()
         } catch (e: UnknownHostException) {
             throw NoNetworkThrowable()
