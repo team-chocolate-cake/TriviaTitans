@@ -74,11 +74,12 @@ fun ImageGameContent(
                 hintListener = hintListener,
                 fiftyHint = state.hintFiftyFifty,
                 heartHint = state.hintHeart,
-                resetHint = state.hintReset,
+                skipHint = state.hintSkip,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
                 correctAnswer = currentQuestion.correctAnswer,
-                timerProgress = state.timer
+                timerProgress = state.timer,
+                "Easy level"
             )
             SpacerVertical32()
             Text(
