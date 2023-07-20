@@ -63,7 +63,7 @@ fun CategoryContent(
         },
         bottomBar = {
             BottomBar(
-                count = state.categoriesSelectedCount.toString(),
+                count = state.categoriesSelectedCount,
                 onNextClick = onClickNext,
             )
         }
