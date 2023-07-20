@@ -10,10 +10,11 @@ class WordWiseMapper : Mapper<TextChoiceEntity, WordWiseUIState.QuestionUiState>
             question = input.question,
             category = input.category,
             difficulty = input.difficulty,
-            correctAnswer = input.correctAnswer,
+            correctAnswer = input.correctAnswer.uppercase()
+                .replace(" ", "-"),
             correctAnswerLetters = input.correctAnswer.uppercase()
                 .replace(" ", "-")
-                .toList().shuffled()
+                .toList()
         )
     }
 }
