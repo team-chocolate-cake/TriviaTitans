@@ -19,6 +19,7 @@ fun Header(
     questionNumber: Int,
     userScore: Int,
     correctAnswer: String,
+    timerProgress:Float,
     typeGame:String = "defaultGame"
 ) {
     Column {
@@ -32,7 +33,7 @@ fun Header(
             isImageGame = if (typeGame == "defaultGame") false else true
         )
         SpacerVertical16()
-        ProgressIndicator(progressPercentage = .6f)
+        ProgressIndicator(progressPercentage = timerProgress)
     }
 }
 
@@ -58,6 +59,7 @@ fun HeaderPreview() {
             questionNumber = 3,
             userScore = 0,
             "",
+            1f,
             typeGame = "defaultGame"
         )
     }

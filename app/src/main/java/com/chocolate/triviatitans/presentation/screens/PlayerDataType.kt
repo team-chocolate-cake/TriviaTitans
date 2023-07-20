@@ -1,6 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens
 
-enum class PlayerDataType(name:String){
+enum class PlayerDataType(val type:String){
     Bonus("bonus"),
     Hearts("hearts"),
     DeleteTwoAnswers("deleteTwoAnswers"),

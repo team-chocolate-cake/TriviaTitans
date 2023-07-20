@@ -1,5 +1,6 @@
 package com.chocolate.triviatitans.presentation.screens.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.chocolate.triviatitans.R
 import com.chocolate.triviatitans.presentation.screens.category.navigateToCategory
+import com.chocolate.triviatitans.presentation.screens.lose.navigateToLose
+import com.chocolate.triviatitans.presentation.screens.spinWheel.navigateToSpinWheelScreen
 import com.chocolate.triviatitans.presentation.theme.TriviaCustomColors
 import com.chocolate.triviatitans.presentation.theme.TriviaTitansTheme
 import com.chocolate.triviatitans.presentation.theme.customColor
@@ -129,10 +132,10 @@ fun HomeContent(
                 }
             }
             item {
-                if (state.selectedGameType != null) {
+               AnimatedVisibility(state.selectedGameType != null) {
                     Button(
                         onClick = {
-                            onNextScreenClick(state.selectedGameType)
+                            state.selectedGameType?.let { onNextScreenClick(it) }
                         },
                         modifier = Modifier
                             .width(250.dp)
