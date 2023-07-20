@@ -149,7 +149,7 @@ class WordWiseViewModel @Inject constructor(
                     isActive = false
                 ),
                 selectedLetterList = it.questionUiStates[it.questionNumber].correctAnswerLetters.take(
-                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size
+                    it.questionUiStates[it.questionNumber].correctAnswerLetters.size / 2
                 )
             )
         }
