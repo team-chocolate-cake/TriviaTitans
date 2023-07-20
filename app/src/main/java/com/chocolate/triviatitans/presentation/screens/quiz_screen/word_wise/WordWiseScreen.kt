@@ -90,7 +90,7 @@ fun WordWiseContent(
                 hintListener = hintListener,
                 fiftyHint = state.hintFiftyFifty,
                 heartHint = state.hintHeart,
-                resetHint = state.hintReset,
+                skipHint = state.hintSkip,
                 questionNumber = state.questionNumber + 1,
                 userScore = state.userScore,
                 correctAnswer = state.questionUiStates[state.questionNumber].correctAnswer,

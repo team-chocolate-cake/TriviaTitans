@@ -77,15 +77,15 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
         }
     }
 
-    override fun onClickReset() {
+    override fun onClickSkip() {
         _state.update {
             val isLastQuestion = it.questionNumber == it.questionUiStates.size
             it.copy(
                 questionNumber = it.questionNumber + 1,
-                hintReset = it.hintReset.copy(
-                    numberOfTries = (it.hintReset.numberOfTries - 1),
+                hintSkip = it.hintSkip.copy(
+                    numberOfTries = (it.hintSkip.numberOfTries - 1),
                     isActive =
-                    it.hintReset.numberOfTries > 1 && isLastQuestion
+                    it.hintSkip.numberOfTries > 1 && isLastQuestion
 
                 )
             )

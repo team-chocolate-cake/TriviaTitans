@@ -13,7 +13,7 @@ data class BaseQuizUiState(
     val isButtonsEnabled: Boolean = true,
     val hintFiftyFifty: HintButton = HintButton(),
     val hintHeart: HintButton = HintButton(),
-    val hintReset: HintButton = HintButton(),
+    val hintSkip: HintButton = HintButton(),
     val timer:Float=1f
 ) {
 

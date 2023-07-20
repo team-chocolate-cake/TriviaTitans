@@ -125,8 +125,8 @@ class WordWiseViewModel @Inject constructor(
                             ?: 0,
                         userScore = it.userScore + 10,
                         selectedLetterList = emptyList(),
-                        hintReset = it.hintReset.copy(
-                            isActive = (it.hintReset.numberOfTries >= 1) &&
+                        hintSkip = it.hintSkip.copy(
+                            isActive = (it.hintSkip.numberOfTries >= 1) &&
                                     (it.questionNumber != it.questionUiStates.size)
                         ),
                         hintFiftyFifty = it.hintFiftyFifty.copy(
@@ -176,13 +176,13 @@ class WordWiseViewModel @Inject constructor(
         }
     }
 
-    override fun onClickReset() {
+    override fun onClickSkip() {
         _state.update {
             it.copy(
                 selectedLetterList = emptyList(),
                 questionNumber = it.questionNumber + 1,
-                hintReset = it.hintReset.copy(
-                    numberOfTries = (it.hintReset.numberOfTries - 1),
+                hintSkip = it.hintSkip.copy(
+                    numberOfTries = (it.hintSkip.numberOfTries - 1),
                     isActive = false
                 )
             )

@@ -15,7 +15,7 @@ fun Header(
     hintListener: HintListener,
     fiftyHint: HintButton,
     heartHint: HintButton,
-    resetHint: HintButton,
+    skipHint: HintButton,
     questionNumber: Int,
     userScore: Int,
     correctAnswer: String,
@@ -28,7 +28,7 @@ fun Header(
         QuestionHintsSection(
             hintListener = hintListener, fiftyHint,
             heartHint,
-            resetHint,
+            skipHint,
             correctAnswer
         )
         SpacerVertical16()
@@ -50,7 +50,7 @@ fun HeaderPreview() {
                     TODO("Not yet implemented")
                 }
 
-                override fun onClickReset() {
+                override fun onClickSkip() {
                     TODO("Not yet implemented")
                 }
             }, HintButton(), HintButton(),
