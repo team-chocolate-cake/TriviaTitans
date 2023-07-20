@@ -17,9 +17,7 @@ data class BaseQuizUiState(
     val isFiftyActive : Boolean = true,
     val currentQuestion: Boolean = false,
     val timer:Float=1f
-) {
-
-}
+)
 
 data class QuestionUiState(
     val id: String = "",

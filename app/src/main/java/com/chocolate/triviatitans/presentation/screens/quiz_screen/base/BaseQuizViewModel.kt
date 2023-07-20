@@ -98,7 +98,12 @@ abstract class BaseQuizViewModel : BaseViewModel(), AnswerCardListener, HintList
                 hintReset = it.hintReset.copy(
                     numberOfTries = (it.hintReset.numberOfTries - 1),
                     isActive = false
-
+                ),
+                hintHeart = it.hintHeart.copy(
+                    isActive = it.hintHeart.numberOfTries>=1
+                ),
+                hintFiftyFifty = it.hintFiftyFifty.copy(
+                    isActive = it.hintFiftyFifty.numberOfTries>=1
                 )
             )
         }
